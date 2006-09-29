@@ -1,0 +1,24 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NiftyPerforce", "NiftyPerforce\NiftyPerforce.csproj", "{CEC088B7-2C6E-433F-B308-FF75159BC02D}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "NiftyPerforceSetup", "NiftyPerforceSetup\NiftyPerforceSetup.vdproj", "{179B97C8-DC01-42B6-B586-83AF52D9220A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CEC088B7-2C6E-433F-B308-FF75159BC02D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CEC088B7-2C6E-433F-B308-FF75159BC02D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CEC088B7-2C6E-433F-B308-FF75159BC02D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CEC088B7-2C6E-433F-B308-FF75159BC02D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{179B97C8-DC01-42B6-B586-83AF52D9220A}.Debug|Any CPU.ActiveCfg = Debug
+		{179B97C8-DC01-42B6-B586-83AF52D9220A}.Release|Any CPU.ActiveCfg = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
