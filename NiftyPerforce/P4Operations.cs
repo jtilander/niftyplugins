@@ -3,7 +3,6 @@ using EnvDTE;
 
 namespace Aurora
 {
-
 	namespace NiftyPerforce
 	{
 		// Simplification wrapper around running perforce commands.
@@ -41,7 +40,10 @@ namespace Aurora
 				process.StartInfo.Arguments = command;
 				if (!process.Start())
 				{
-					output.OutputString("Failed to start p4.exe. Is perforce installed and in the path?\n");
+					if (null != output)
+					{
+						output.OutputString("Failed to start p4.exe. Is perforce installed and in the path?\n");
+					}
 					return false;
 				}
 				process.WaitForExit();
@@ -49,9 +51,12 @@ namespace Aurora
 				string stdOut = process.StandardOutput.ReadToEnd();
 				string stdErr = process.StandardError.ReadToEnd();
 
-				output.OutputString("> " + command + "\n");
-				output.OutputString(stdOut);
-				output.OutputString(stdErr);
+				if (null != output)
+				{
+					output.OutputString("> " + command + "\n");
+					output.OutputString(stdOut);
+					output.OutputString(stdErr);
+				}
 
 				System.Diagnostics.Debug.WriteLine(command + "\n");
 				System.Diagnostics.Debug.WriteLine(stdOut);
@@ -59,7 +64,10 @@ namespace Aurora
 
 				if (0 != process.ExitCode)
 				{
-					output.OutputString("Process exitcode was " + process.ExitCode);
+					if (null != output)
+					{
+						output.OutputString("Process exitcode was " + process.ExitCode);
+					}
 					return false;
 				}
 				return true;

@@ -4,22 +4,23 @@ using EnvDTE;
 using EnvDTE80;
 using Microsoft.VisualStudio.CommandBars;
 
-namespace NiftySolution
+namespace Aurora
 {
 	// Wrapper class around registering other classes to handle the actual commands.
 	// Interfaces with visual studio and handles the dispatch.
 	class Plugin
 	{
-		public delegate void OnCommandFunction();
+		public delegate void OnCommandFunction(DTE2 app, OutputWindowPane pane);
+		private OutputWindowPane m_outputPane;
 		
 		private DTE2 m_application;
 		private Dictionary<string, OnCommandFunction> m_commands;
 		
-		public Plugin( DTE2 application )
+		public Plugin( DTE2 application, string panelName )
 		{
 			m_commands = new Dictionary<string, OnCommandFunction>();
 			m_application = application;
-			
+			m_outputPane = AquireOutputPane(application, panelName);
 		}
 
 		public void RegisterCommand(AddIn addIn, string commandName, string toolbar, string itemName, string description, OnCommandFunction callback)
@@ -47,7 +48,7 @@ namespace NiftySolution
 			{
 				if (name.EndsWith("." + key))
 				{
-					m_commands[key]();
+					m_commands[key](m_application, m_outputPane);
 					return true;
 				}
 			}
@@ -88,6 +89,24 @@ namespace NiftySolution
 			{
 			}
 		}
+		
+		private static OutputWindowPane AquireOutputPane( DTE2 app, string name )
+		{
+			if( "" == name )
+				return null;
+				
+			OutputWindow outputWindow = (OutputWindow)app.Windows.Item(Constants.vsWindowKindOutput).Object;
+			OutputWindowPanes panes = outputWindow.OutputWindowPanes;
+			
+			foreach (OutputWindowPane pane in panes)
+			{
+				if (name != pane.Name)
+					continue;
 
+				return pane;
+			}
+
+			return panes.Add(name);
+		}
 	}
 }

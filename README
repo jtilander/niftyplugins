@@ -1,0 +1,14 @@
+This is a small collection of C# plugins for Visual Studio 2005.
+
+NiftyPerforce
+	Adds some automation and IDE support for common perforce operations.
+	
+NiftySolution
+	Adds a open files in solution dialog.
+	Adds a toggle header/cpp file command.
+
+
+That's it for now.
+
+Jim Tilander
+San Francisco, 2006

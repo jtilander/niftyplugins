@@ -11,22 +11,16 @@ namespace Aurora
 		//       trigger rebuilding of the dialog...
 		class QuickOpen
 		{
-			private DTE2 m_application;
 			private OpenDialog m_openDialog;
 
-			public QuickOpen(DTE2 application)
-			{
-				m_application = application;
-			}
-
-			public void OnCommand()
+			public void OnCommand(DTE2 application, OutputWindowPane pane)
 			{
 				if (null == m_openDialog)
-					m_openDialog = new OpenDialog(m_application);
+					m_openDialog = new OpenDialog(application);
 				m_openDialog.ShowDialog();
 
 				foreach (string name in m_openDialog.filesToOpen)
-					m_application.DTE.ExecuteCommand("File.OpenFile", name);
+					application.DTE.ExecuteCommand("File.OpenFile", name);
 
 				m_openDialog.filesToOpen.Clear();
 			}

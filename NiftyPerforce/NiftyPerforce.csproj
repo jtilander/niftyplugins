@@ -45,6 +45,12 @@
     </Compile>
     <Compile Include="AutoAddDelete.cs" />
     <Compile Include="AutoCheckout.cs" />
+    <Compile Include="Commands\NiftyConfigure.cs" />
+    <Compile Include="Commands\P4Edit.cs" />
+    <Compile Include="Commands\P4EditItem.cs" />
+    <Compile Include="Commands\P4EditProject.cs" />
+    <Compile Include="Commands\P4EditSolution.cs" />
+    <Compile Include="Commands\P4RenameItem.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="ConfigDialog.cs">
       <SubType>Form</SubType>
@@ -56,8 +62,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="P4Operations.cs" />
-    <Compile Include="Perforce.cs" />
-    <Compile Include="Plugin.cs" />
+    <Compile Include="..\Shared\Plugin.cs" />
     <Compile Include="RegistrySettingsProvider.cs" />
     <Compile Include="..\Shared\Singleton.cs" />
   </ItemGroup>
