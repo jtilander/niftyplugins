@@ -15,9 +15,18 @@ namespace Aurora
 		
 		private DTE2 m_application;
 		private Dictionary<string, OnCommandFunction> m_commands;
-		
-		public Plugin( DTE2 application, string panelName )
+		private string m_connectPath;
+
+		public OutputWindowPane OutputPane
 		{
+			get { return m_outputPane; }
+		}
+		
+		public Plugin( DTE2 application, string panelName, string connectPath )
+		{
+			// TODO: This can be figured out from traversing the assembly and locating the Connect class...
+			m_connectPath = connectPath;
+		
 			m_commands = new Dictionary<string, OnCommandFunction>();
 			m_application = application;
 			m_outputPane = AquireOutputPane(application, panelName);
@@ -56,8 +65,22 @@ namespace Aurora
 			return false;
 		}
 
+		private bool IsCommandRegistered( string commandName )
+		{
+			Commands2 commands = (Commands2)m_application.Commands;
+
+			string fullName = m_connectPath + "." + commandName;
+			
+			Command command = commands.Item( fullName, 0 );
+			return null != command;
+		}
+
 		private void RegisterWithVisual(AddIn addIn, string commandName, string toolbar, string itemName, string description)
 		{
+			if( IsCommandRegistered(commandName) )
+				return;
+			
+			
 			object[] contextGuids = new object[] { };
 			Commands2 commands = (Commands2)m_application.Commands;
 			try
@@ -87,6 +110,10 @@ namespace Aurora
 			}
 			catch (System.ArgumentException)
 			{
+				if( null != m_outputPane )
+					m_outputPane.OutputString("Tried to register the command \"" + commandName + "\" twice!\n");
+					
+				System.Diagnostics.Debug.WriteLine("Tried to register the command \"" + commandName + "\" twice!\n");
 			}
 		}
 		
