@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NiftyPerforce", "NiftyPerforce\NiftyPerforce.csproj", "{CEC088B7-2C6E-433F-B308-FF75159BC02D}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "NiftyPerforceSetup\NiftyPerforceSetup.vdproj", "{4D100496-4276-4B76-8A59-A325A479E63F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NiftySolution", "NiftySolution\NiftySolution.csproj", "{F9523522-B9B3-45F0-AD91-889535D9D7DD}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "NiftySetup", "NiftySolutionSetup\NiftySolutionSetup.vdproj", "{C5FF4BDE-E302-456C-8118-C1A0D6A76E2F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CEC088B7-2C6E-433F-B308-FF75159BC02D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CEC088B7-2C6E-433F-B308-FF75159BC02D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CEC088B7-2C6E-433F-B308-FF75159BC02D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CEC088B7-2C6E-433F-B308-FF75159BC02D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D100496-4276-4B76-8A59-A325A479E63F}.Debug|Any CPU.ActiveCfg = Debug
+		{4D100496-4276-4B76-8A59-A325A479E63F}.Release|Any CPU.ActiveCfg = Release
+		{4D100496-4276-4B76-8A59-A325A479E63F}.Release|Any CPU.Build.0 = Release
+		{F9523522-B9B3-45F0-AD91-889535D9D7DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9523522-B9B3-45F0-AD91-889535D9D7DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9523522-B9B3-45F0-AD91-889535D9D7DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9523522-B9B3-45F0-AD91-889535D9D7DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5FF4BDE-E302-456C-8118-C1A0D6A76E2F}.Debug|Any CPU.ActiveCfg = Debug
+		{C5FF4BDE-E302-456C-8118-C1A0D6A76E2F}.Release|Any CPU.ActiveCfg = Release
+		{C5FF4BDE-E302-456C-8118-C1A0D6A76E2F}.Release|Any CPU.Build.0 = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
