@@ -26,6 +26,13 @@ namespace Aurora
 				if (Singleton<Config>.Instance.autoDelete)
 					projectEvents.ItemRemoved += new _dispProjectItemsEvents_ItemRemovedEventHandler(OnItemRemoved);
 
+				SolutionEvents solutionEvents = ((EnvDTE80.Events2)m_application.Events).SolutionEvents;
+				if (Singleton<Config>.Instance.autoAdd)
+					solutionEvents.ProjectAdded += new _dispSolutionEvents_ProjectAddedEventHandler(OnProjectAdded);
+				
+				if (Singleton<Config>.Instance.autoDelete)
+					solutionEvents.ProjectRemoved += new _dispSolutionEvents_ProjectRemovedEventHandler(OnProjectRemoved);
+
 				if (Singleton<Config>.Instance.autoAdd)
 					m_outputPane.OutputString("> Registered auto add handler\n");
 
@@ -35,7 +42,7 @@ namespace Aurora
 
 			public void OnItemAdded(ProjectItem item)
 			{
-				CheckoutProject(item.ContainingProject);
+				P4EditItem.EditProject(item.ContainingProject,m_outputPane);
 
 				for (int i = 0; i < item.FileCount; i++)
 				{
@@ -46,7 +53,7 @@ namespace Aurora
 
 			public void OnItemRemoved(ProjectItem item)
 			{
-				CheckoutProject(item.ContainingProject);
+				P4EditItem.EditProject(item.ContainingProject,m_outputPane);
 
 				for (int i = 0; i < item.FileCount; i++)
 				{
@@ -55,15 +62,20 @@ namespace Aurora
 				}
 			}
 
-			private void CheckoutProject(Project project)
+			private void OnProjectAdded(Project project)
 			{
-				string fullName = project.FullName;
-
-				System.IO.FileInfo info = new System.IO.FileInfo(fullName);
-				if (!info.IsReadOnly)
-					return;
-
-				P4Operations.EditFile(m_outputPane, fullName);
+				P4EditSolution.EditSolution(m_application.Solution, m_outputPane);
+				P4Operations.AddFile(m_outputPane, project.FullName);
+				// TODO: [jt] We should if the operation is not a add new project but rather a add existing project
+				//       step through all the project items and add them to perforce. Or maybe we want the user
+				//       to do this herself?
+			}
+			
+			private void OnProjectRemoved(Project project)
+			{
+				P4EditSolution.EditSolution(m_application.Solution, m_outputPane);
+				P4Operations.DeleteFile(m_outputPane, project.FullName);
+				// TODO: [jt] Do we want to automatically delete the items from perforce here?
 			}
 		}
 	}
