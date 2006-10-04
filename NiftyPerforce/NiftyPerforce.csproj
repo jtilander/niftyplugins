@@ -48,7 +48,6 @@
     <Compile Include="Commands\NiftyConfigure.cs" />
     <Compile Include="Commands\P4Edit.cs" />
     <Compile Include="Commands\P4EditItem.cs" />
-    <Compile Include="Commands\P4EditProject.cs" />
     <Compile Include="Commands\P4EditSolution.cs" />
     <Compile Include="Commands\P4RenameItem.cs" />
     <Compile Include="Config.cs" />

@@ -24,7 +24,7 @@ namespace Aurora
 
 						if (null != sel.Project)
 						{
-							if (P4EditProject.EditProject(sel.Project, pane))
+							if (P4EditItem.EditProject(sel.Project, pane))
 								checkoutItems++;
 						}
 					}

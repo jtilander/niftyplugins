@@ -10,10 +10,14 @@ namespace Aurora
 		{
 			public void OnCommand(DTE2 application, OutputWindowPane pane)
 			{
-				string solutionName = application.Solution.FullName;
-				if ("" == solutionName)
-					return;
-				P4Operations.EditFile(pane, solutionName);
+				EditSolution(application.Solution, pane);
+			}
+
+			public static bool EditSolution(Solution solution, OutputWindowPane pane)
+			{
+				if (null == solution || "" == solution.FullName)
+					return false;
+				return P4Operations.EditFile(pane, solution.FullName);
 			}
 		}
 	}
