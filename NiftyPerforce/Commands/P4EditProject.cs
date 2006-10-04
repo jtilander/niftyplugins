@@ -12,11 +12,15 @@ namespace Aurora
 			{
 				foreach (SelectedItem sel in application.SelectedItems)
 				{
-					if (null == sel.Project)
-						continue;
-
-					P4Operations.EditFile(pane, sel.Project.FullName);
+					EditProject(sel.Project, pane);
 				}
+			}
+
+			public static bool EditProject(Project project, OutputWindowPane pane)
+			{
+				if (null == project)
+					return false;
+				return P4Operations.EditFile(pane, project.FullName);
 			}
 		}
 	}
