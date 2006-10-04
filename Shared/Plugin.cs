@@ -32,10 +32,10 @@ namespace Aurora
 			m_outputPane = AquireOutputPane(application, panelName);
 		}
 
-		public void RegisterCommand(AddIn addIn, string commandName, string toolbar, string itemName, string description, OnCommandFunction callback)
+		public void RegisterCommand(AddIn addIn, string commandName, string toolbars, string itemName, string description, OnCommandFunction callback)
 		{
 			m_commands.Add(commandName, callback);
-			RegisterWithVisual(addIn, commandName, toolbar, itemName, description);
+			RegisterWithVisual(addIn, commandName, toolbars.Split(new char[] {';'} ), itemName, description);
 		}
 
 		public bool CanHandleCommand( string name )
@@ -71,8 +71,14 @@ namespace Aurora
 
 			string fullName = m_connectPath + "." + commandName;
 			
-			Command command = commands.Item( fullName, 0 );
-			return null != command;
+			try{
+				Command command = commands.Item( fullName, 0 );
+				return null != command;
+			}
+			catch( System.ArgumentException e )
+			{
+				return false;
+			}
 		}
 
 		/*
@@ -389,11 +395,10 @@ namespace Aurora
 					System
 		 */
 
-		private void RegisterWithVisual(AddIn addIn, string commandName, string toolbar, string itemName, string description)
+		private void RegisterWithVisual(AddIn addIn, string commandName, string[] toolbars, string itemName, string description)
 		{
 			if( IsCommandRegistered(commandName) )
 				return;
-			
 			
 			object[] contextGuids = new object[] { };
 			Commands2 commands = (Commands2)m_application.Commands;
@@ -405,6 +410,7 @@ namespace Aurora
 				int commandStyle = (int)vsCommandStyle.vsCommandStyleText;
 				vsCommandControlType controlType = vsCommandControlType.vsCommandControlTypeButton;
 
+				// TODO: [jt] I think the context guids here are the key to enable commands on just a menu and not through the command line interface.
 				Command command = commands.AddNamedCommand2(addIn,
 												commandName,
 												itemName,
@@ -416,10 +422,11 @@ namespace Aurora
 												commandStyle,
 												controlType);
 
-
-				if ("" != toolbar)
+				foreach( string toolbarName in toolbars )
 				{
-					command.AddControl(((CommandBars)m_application.CommandBars)[toolbar], 1);
+					if( "" == toolbarName )
+						continue;
+					command.AddControl(((CommandBars)m_application.CommandBars)[toolbarName], 1);
 				}
 			}
 			catch (System.ArgumentException)
