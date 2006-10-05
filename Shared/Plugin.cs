@@ -440,12 +440,23 @@ namespace Aurora
 		
 		private static OutputWindowPane AquireOutputPane( DTE2 app, string name )
 		{
-			if( "" == name )
+			OutputWindowPane result = FindOutputPane(app, name);
+			if( null == result )
 				return null;
-				
+
 			OutputWindow outputWindow = (OutputWindow)app.Windows.Item(Constants.vsWindowKindOutput).Object;
 			OutputWindowPanes panes = outputWindow.OutputWindowPanes;
-			
+			return panes.Add(name);
+		}
+		
+		public static OutputWindowPane FindOutputPane( DTE2 app, string name )
+		{
+			if ("" == name)
+				return null;
+
+			OutputWindow outputWindow = (OutputWindow)app.Windows.Item(Constants.vsWindowKindOutput).Object;
+			OutputWindowPanes panes = outputWindow.OutputWindowPanes;
+
 			foreach (OutputWindowPane pane in panes)
 			{
 				if (name != pane.Name)
@@ -453,8 +464,9 @@ namespace Aurora
 
 				return pane;
 			}
-
-			return panes.Add(name);
+			
+			return null;
 		}
+		
 	}
 }

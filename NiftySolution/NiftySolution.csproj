@@ -45,6 +45,7 @@
     <Compile Include="Connect.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="EventHandlers\SolutionBuildTimings.cs" />
     <Compile Include="OpenDialog.cs">
       <SubType>Form</SubType>
     </Compile>
