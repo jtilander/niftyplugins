@@ -52,9 +52,9 @@
       <DependentUpon>OpenDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="..\Shared\Plugin.cs" />
-    <Compile Include="QuickOpen.cs" />
+    <Compile Include="Commands\QuickOpen.cs" />
     <Compile Include="..\Shared\Singleton.cs" />
-    <Compile Include="ToggleFile.cs" />
+    <Compile Include="Commands\ToggleFile.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="CommandBar.resx">
