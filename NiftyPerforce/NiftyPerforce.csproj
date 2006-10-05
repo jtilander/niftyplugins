@@ -43,8 +43,8 @@
     <Compile Include="AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="AutoAddDelete.cs" />
-    <Compile Include="AutoCheckout.cs" />
+    <Compile Include="EventHandlers\AutoAddDelete.cs" />
+    <Compile Include="EventHandlers\AutoCheckout.cs" />
     <Compile Include="Commands\NiftyConfigure.cs" />
     <Compile Include="Commands\P4Edit.cs" />
     <Compile Include="Commands\P4EditItem.cs" />
