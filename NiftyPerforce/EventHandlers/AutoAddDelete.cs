@@ -12,26 +12,28 @@ namespace Aurora
 		{
 			private OutputWindowPane m_outputPane;
 			private DTE2 m_application;
-
+			private ProjectItemsEvents m_projectEvents;
+			private SolutionEvents m_solutionEvents;
+			
 			public AutoAddDelete(DTE2 application, OutputWindowPane outputPane)
 			{
 				m_application = application;
 				m_outputPane = outputPane;
 
-				ProjectItemsEvents projectEvents = ((EnvDTE80.Events2)m_application.Events).ProjectItemsEvents;
+				m_projectEvents = ((EnvDTE80.Events2)m_application.Events).ProjectItemsEvents;
 
 				if (Singleton<Config>.Instance.autoAdd)
-					projectEvents.ItemAdded += new _dispProjectItemsEvents_ItemAddedEventHandler(OnItemAdded);
+					m_projectEvents.ItemAdded += new _dispProjectItemsEvents_ItemAddedEventHandler(OnItemAdded);
 
 				if (Singleton<Config>.Instance.autoDelete)
-					projectEvents.ItemRemoved += new _dispProjectItemsEvents_ItemRemovedEventHandler(OnItemRemoved);
+					m_projectEvents.ItemRemoved += new _dispProjectItemsEvents_ItemRemovedEventHandler(OnItemRemoved);
 
-				SolutionEvents solutionEvents = ((EnvDTE80.Events2)m_application.Events).SolutionEvents;
+				m_solutionEvents = ((EnvDTE80.Events2)m_application.Events).SolutionEvents;
 				if (Singleton<Config>.Instance.autoAdd)
-					solutionEvents.ProjectAdded += new _dispSolutionEvents_ProjectAddedEventHandler(OnProjectAdded);
+					m_solutionEvents.ProjectAdded += new _dispSolutionEvents_ProjectAddedEventHandler(OnProjectAdded);
 				
 				if (Singleton<Config>.Instance.autoDelete)
-					solutionEvents.ProjectRemoved += new _dispSolutionEvents_ProjectRemovedEventHandler(OnProjectRemoved);
+					m_solutionEvents.ProjectRemoved += new _dispSolutionEvents_ProjectRemovedEventHandler(OnProjectRemoved);
 
 				if (Singleton<Config>.Instance.autoAdd)
 					m_outputPane.OutputString("> Registered auto add handler\n");

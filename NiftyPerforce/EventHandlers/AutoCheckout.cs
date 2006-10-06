@@ -14,7 +14,8 @@ namespace Aurora
 		{
 			private OutputWindowPane m_outputPane;
 			private DTE2 m_application;
-
+			private EnvDTE80.TextDocumentKeyPressEvents m_events;
+			
 			public AutoCheckout(DTE2 application, OutputWindowPane outputPane)
 			{
 				m_application = application;
@@ -23,8 +24,8 @@ namespace Aurora
 				if (!Singleton<Config>.Instance.autoCheckout)
 					return;
 
-				EnvDTE80.TextDocumentKeyPressEvents textEvents = ((EnvDTE80.Events2)m_application.Events).get_TextDocumentKeyPressEvents(null);
-				textEvents.BeforeKeyPress += new _dispTextDocumentKeyPressEvents_BeforeKeyPressEventHandler(OnBeforeKeyPress);
+				m_events = ((EnvDTE80.Events2)m_application.Events).get_TextDocumentKeyPressEvents(null);
+				m_events.BeforeKeyPress += new _dispTextDocumentKeyPressEvents_BeforeKeyPressEventHandler(OnBeforeKeyPress);
 				m_outputPane.OutputString("> Registered auto checkout handler\n");
 			}
 

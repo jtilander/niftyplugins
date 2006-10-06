@@ -441,8 +441,8 @@ namespace Aurora
 		private static OutputWindowPane AquireOutputPane( DTE2 app, string name )
 		{
 			OutputWindowPane result = FindOutputPane(app, name);
-			if( null == result )
-				return null;
+			if( null != result )
+				return result;
 
 			OutputWindow outputWindow = (OutputWindow)app.Windows.Item(Constants.vsWindowKindOutput).Object;
 			OutputWindowPanes panes = outputWindow.OutputWindowPanes;
