@@ -12,7 +12,7 @@ namespace Aurora
 	{
 		public delegate void OnCommandFunction(DTE2 app, OutputWindowPane pane);
 		private OutputWindowPane m_outputPane;
-		
+
 		private DTE2 m_application;
 		private Dictionary<string, OnCommandFunction> m_commands;
 		private string m_connectPath;
@@ -21,12 +21,12 @@ namespace Aurora
 		{
 			get { return m_outputPane; }
 		}
-		
-		public Plugin( DTE2 application, string panelName, string connectPath )
+
+		public Plugin(DTE2 application, string panelName, string connectPath)
 		{
 			// TODO: This can be figured out from traversing the assembly and locating the Connect class...
 			m_connectPath = connectPath;
-		
+
 			m_commands = new Dictionary<string, OnCommandFunction>();
 			m_application = application;
 			m_outputPane = AquireOutputPane(application, panelName);
@@ -35,22 +35,22 @@ namespace Aurora
 		public void RegisterCommand(AddIn addIn, string commandName, string toolbars, string itemName, string description, OnCommandFunction callback)
 		{
 			m_commands.Add(commandName, callback);
-			RegisterWithVisual(addIn, commandName, toolbars.Split(new char[] {';'} ), itemName, description);
+			RegisterWithVisual(addIn, commandName, toolbars.Split(new char[] { ';' }), itemName, description);
 		}
 
-		public bool CanHandleCommand( string name )
+		public bool CanHandleCommand(string name)
 		{
 			// TODO: Gotta be a better way to do this... std::find anyone?
-			foreach( string key in m_commands.Keys )
+			foreach (string key in m_commands.Keys)
 			{
-				if( name.EndsWith("." + key) )
+				if (name.EndsWith("." + key))
 					return true;
 			}
-			
+
 			return false;
 		}
-		
-		public bool OnCommand( string name )
+
+		public bool OnCommand(string name)
 		{
 			// TODO: Gotta be a better way to do this... std::find anyone?
 			foreach (string key in m_commands.Keys)
@@ -61,21 +61,22 @@ namespace Aurora
 					return true;
 				}
 			}
-			
+
 			return false;
 		}
 
-		private bool IsCommandRegistered( string commandName )
+		private bool IsCommandRegistered(string commandName)
 		{
 			Commands2 commands = (Commands2)m_application.Commands;
 
 			string fullName = m_connectPath + "." + commandName;
-			
-			try{
-				Command command = commands.Item( fullName, 0 );
+
+			try
+			{
+				Command command = commands.Item(fullName, 0);
 				return null != command;
 			}
-			catch( System.ArgumentException e )
+			catch (System.ArgumentException)
 			{
 				return false;
 			}
@@ -397,9 +398,9 @@ namespace Aurora
 
 		private void RegisterWithVisual(AddIn addIn, string commandName, string[] toolbars, string itemName, string description)
 		{
-			if( IsCommandRegistered(commandName) )
+			if (IsCommandRegistered(commandName))
 				return;
-			
+
 			object[] contextGuids = new object[] { };
 			Commands2 commands = (Commands2)m_application.Commands;
 			try
@@ -422,34 +423,37 @@ namespace Aurora
 												commandStyle,
 												controlType);
 
-				foreach( string toolbarName in toolbars )
+				foreach (string toolbarName in toolbars)
 				{
-					if( "" == toolbarName )
+					if ("" == toolbarName)
 						continue;
 					command.AddControl(((CommandBars)m_application.CommandBars)[toolbarName], 1);
 				}
 			}
 			catch (System.ArgumentException)
 			{
-				if( null != m_outputPane )
+				if (null != m_outputPane)
 					m_outputPane.OutputString("Tried to register the command \"" + commandName + "\" twice!\n");
-					
+
 				System.Diagnostics.Debug.WriteLine("Tried to register the command \"" + commandName + "\" twice!\n");
 			}
 		}
-		
-		private static OutputWindowPane AquireOutputPane( DTE2 app, string name )
+
+		private static OutputWindowPane AquireOutputPane(DTE2 app, string name)
 		{
+			if ("" == name)
+				return null;
+
 			OutputWindowPane result = FindOutputPane(app, name);
-			if( null != result )
+			if (null != result)
 				return result;
 
 			OutputWindow outputWindow = (OutputWindow)app.Windows.Item(Constants.vsWindowKindOutput).Object;
 			OutputWindowPanes panes = outputWindow.OutputWindowPanes;
 			return panes.Add(name);
 		}
-		
-		public static OutputWindowPane FindOutputPane( DTE2 app, string name )
+
+		public static OutputWindowPane FindOutputPane(DTE2 app, string name)
 		{
 			if ("" == name)
 				return null;
@@ -464,9 +468,9 @@ namespace Aurora
 
 				return pane;
 			}
-			
+
 			return null;
 		}
-		
+
 	}
 }
