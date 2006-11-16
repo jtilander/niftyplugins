@@ -1,0 +1,100 @@
+<html>
+<head>
+	<title>Nifty Plugins Documentation</title>
+	<link rel="stylesheet" href="styles-site.css" type="text/css" /> 
+
+</head>
+
+<body>
+
+<h3> Introduction </h3>
+<p>
+	A while back I put the source code for two small plugins, niftyperforce and niftysolution, up on google code for everybody to download and use. The plugins are a collection of handy utilities that you can find to boost your productivity if you're using visual studio 2005 and perforce. This documentation will go through some of the features.
+</p>
+
+
+
+<h3> NiftySolution </h3>
+<p>
+	NiftySolution has three features, open any file in the solution fast through a small dialog, toggle header/.cpp file quickly and last a timer for how long it took to build the complete solution. The plugin will register a couple of commands which you can either access through the interface ctrl-alt-a or you can bind them to a keyboard shortcut.
+</p>
+
+<div align="center">
+     <div class="dropshadow" style="width: 500px">
+     <img src="solution_openfile.png" width="490" height="303" alt="Open file in solution dialog"/>
+     </div>
+     <div class="caption">
+          <strong>Fig 1:</strong>
+          Opens a file in the solution dialog. You can access this through the command Aurora.NiftySolution.Connect.NiftyOpen.
+     </div>
+</div> 
+
+<div align="center">
+     <div class="dropshadow" style="width: 589px">
+     <img src="solution_times.png" width="579" height="198" alt="Solution times"/>
+     </div>
+     <div class="caption">
+          <strong>Fig 2:</strong>
+          Shows the automatic reporting of the total solution time when building.
+     </div>
+</div> 
+
+
+<h3> NiftyPerforce </h3>
+<p>
+	Niftyperforce is a small lightweight interface to the revision control system perforce. It registers a couple of context menus in the solution explorer as well as a couple of event handlers and commands. The event handlers are automatic reaction to add/delete items in the solution (such as files or projects). These events will trigger perforce add/remove operations. There is a also an option to automatically have perforce checkout any file you start to edit inside visual studio. Bring up the options with the command Aurora.NiftyPerforce.Connect.Configuration.
+</p>
+
+<div align="center">
+     <div class="dropshadow" style="width: 222px">
+     <img src="perforce_configuration.png" width="212" height="223" alt="Perforce configuration"/>
+     </div>
+     <div class="caption">
+          <strong>Fig 3:</strong>
+          Bring up the config dialog with Aurora.NiftyPerforce.Connect.Configuration.
+     </div>
+</div> 
+
+
+<div align="center">
+     <div class="dropshadow" style="width: 234px">
+     <img src="perforce_multiselect.png" width="224" height="350" alt="Perforce multiselect"/>
+     </div>
+     <div class="caption">
+          <strong>Fig 4:</strong>
+          Shows that there is a context menu "p4 edit" which works for multiselect items in the solution explorer.
+     </div>
+</div> 
+
+<div align="center">
+     <div class="dropshadow" style="width: 265px">
+     <img src="perforce_rename.png" width="255" height="560" alt="Perforce rename"/>
+     </div>
+     <div class="caption">
+          <strong>Fig 5:</strong>
+          You can also rename files in the solution explorer and it will call the correct functions (move the file, update the visual studio project, update perforce).
+     </div>
+</div> 
+
+
+<div align="center">
+     <div class="dropshadow" style="width: 444px">
+     <img src="perforce_commands.png" width="434" height="178" alt="Plugin commands"/>
+     </div>
+     <div class="caption">
+          <strong>Fig 6:</strong>
+          Here is a list of the commands that are registered for the plugin. Notice that there is a edit all modified command, which is very useful after a huge search and replace operation with "keep modified files open". Now you can call this command and have visual studio automatically check everything out.
+     </div>
+</div> 
+
+<p>
+	On of the prerequsite of the plugin is that you have p4.exe in your path and some way for p4 to find the clientspec and server. Either if it's the default config or through the <a href="http://www.perforce.com/perforce/doc.042/manuals/cmdref/env.P4CONFIG.html">P4CONFIG environment </a>variable. 
+</p>
+
+
+<p>
+	(C)2006 Jim Tilander
+</p>
+
+</body>
+</html>
