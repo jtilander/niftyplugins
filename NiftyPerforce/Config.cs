@@ -39,7 +39,6 @@ namespace Aurora
 				RegistrySettingsProvider.SetPropertyValue("autoCheckout", autoCheckout.ToString());
 				RegistrySettingsProvider.SetPropertyValue("autoAdd", autoAdd.ToString());
 				RegistrySettingsProvider.SetPropertyValue("autoDelete", autoDelete.ToString());
-				System.Windows.Forms.MessageBox.Show("You need to restart the plugin for the settings to take effect", "NiftyPerforce");
 			}
 
 		}

@@ -6,19 +6,18 @@ namespace Aurora
 {
 	namespace NiftyPerforce
 	{
-		class P4EditSolution
+		class P4EditSolution : CommandBase
 		{
-			public void OnCommand(DTE2 application, OutputWindowPane pane)
+			public override void OnCommand(DTE2 application, OutputWindowPane pane)
 			{
-				EditSolution(application.Solution, pane);
+                if (application.Solution != null && application.Solution.FullName != string.Empty)
+                    P4Operations.EditFile(pane, application.Solution.FullName);
 			}
 
-			public static bool EditSolution(Solution solution, OutputWindowPane pane)
-			{
-				if (null == solution || "" == solution.FullName)
-					return false;
-				return P4Operations.EditFile(pane, solution.FullName);
-			}
+            public override bool IsEnabled(DTE2 application)
+            {
+                return application.Solution != null && application.Solution.FullName != string.Empty;
+            }
 		}
 	}
 }

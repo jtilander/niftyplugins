@@ -53,8 +53,9 @@
       <DependentUpon>OpenDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="..\Shared\Plugin.cs" />
-    <Compile Include="Commands\QuickOpen.cs" />
     <Compile Include="..\Shared\Singleton.cs" />
+    <Compile Include="..\Shared\CommandBase.cs" />
+    <Compile Include="Commands\QuickOpen.cs" />
     <Compile Include="Commands\ToggleFile.cs" />
   </ItemGroup>
   <ItemGroup>

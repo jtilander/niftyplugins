@@ -10,29 +10,44 @@ namespace Aurora
 		{
 			public static bool IntegrateFile(OutputWindowPane output, string filename, string oldName)
 			{
-				return RunCommand(output, "integrate \"" + oldName + "\" \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
+                return RunCommand(output, "p4.exe", "integrate \"" + oldName + "\" \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
 			}
 
 			public static bool DeleteFile(OutputWindowPane output, string filename)
 			{
-				return RunCommand(output, "delete \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
+                return RunCommand(output, "p4.exe", "delete \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
 			}
 
 			public static bool AddFile(OutputWindowPane output, string filename)
 			{
-				return RunCommand(output, "add \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
+                return RunCommand(output, "p4.exe", "add \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
 			}
 
 			public static bool EditFile(OutputWindowPane output, string filename)
 			{
-				return RunCommand(output, "edit \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
+                return RunCommand(output, "p4.exe", "edit \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
 			}
 
-			private static bool RunCommand(OutputWindowPane output, string command, string workingDirectory)
+            public static bool RevertFile(OutputWindowPane output, string filename)
+            {
+                return RunCommand(output, "p4.exe", "revert \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
+            }
+
+            public static bool DiffFile(OutputWindowPane output, string filename)
+            {
+                return RunCommand(output, "p4win.exe", "-D \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
+            }
+
+            public static bool RevisionHistoryFile(OutputWindowPane output, string filename)
+            {
+                return RunCommand(output, "p4win.exe", " \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
+            }
+
+            private static bool RunCommand(OutputWindowPane output, string executableName, string command, string workingDirectory)
 			{
 				System.Diagnostics.Process process = new System.Diagnostics.Process();
 				process.StartInfo.UseShellExecute = false;
-				process.StartInfo.FileName = "p4.exe";
+				process.StartInfo.FileName = executableName;
 				process.StartInfo.RedirectStandardOutput = true;
 				process.StartInfo.RedirectStandardError = true;
 				process.StartInfo.CreateNoWindow = true;
@@ -42,7 +57,7 @@ namespace Aurora
 				{
 					if (null != output)
 					{
-						output.OutputString("Failed to start p4.exe. Is perforce installed and in the path?\n");
+						output.OutputString("Failed to start " + executableName + ". Is Perforce installed and in the path?\n");
 					}
 					return false;
 				}
@@ -53,7 +68,7 @@ namespace Aurora
 
 				if (null != output)
 				{
-					output.OutputString("> " + command + "\n");
+					output.OutputString("> " + executableName + " " + command + "\n");
 					output.OutputString(stdOut);
 					output.OutputString(stdErr);
 				}
@@ -66,7 +81,7 @@ namespace Aurora
 				{
 					if (null != output)
 					{
-						output.OutputString("Process exitcode was " + process.ExitCode);
+                        output.OutputString("Process exit code was " + process.ExitCode + ".\n");
 					}
 					return false;
 				}

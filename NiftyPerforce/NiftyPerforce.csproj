@@ -43,10 +43,14 @@
     <Compile Include="AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Commands\P4RevisionHistoryItem.cs" />
+    <Compile Include="Commands\P4DiffItem.cs" />
+    <Compile Include="Commands\ItemCommandBase.cs" />
+    <Compile Include="Commands\P4RevertItem.cs" />
     <Compile Include="EventHandlers\AutoAddDelete.cs" />
     <Compile Include="EventHandlers\AutoCheckout.cs" />
     <Compile Include="Commands\NiftyConfigure.cs" />
-    <Compile Include="Commands\P4Edit.cs" />
+    <Compile Include="Commands\ToolbarCommand.cs" />
     <Compile Include="Commands\P4EditItem.cs" />
     <Compile Include="Commands\P4EditModified.cs" />
     <Compile Include="Commands\P4EditSolution.cs" />
@@ -63,8 +67,14 @@
     </Compile>
     <Compile Include="P4Operations.cs" />
     <Compile Include="..\Shared\Plugin.cs" />
-    <Compile Include="RegistrySettingsProvider.cs" />
+	<Compile Include="..\Shared\CommandBase.cs" />
     <Compile Include="..\Shared\Singleton.cs" />
+    <Compile Include="RegistrySettingsProvider.cs" />
+    <Compile Include="ToolbarIcons.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ToolbarIcons.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="CommandBar.resx">
@@ -74,6 +84,11 @@
       <SubType>Designer</SubType>
       <DependentUpon>ConfigDialog.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="ToolbarIcons.resx">
+      <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ToolbarIcons.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="EnvDTE">
@@ -110,17 +125,24 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\..\..\..\..\Documents and Settings\Jim Tilander\My Documents\Visual Studio 2005\Addins\NiftyPerforce - For Testing.AddIn">
-      <Link>NiftyPerforce - For Testing.AddIn</Link>
-    </Content>
     <Content Include="NiftyPerforce.AddIn" />
+    <None Include="Resources\RevisionHistory.bmp" />
+    <None Include="Resources\EditAll.bmp" />
+    <None Include="Resources\Revert.bmp" />
+    <None Include="Resources\Diff.bmp" />
+    <None Include="Resources\Icons.bmp" />
+    <None Include="Resources\Configure.bmp" />
+    <None Include="Resources\Edit.bmp" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
   <PropertyGroup>
     <PreBuildEvent>
     </PreBuildEvent>
-    <PostBuildEvent>
-    </PostBuildEvent>
+    <PostBuildEvent>cd "$(ProjectDir)"
+mkdir "$(ProjectDir)$(OutDir)en-US"
+"$(DevEnvDir)..\..\SDK\v2.0\Bin\Resgen" "$(ProjectDir)ToolbarIcons.resx"
+"$(SystemRoot)\Microsoft.NET\Framework\v2.0.50727\Al" /embed:"$(ProjectDir)ToolbarIcons.resources" /culture:en-US /out:"$(ProjectDir)$(OutDir)en-US\NiftyPerforce.resources.dll"
+del "$(ProjectDir)ToolbarIcons.resources"</PostBuildEvent>
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>

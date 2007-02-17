@@ -6,12 +6,17 @@ namespace Aurora
 {
 	namespace NiftyPerforce
 	{
-		class NiftyConfigure
+        class NiftyConfigure : CommandBase
 		{
-			public void OnCommand(DTE2 application, OutputWindowPane pane)
+			public override void OnCommand(DTE2 application, OutputWindowPane pane)
 			{
 				Singleton<Config>.Instance.ShowDialog();
 			}
+
+            public override bool IsEnabled(DTE2 application)
+            {
+                return true;
+            }
 		}
 	}
 }

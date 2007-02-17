@@ -9,11 +9,11 @@ namespace Aurora
 		// TODO: What we really should do here is to make the population of the opendialog in the background.
 		//       We should subscribe to the open and close solution as well as the project events and then
 		//       trigger rebuilding of the dialog...
-		class QuickOpen
+		class QuickOpen : CommandBase
 		{
 			private OpenDialog m_openDialog;
 
-			public void OnCommand(DTE2 application, OutputWindowPane pane)
+			public override void OnCommand(DTE2 application, OutputWindowPane pane)
 			{
 				if (null == m_openDialog)
 					m_openDialog = new OpenDialog(application);
@@ -23,6 +23,11 @@ namespace Aurora
 					application.DTE.ExecuteCommand("File.OpenFile", name);
 
 				m_openDialog.filesToOpen.Clear();
+			}
+
+			public override bool IsEnabled(DTE2 application)
+			{
+				return true;
 			}
 		}
 	}

@@ -21,19 +21,14 @@ namespace Aurora
 				m_application = application;
 				m_outputPane = outputPane;
 
-				if (!Singleton<Config>.Instance.autoCheckout)
-					return;
-
 				m_events = ((EnvDTE80.Events2)m_application.Events).get_TextDocumentKeyPressEvents(null);
 				m_events.BeforeKeyPress += new _dispTextDocumentKeyPressEvents_BeforeKeyPressEventHandler(OnBeforeKeyPress);
-				m_outputPane.OutputString("> Registered auto checkout handler\n");
 			}
 
 			void OnBeforeKeyPress(string Keypress, EnvDTE.TextSelection Selection, bool InStatementCompletion, ref bool CancelKeypress)
 			{
-				if (!m_application.ActiveDocument.ReadOnly)
-					return;
-				P4Operations.EditFile(m_outputPane, m_application.ActiveDocument.FullName);
+				if (Singleton<Config>.Instance.autoCheckout && m_application.ActiveDocument.ReadOnly)
+				    P4Operations.EditFile(m_outputPane, m_application.ActiveDocument.FullName);
 			}
 		}
 	}

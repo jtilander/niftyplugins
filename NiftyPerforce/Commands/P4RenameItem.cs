@@ -8,36 +8,33 @@ namespace Aurora
 {
 	namespace NiftyPerforce
 	{
-		class P4RenameItem
+        class P4RenameItem : ItemCommandBase
 		{
-			public void OnCommand(DTE2 application, OutputWindowPane pane)
-			{
-				foreach (SelectedItem sel in application.SelectedItems)
-				{
-					if (null == sel.ProjectItem)
-						continue;
+            public P4RenameItem()
+                :   base(true, false)
+            {
+            }
 
-					string oldName = sel.ProjectItem.get_FileNames(0);
+            public override void OnExecute(SelectedItem item, string fileName, OutputWindowPane pane)
+            {
+                OpenFileDialog dlg = new OpenFileDialog();
+                dlg.Title = "Source: " + fileName;
+                dlg.Multiselect = false;
+                dlg.CheckFileExists = false;
+                dlg.CheckPathExists = false;
+                dlg.InitialDirectory = Path.GetDirectoryName(fileName);
+                dlg.FileName = Path.GetFileName(fileName);
 
-					OpenFileDialog dlg = new OpenFileDialog();
-					dlg.Title = "Source: " + oldName;
-					dlg.Multiselect = false;
-					dlg.CheckFileExists = false;
-					dlg.CheckPathExists = false;
-					dlg.InitialDirectory = Path.GetDirectoryName(oldName);
-					dlg.FileName = Path.GetFileName(oldName);
-
-					if (DialogResult.OK != dlg.ShowDialog())
-						continue;
-
-					string newName = dlg.FileName;
-					P4Operations.IntegrateFile(pane, newName, oldName);
-					P4Operations.EditFile(pane, sel.ProjectItem.ContainingProject.FullName);
-					sel.ProjectItem.Collection.AddFromFile(newName);
-					sel.ProjectItem.Delete();
-					P4Operations.DeleteFile(pane, oldName);
-				}
-			}
+                if (DialogResult.OK == dlg.ShowDialog())
+                {
+                    string newName = dlg.FileName;
+                    P4Operations.IntegrateFile(pane, newName, fileName);
+                    P4Operations.EditFile(pane, item.ProjectItem.ContainingProject.FullName);
+                    item.ProjectItem.Collection.AddFromFile(newName);
+                    item.ProjectItem.Delete();
+                    P4Operations.DeleteFile(pane, fileName);
+                }
+            }
 		}
 	}
 }

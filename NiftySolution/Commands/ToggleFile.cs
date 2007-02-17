@@ -8,7 +8,7 @@ namespace Aurora
 {
 	namespace NiftySolution
 	{
-		class ToggleFile
+		class ToggleFile : CommandBase
 		{
 			private Dictionary<string, string[]> m_knownExtensions;
 
@@ -20,7 +20,7 @@ namespace Aurora
 				m_knownExtensions.Add(".cpp", new string[] { ".h", ".hxx", ".hpp" });
 			}
 
-			public void OnCommand(DTE2 application, OutputWindowPane pane)
+			public override void OnCommand(DTE2 application, OutputWindowPane pane)
 			{
 				if (null == application.DTE.ActiveDocument)
 					return;
@@ -45,6 +45,11 @@ namespace Aurora
 				catch (KeyNotFoundException)
 				{
 				}
+			}
+
+			public override bool IsEnabled(DTE2 application)
+			{
+				return true;
 			}
 		}
 	}

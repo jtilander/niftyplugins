@@ -1,4 +1,4 @@
-﻿"DeployProject"
+"DeployProject"
 {
 "VSVersion" = "3:800"
 "ProjectType" = "8:{978C614F-708E-4E1A-B201-565925725DBA}"
@@ -59,6 +59,12 @@
         {
         "MsmKey" = "8:_8AA0DF9B4C619AB18567F35EC332EF52"
         "OwnerKey" = "8:_0AD97169B6054A2F81B24FCEADCD2F28"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_C0D52B307C844587A87729FF9183DE13"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -174,7 +180,7 @@
                 "Name" = "8:.NET Framework"
                 "Message" = "8:[VSDNETMSG]"
                 "Version" = "8:2.0.50727"
-                "AllowLaterVersions" = "11:FALSE"
+                "AllowLaterVersions" = "11:TRUE"
                 "InstallUrl" = "8:http://go.microsoft.com/fwlink/?LinkId=9832"
                 }
             }
@@ -334,6 +340,37 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_C0D52B307C844587A87729FF9183DE13"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:NiftyPerforce.resources, Version=0.0.0.0, Culture=en-US, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_C0D52B307C844587A87729FF9183DE13"
+                    {
+                    "Name" = "8:NiftyPerforce.resources.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:..\\NiftyPerforce\\bin\\en-US\\NiftyPerforce.resources.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_EC611C2AC38447F7BDC8BFE97CC557C6"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_D0D1C0221241B90C8C6882DC86C71ACA"
             {
             "SourcePath" = "8:dte80a.olb"
@@ -365,7 +402,7 @@
             "DefaultLocation" = "8:[ProgramFilesFolder][Manufacturer]\\[ProductName]"
             "Name" = "8:#1925"
             "AlwaysCreate" = "11:FALSE"
-            "Condition" = "8:"
+            "Condition" = "8:False"
             "Transitive" = "11:FALSE"
             "Property" = "8:TARGETDIR"
                 "Folders"
@@ -382,6 +419,17 @@
             "Property" = "8:NEWPROPERTY1"
                 "Folders"
                 {
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_EC611C2AC38447F7BDC8BFE97CC557C6"
+                    {
+                    "Name" = "8:en-US"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_C4100AEF054E48DB9E43246532FCF5FA"
+                        "Folders"
+                        {
+                        }
+                    }
                 }
             }
         }
@@ -399,22 +447,22 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:NiftyPerforce"
-        "ProductCode" = "8:{D682AE23-4073-40B6-A445-6CD04990E6DF}"
-        "PackageCode" = "8:{B9E60DE3-800E-4895-816C-CFA5CA77818E}"
+        "ProductCode" = "8:{38FA4383-836A-43B2-9F40-2B3EBF4AF3BE}"
+        "PackageCode" = "8:{5D64734A-5939-4EA0-9DF6-468571F20D4A}"
         "UpgradeCode" = "8:{27EC1857-F66F-4B1B-BBE5-1FC273BE51FB}"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
-        "DetectNewerInstalledVersion" = "11:TRUE"
+        "DetectNewerInstalledVersion" = "11:FALSE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:0.0.2"
-        "Manufacturer" = "8:Aurora"
+        "ProductVersion" = "8:1.0"
+        "Manufacturer" = "8:Aurora, High Moon Studios"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:http://www.tilander.org/aurora"
         "Title" = "8:NiftyPerforce"
         "Subject" = "8:"
-        "ARPCONTACT" = "8:Jim Tilander"
+        "ARPCONTACT" = "8:Jim Tilander, Martin Ecker"
         "Keywords" = "8:"
-        "ARPCOMMENTS" = "8:Convinience plugin for visual studio and perforce."
+        "ARPCOMMENTS" = "8:Plugin for fast integration of Perforce in Visual Studio 2005."
         "ARPURLINFOABOUT" = "8:"
         "ARPPRODUCTICON" = "8:"
         "ARPIconIndex" = "3:0"
@@ -573,31 +621,9 @@
             "Attributes" = "3:1"
                 "Dialogs"
                 {
-                    "{688940B3-5CA9-4162-8DEE-2993FA9D8CBC}:_26E83590FD5C428BBAEDA4F40E08CF26"
-                    {
-                    "Sequence" = "3:200"
-                    "DisplayName" = "8:Installation Folder"
-                    "UseDynamicProperties" = "11:TRUE"
-                    "IsDependency" = "11:FALSE"
-                    "SourcePath" = "8:<VsdDialogDir>\\VsdAdminFolderDlg.wid"
-                        "Properties"
-                        {
-                            "BannerBitmap"
-                            {
-                            "Name" = "8:BannerBitmap"
-                            "DisplayName" = "8:#1001"
-                            "Description" = "8:#1101"
-                            "Type" = "3:8"
-                            "ContextData" = "8:Bitmap"
-                            "Attributes" = "3:4"
-                            "Setting" = "3:1"
-                            "UsePlugInResources" = "11:TRUE"
-                            }
-                        }
-                    }
                     "{688940B3-5CA9-4162-8DEE-2993FA9D8CBC}:_474F23A487104C0DBBDD0B53341015FB"
                     {
-                    "Sequence" = "3:300"
+                    "Sequence" = "3:200"
                     "DisplayName" = "8:Confirm Installation"
                     "UseDynamicProperties" = "11:TRUE"
                     "IsDependency" = "11:FALSE"
@@ -809,44 +835,9 @@
                             }
                         }
                     }
-                    "{688940B3-5CA9-4162-8DEE-2993FA9D8CBC}:_6434FBC53AD749EA879055918A7EDC2A"
-                    {
-                    "Sequence" = "3:200"
-                    "DisplayName" = "8:Installation Folder"
-                    "UseDynamicProperties" = "11:TRUE"
-                    "IsDependency" = "11:FALSE"
-                    "SourcePath" = "8:<VsdDialogDir>\\VsdFolderDlg.wid"
-                        "Properties"
-                        {
-                            "BannerBitmap"
-                            {
-                            "Name" = "8:BannerBitmap"
-                            "DisplayName" = "8:#1001"
-                            "Description" = "8:#1101"
-                            "Type" = "3:8"
-                            "ContextData" = "8:Bitmap"
-                            "Attributes" = "3:4"
-                            "Setting" = "3:1"
-                            "UsePlugInResources" = "11:TRUE"
-                            }
-                            "InstallAllUsersVisible"
-                            {
-                            "Name" = "8:InstallAllUsersVisible"
-                            "DisplayName" = "8:#1059"
-                            "Description" = "8:#1159"
-                            "Type" = "3:5"
-                            "ContextData" = "8:1;True=1;False=0"
-                            "Attributes" = "3:0"
-                            "Setting" = "3:0"
-                            "Value" = "3:1"
-                            "DefaultValue" = "3:1"
-                            "UsePlugInResources" = "11:TRUE"
-                            }
-                        }
-                    }
                     "{688940B3-5CA9-4162-8DEE-2993FA9D8CBC}:_8662082483214B7B8AB6F4FECF729303"
                     {
-                    "Sequence" = "3:300"
+                    "Sequence" = "3:200"
                     "DisplayName" = "8:Confirm Installation"
                     "UseDynamicProperties" = "11:TRUE"
                     "IsDependency" = "11:FALSE"
