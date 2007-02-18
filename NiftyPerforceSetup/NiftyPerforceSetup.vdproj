@@ -15,6 +15,12 @@
     {
         "Entry"
         {
+        "MsmKey" = "8:_0438D0FBC5D14674A23F6955209BDD41"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_054A7F82962E7ADC35BE410250C22D57"
         "OwnerKey" = "8:_8AA0DF9B4C619AB18567F35EC332EF52"
         "MsmSig" = "8:_UNDEFINED"
@@ -45,6 +51,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_4E802AF2237A41CCABE869871B74C58B"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_67E60574DFE556D4A6BD461A2E42E2A8"
         "OwnerKey" = "8:_13F289111C994987D025DB712FA3B67B"
         "MsmSig" = "8:_UNDEFINED"
@@ -64,6 +76,12 @@
         "Entry"
         {
         "MsmKey" = "8:_C0D52B307C844587A87729FF9183DE13"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_C585305E2DC3491CB96F89DB91EB76E3"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -187,6 +205,26 @@
         }
         "File"
         {
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_0438D0FBC5D14674A23F6955209BDD41"
+            {
+            "SourcePath" = "8:..\\COPYING"
+            "TargetName" = "8:COPYING"
+            "Tag" = "8:"
+            "Folder" = "8:_E691877D460E426F9157CFEA6798ADAA"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_054A7F82962E7ADC35BE410250C22D57"
             {
             "AssemblyRegister" = "3:1"
@@ -253,6 +291,26 @@
             {
             "SourcePath" = "8:..\\NiftyPerforce\\NiftyPerforce.AddIn"
             "TargetName" = "8:NiftyPerforce.AddIn"
+            "Tag" = "8:"
+            "Folder" = "8:_E691877D460E426F9157CFEA6798ADAA"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_4E802AF2237A41CCABE869871B74C58B"
+            {
+            "SourcePath" = "8:..\\README"
+            "TargetName" = "8:README"
             "Tag" = "8:"
             "Folder" = "8:_E691877D460E426F9157CFEA6798ADAA"
             "Condition" = "8:"
@@ -371,6 +429,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C585305E2DC3491CB96F89DB91EB76E3"
+            {
+            "SourcePath" = "8:..\\AUTHORS"
+            "TargetName" = "8:AUTHORS"
+            "Tag" = "8:"
+            "Folder" = "8:_E691877D460E426F9157CFEA6798ADAA"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_D0D1C0221241B90C8C6882DC86C71ACA"
             {
             "SourcePath" = "8:dte80a.olb"
@@ -447,20 +525,20 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:NiftyPerforce"
-        "ProductCode" = "8:{38FA4383-836A-43B2-9F40-2B3EBF4AF3BE}"
-        "PackageCode" = "8:{5D64734A-5939-4EA0-9DF6-468571F20D4A}"
+        "ProductCode" = "8:{6C7E08E3-DE6E-42BA-901A-0DDD740EEC58}"
+        "PackageCode" = "8:{7D8E1A88-B10C-466F-B94C-02112D6847B2}"
         "UpgradeCode" = "8:{27EC1857-F66F-4B1B-BBE5-1FC273BE51FB}"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:FALSE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.0"
-        "Manufacturer" = "8:Aurora, High Moon Studios"
+        "ProductVersion" = "8:1.0.1"
+        "Manufacturer" = "8:Aurora Development"
         "ARPHELPTELEPHONE" = "8:"
-        "ARPHELPLINK" = "8:http://www.tilander.org/aurora"
+        "ARPHELPLINK" = "8:http://code.google.com/p/niftyplugins/"
         "Title" = "8:NiftyPerforce"
         "Subject" = "8:"
-        "ARPCONTACT" = "8:Jim Tilander, Martin Ecker"
+        "ARPCONTACT" = "8:Jim Tilander"
         "Keywords" = "8:"
         "ARPCOMMENTS" = "8:Plugin for fast integration of Perforce in Visual Studio 2005."
         "ARPURLINFOABOUT" = "8:"
@@ -911,7 +989,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_0AD97169B6054A2F81B24FCEADCD2F28"
             {
-            "SourcePath" = "8:..\\NiftyPerforce\\obj\\Release\\NiftyPerforce.dll"
+            "SourcePath" = "8:..\\NiftyPerforce\\obj\\Debug\\NiftyPerforce.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_E691877D460E426F9157CFEA6798ADAA"

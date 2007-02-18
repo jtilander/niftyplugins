@@ -67,7 +67,7 @@
     </Compile>
     <Compile Include="P4Operations.cs" />
     <Compile Include="..\Shared\Plugin.cs" />
-	<Compile Include="..\Shared\CommandBase.cs" />
+    <Compile Include="..\Shared\CommandBase.cs" />
     <Compile Include="..\Shared\Singleton.cs" />
     <Compile Include="RegistrySettingsProvider.cs" />
     <Compile Include="ToolbarIcons.Designer.cs">

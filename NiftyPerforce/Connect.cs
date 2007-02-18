@@ -1,3 +1,4 @@
+// Copyright (C) 2006-2007 Jim Tilander. See COPYING for and README for more details.
 using System;
 using Extensibility;
 using EnvDTE;
@@ -63,6 +64,7 @@ namespace Aurora
                 m_plugin.AddMenuCommand("Project", "NiftyPerforceEditItem", "P4 Edit", "Opens the project for edit", 1, 5);
                 m_plugin.AddMenuCommand("Cross Project Multi Project", "NiftyPerforceEditItem", "P4 Edit", "Opens the project for edit", 1, 5);
                 m_plugin.AddMenuCommand("Cross Project Multi Item", "NiftyPerforceEditItem", "P4 Edit", "Opens the document for edit", 1, 5);
+				m_plugin.AddMenuCommand("Cross Project Multi Item", "NiftyPerforceRevertItem", "P4 Revert", "Reverts the item", 4, 8);
 
 				m_addDelete = new AutoAddDelete( (DTE2)application, m_plugin.OutputPane );
 				m_autoCheckout = new AutoCheckout( (DTE2)application, m_plugin.OutputPane );
