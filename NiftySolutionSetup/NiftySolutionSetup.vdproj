@@ -87,6 +87,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_E87A8339D6FB457480D6538B125F33EF"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_277D36809BE19BA6E98DC41F58A05BFB"
         "MsmSig" = "8:_UNDEFINED"
@@ -427,6 +433,37 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_E87A8339D6FB457480D6538B125F33EF"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:NiftySolution.resources, Version=0.0.0.0, Culture=en-US, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_E87A8339D6FB457480D6538B125F33EF"
+                    {
+                    "Name" = "8:NiftySolution.resources.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:..\\NiftySolution\\bin\\en-US\\NiftySolution.resources.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_6B9EFF68B0C4406DA879D1AEE46C5A2A"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
         }
         "FileType"
         {
@@ -473,7 +510,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:NiftySetup"
         "ProductCode" = "8:{B3ABE9BE-4946-4020-839B-978E18D0F264}"
-        "PackageCode" = "8:{436CC4E7-1270-48EB-A86E-A190BF507ADB}"
+        "PackageCode" = "8:{2A5A31E5-29C4-41A4-A312-A8D86E3836AA}"
         "UpgradeCode" = "8:{F24AA19A-57F0-4280-9EA2-9C246A97640D}"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:FALSE"
@@ -936,7 +973,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_1CECD4FA1A23475A939BEF71746825E4"
             {
-            "SourcePath" = "8:..\\NiftySolution\\obj\\Debug\\NiftySolution.dll"
+            "SourcePath" = "8:..\\NiftySolution\\obj\\Release\\NiftySolution.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_968800FC892341F6AF787DFA7B8D0710"
