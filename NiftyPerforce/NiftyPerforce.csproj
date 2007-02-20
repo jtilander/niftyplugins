@@ -43,10 +43,12 @@
     <Compile Include="AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Commands\P4DiffSolution.cs" />
     <Compile Include="Commands\P4RevisionHistoryItem.cs" />
     <Compile Include="Commands\P4DiffItem.cs" />
     <Compile Include="Commands\ItemCommandBase.cs" />
     <Compile Include="Commands\P4RevertItem.cs" />
+    <Compile Include="Commands\P4RevisionHistorySolution.cs" />
     <Compile Include="EventHandlers\AutoAddDelete.cs" />
     <Compile Include="EventHandlers\AutoCheckout.cs" />
     <Compile Include="Commands\NiftyConfigure.cs" />

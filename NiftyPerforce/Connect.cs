@@ -43,6 +43,8 @@ namespace Aurora
                 m_plugin.RegisterCommand("NiftyPerforceRevertItem", new P4RevertItem());
                 m_plugin.RegisterCommand("NiftyPerforceRevisionHistoryItem", new P4RevisionHistoryItem());
                 m_plugin.RegisterCommand("NiftyPerforceEditSolution", new P4EditSolution());
+				m_plugin.RegisterCommand("NiftyPerforceDiffSolution", new P4DiffSolution());
+				m_plugin.RegisterCommand("NiftyPerforceRevisionHistorySolution", new P4RevisionHistorySolution());
 
                 // add the toolbar and menu commands
                 CommandBar commandBar = m_plugin.AddCommandBar("NiftyPerforce", MsoBarPosition.msoBarTop);
@@ -54,6 +56,8 @@ namespace Aurora
                 m_plugin.AddToolbarCommand(commandBar, "NiftyPerforceConfiguration", "P4 Configuration", "Opens the configuration dialog", 2, 6);
 
                 m_plugin.AddMenuCommand("Solution", "NiftyPerforceEditSolution", "P4 Edit Solution", "Opens the solution for edit", 1, 6);
+				m_plugin.AddMenuCommand("Solution", "NiftyPerforceDiffSolution", "P4 Diff", "Diffs the selected item with the depot", 3, 6);
+				m_plugin.AddMenuCommand("Solution", "NiftyPerforceRevisionHistorySolution", "P4 Revision History", "Shows the revision history of the selected item", 6, 7); 
 
                 m_plugin.AddMenuCommand("Item", "NiftyPerforceEditItem", "P4 Edit", "Opens the document for edit", 1, 4);
                 m_plugin.AddMenuCommand("Item", "NiftyPerforceRenameItem", "P4 Rename", "Renames the item", 1, 5);
@@ -62,7 +66,10 @@ namespace Aurora
                 m_plugin.AddMenuCommand("Item", "NiftyPerforceRevertItem", "P4 Revert", "Reverts the item", 4, 8);
 
                 m_plugin.AddMenuCommand("Project", "NiftyPerforceEditItem", "P4 Edit", "Opens the project for edit", 1, 5);
-                m_plugin.AddMenuCommand("Cross Project Multi Project", "NiftyPerforceEditItem", "P4 Edit", "Opens the project for edit", 1, 5);
+				m_plugin.AddMenuCommand("Project", "NiftyPerforceDiffItem", "P4 Diff", "Diffs the selected item with the depot", 3, 6);
+				m_plugin.AddMenuCommand("Project", "NiftyPerforceRevisionHistoryItem", "P4 Revision History", "Shows the revision history of the selected item", 6, 7);
+				
+				m_plugin.AddMenuCommand("Cross Project Multi Project", "NiftyPerforceEditItem", "P4 Edit", "Opens the project for edit", 1, 5);
                 m_plugin.AddMenuCommand("Cross Project Multi Item", "NiftyPerforceEditItem", "P4 Edit", "Opens the document for edit", 1, 5);
 				m_plugin.AddMenuCommand("Cross Project Multi Item", "NiftyPerforceRevertItem", "P4 Revert", "Reverts the item", 4, 8);
 
