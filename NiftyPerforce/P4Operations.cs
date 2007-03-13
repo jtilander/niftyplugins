@@ -11,41 +11,56 @@ namespace Aurora
 		{
 			public static bool IntegrateFile(OutputWindowPane output, string filename, string oldName)
 			{
-                return RunCommand(output, "p4.exe", "integrate \"" + oldName + "\" \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
+                return RunCommand(output, "p4.exe", GetUserInfoString() + "integrate \"" + oldName + "\" \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
 			}
 
 			public static bool DeleteFile(OutputWindowPane output, string filename)
 			{
-                return RunCommand(output, "p4.exe", "delete \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
+				return RunCommand(output, "p4.exe", GetUserInfoString() + "delete \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
 			}
 
 			public static bool AddFile(OutputWindowPane output, string filename)
 			{
-                return RunCommand(output, "p4.exe", "add \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
+				return RunCommand(output, "p4.exe", GetUserInfoString() + "add \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
 			}
 
 			public static bool EditFile(OutputWindowPane output, string filename)
 			{
-                return RunCommand(output, "p4.exe", "edit \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
+				return RunCommand(output, "p4.exe", GetUserInfoString() + "edit \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
 			}
 
             public static bool RevertFile(OutputWindowPane output, string filename)
             {
-                return RunCommand(output, "p4.exe", "revert \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
+				return RunCommand(output, "p4.exe", GetUserInfoString() + "revert \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
             }
 
             public static bool DiffFile(OutputWindowPane output, string filename)
             {
-                return RunCommand(output, "p4win.exe", "-D \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
+				return RunCommand(output, "p4win.exe", GetUserInfoString() + "-D \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
             }
 
             public static bool RevisionHistoryFile(OutputWindowPane output, string filename)
             {
-                return RunCommand(output, "p4win.exe", " \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
+				return RunCommand(output, "p4win.exe", GetUserInfoString() + " \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
             }
+
+			private static string GetUserInfoString()
+			{
+				// NOTE: This to allow the user to have a P4CONFIG variable and connect to multiple perforce servers seamlessly.
+				if( Singleton<Config>.Instance.useSystemEnv )
+					return "";
+					
+				string arguments = "";
+				arguments += " -p " + Singleton<Config>.Instance.port;
+				arguments += " -u " + Singleton<Config>.Instance.username;
+				arguments += " -c " + Singleton<Config>.Instance.client;
+				arguments += " ";
+				return arguments;						
+			}
 
 			public static bool TimeLapseView(OutputWindowPane output, string filename)
 			{
+				// NOTE: The timelapse view uses the undocumented feature for bringing up the timelapse view. The username, client and port needs to be given in a certain order to work (straight from perforce).
 				string arguments = " -win 0 ";
 				arguments += " -p " + Singleton<Config>.Instance.port;
 				arguments += " -u " + Singleton<Config>.Instance.username;

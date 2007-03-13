@@ -13,10 +13,10 @@ namespace Aurora
 			bool m_autoCheckout = false;
 			bool m_autoAdd = true;
 			bool m_autoDelete = false;
+			bool m_useSystemConnection = true;
 			string m_port = "";
 			string m_client = "";
 			string m_username = "";
-			string m_password = "";
 
 			[Category("Operation"), Description("Controls if we automagically check out files from perforce upon keypress")]
 			public bool autoCheckout
@@ -37,6 +37,13 @@ namespace Aurora
 			{
 				get { return m_autoDelete; }
 				set { m_autoDelete = value; }
+			}
+
+			[Category("Connection"), Description("Use config from system. Effectivly disables the settings inside this dialog for the client etc and picks up the settings from the registry/p4config environment.")]
+			public bool useSystemEnv
+			{
+				get { return m_useSystemConnection; }
+				set { m_useSystemConnection = value; }
 			}
 
 			[Category("Connection"), Description("Perforce port number")]
@@ -65,6 +72,7 @@ namespace Aurora
 				m_autoCheckout = bool.Parse(RegistrySettingsProvider.GetPropertyValue("autoCheckout", m_autoCheckout.ToString()));
 				m_autoAdd = bool.Parse(RegistrySettingsProvider.GetPropertyValue("autoAdd", m_autoAdd.ToString()));
 				m_autoDelete = bool.Parse(RegistrySettingsProvider.GetPropertyValue("autoDelete", m_autoDelete.ToString()));
+				m_useSystemConnection = bool.Parse(RegistrySettingsProvider.GetPropertyValue("useSystemConnection", m_useSystemConnection.ToString()));
 				m_port = RegistrySettingsProvider.GetPropertyValue("port", "");
 				m_client = RegistrySettingsProvider.GetPropertyValue("client", "");
 				m_username = RegistrySettingsProvider.GetPropertyValue("username", "");
@@ -82,6 +90,7 @@ namespace Aurora
 				RegistrySettingsProvider.SetPropertyValue("autoCheckout", m_autoCheckout.ToString());
 				RegistrySettingsProvider.SetPropertyValue("autoAdd", m_autoAdd.ToString());
 				RegistrySettingsProvider.SetPropertyValue("autoDelete", m_autoDelete.ToString());
+				RegistrySettingsProvider.SetPropertyValue("useSystemConnection", m_useSystemConnection.ToString());
 				RegistrySettingsProvider.SetPropertyValue("port", m_port);
 				RegistrySettingsProvider.SetPropertyValue("client", m_client);
 				RegistrySettingsProvider.SetPropertyValue("username", m_username);

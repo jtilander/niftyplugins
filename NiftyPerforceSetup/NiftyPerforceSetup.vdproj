@@ -525,14 +525,14 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:NiftyPerforce"
-        "ProductCode" = "8:{6C7E08E3-DE6E-42BA-901A-0DDD740EEC58}"
-        "PackageCode" = "8:{7D8E1A88-B10C-466F-B94C-02112D6847B2}"
+        "ProductCode" = "8:{F54E0CCC-0CFB-47E0-B84A-41938A3FDBB0}"
+        "PackageCode" = "8:{87006073-841E-473A-BD84-5D7FC023D95A}"
         "UpgradeCode" = "8:{27EC1857-F66F-4B1B-BBE5-1FC273BE51FB}"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:FALSE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.0.1"
+        "ProductVersion" = "8:1.0.2"
         "Manufacturer" = "8:Aurora Development"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:http://code.google.com/p/niftyplugins/"
@@ -989,7 +989,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_0AD97169B6054A2F81B24FCEADCD2F28"
             {
-            "SourcePath" = "8:..\\NiftyPerforce\\obj\\Debug\\NiftyPerforce.dll"
+            "SourcePath" = "8:..\\NiftyPerforce\\obj\\Release\\NiftyPerforce.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_E691877D460E426F9157CFEA6798ADAA"
