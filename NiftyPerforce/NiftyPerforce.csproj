@@ -49,6 +49,7 @@
     <Compile Include="Commands\ItemCommandBase.cs" />
     <Compile Include="Commands\P4RevertItem.cs" />
     <Compile Include="Commands\P4RevisionHistorySolution.cs" />
+    <Compile Include="Commands\P4TimeLapseItem.cs" />
     <Compile Include="EventHandlers\AutoAddDelete.cs" />
     <Compile Include="EventHandlers\AutoCheckout.cs" />
     <Compile Include="Commands\NiftyConfigure.cs" />

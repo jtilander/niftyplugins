@@ -7,11 +7,11 @@ namespace Aurora
 {
 	namespace NiftyPerforce
 	{
-		class P4RevisionHistoryItem : ItemCommandBase
+		class P4TimeLapseItem : ItemCommandBase
 		{
 			public override void OnExecute(SelectedItem item, string fileName, OutputWindowPane pane)
 			{
-				P4Operations.RevisionHistoryFile(pane, fileName);
+				P4Operations.TimeLapseView(pane, fileName);
 			}
 		}
 	}

@@ -30,6 +30,7 @@ namespace Aurora
 				wasCancelled = true;
 				Close();
 			}
+
 		}
 	}
 

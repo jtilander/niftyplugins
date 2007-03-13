@@ -44,6 +44,16 @@ namespace Aurora
                 return RunCommand(output, "p4win.exe", " \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
             }
 
+			public static bool TimeLapseView(OutputWindowPane output, string filename)
+			{
+				string arguments = " -win 0 ";
+				arguments += " -p " + Singleton<Config>.Instance.port;
+				arguments += " -u " + Singleton<Config>.Instance.username;
+				arguments += " -c " + Singleton<Config>.Instance.client;
+				arguments += " -cmd \"annotate -i " + filename + "\"";
+				return RunCommand(output, "p4v.exe", arguments, System.IO.Path.GetDirectoryName(filename));
+			}
+
             private static bool RunCommand(OutputWindowPane output, string executableName, string command, string workingDirectory)
 			{
 				System.Diagnostics.Process process = new System.Diagnostics.Process();
