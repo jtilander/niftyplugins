@@ -78,6 +78,8 @@ namespace Aurora
 
 				m_addDelete = new AutoAddDelete( (DTE2)application, m_plugin.OutputPane );
 				m_autoCheckout = new AutoCheckout( (DTE2)application, m_plugin.OutputPane );
+				
+				P4Operations.InitThreadHelper();
 			}
 
 			public void QueryStatus(string commandName, vsCommandStatusTextWanted neededText, ref vsCommandStatus status, ref object commandText)
@@ -104,6 +106,7 @@ namespace Aurora
 			public void OnBeginShutdown(ref Array custom)
 			{
 				//TODO: Make this thing unregister all the callbacks we've just made... gahhh... C# and destructors... 
+				P4Operations.KillThreadHelper();
 			}
 		}
 	}

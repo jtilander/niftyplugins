@@ -1,6 +1,8 @@
 // Copyright (C) 2006-2007 Jim Tilander. See COPYING for and README for more details.
 using System;
 using EnvDTE;
+using System.Threading;
+using System.Collections.Generic;
 
 namespace Aurora
 {
@@ -11,37 +13,37 @@ namespace Aurora
 		{
 			public static bool IntegrateFile(OutputWindowPane output, string filename, string oldName)
 			{
-                return RunCommand(output, "p4.exe", GetUserInfoString() + "integrate \"" + oldName + "\" \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
+                return ScheduleRunCommand(output, "p4.exe", GetUserInfoString() + "integrate \"" + oldName + "\" \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
 			}
 
 			public static bool DeleteFile(OutputWindowPane output, string filename)
 			{
-				return RunCommand(output, "p4.exe", GetUserInfoString() + "delete \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
+				return ScheduleRunCommand(output, "p4.exe", GetUserInfoString() + "delete \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
 			}
 
 			public static bool AddFile(OutputWindowPane output, string filename)
 			{
-				return RunCommand(output, "p4.exe", GetUserInfoString() + "add \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
+				return ScheduleRunCommand(output, "p4.exe", GetUserInfoString() + "add \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
 			}
 
 			public static bool EditFile(OutputWindowPane output, string filename)
 			{
-				return RunCommand(output, "p4.exe", GetUserInfoString() + "edit \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
+				return ScheduleRunCommand(output, "p4.exe", GetUserInfoString() + "edit \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
 			}
 
             public static bool RevertFile(OutputWindowPane output, string filename)
             {
-				return RunCommand(output, "p4.exe", GetUserInfoString() + "revert \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
+				return ScheduleRunCommand(output, "p4.exe", GetUserInfoString() + "revert \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
             }
 
             public static bool DiffFile(OutputWindowPane output, string filename)
             {
-				return RunCommand(output, "p4win.exe", GetUserInfoString() + "-D \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
+				return ScheduleRunCommand(output, "p4win.exe", GetUserInfoString() + "-D \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
             }
 
             public static bool RevisionHistoryFile(OutputWindowPane output, string filename)
             {
-				return RunCommand(output, "p4win.exe", GetUserInfoString() + " \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
+				return ScheduleRunCommand(output, "p4win.exe", GetUserInfoString() + " \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
             }
 
 			private static string GetUserInfoString()
@@ -66,10 +68,33 @@ namespace Aurora
 				arguments += " -u " + Singleton<Config>.Instance.username;
 				arguments += " -c " + Singleton<Config>.Instance.client;
 				arguments += " -cmd \"annotate -i " + filename + "\"";
-				return RunCommand(output, "p4v.exe", arguments, System.IO.Path.GetDirectoryName(filename));
+				return ScheduleRunCommand(output, "p4v.exe", arguments, System.IO.Path.GetDirectoryName(filename));
 			}
-
-            private static bool RunCommand(OutputWindowPane output, string executableName, string command, string workingDirectory)
+            
+            private static bool ScheduleRunCommand(OutputWindowPane output, string executableName, string command, string workingDirectory)
+            {
+				Command cmd = new Command();
+				cmd.output = output;
+				cmd.exe = executableName;
+				cmd.arguments = command;
+				cmd.workingDir = workingDirectory;
+				cmd.sequence = m_commandCount++;
+				try
+				{
+					m_queueLock.WaitOne();
+					m_commandQueue.Enqueue(cmd);
+				}
+				finally
+				{
+					m_queueLock.ReleaseMutex();
+				}
+				
+				m_startEvent.Release();
+				output.OutputString(string.Format( "{0}: Scheduled {1} {2}\n", cmd.sequence, cmd.exe, cmd.arguments ) );
+				return true;
+            }
+            
+            public static bool RunCommand(OutputWindowPane output, string executableName, string command, string workingDirectory, int sequence)
 			{
 				System.Diagnostics.Process process = new System.Diagnostics.Process();
 				process.StartInfo.UseShellExecute = false;
@@ -83,7 +108,7 @@ namespace Aurora
 				{
 					if (null != output)
 					{
-						output.OutputString("Failed to start " + executableName + ". Is Perforce installed and in the path?\n");
+						output.OutputString(string.Format( "{0}: Failed to start {1}. Is Perforce installed and in the path?\n", sequence, executableName ));
 					}
 					return false;
 				}
@@ -94,7 +119,7 @@ namespace Aurora
 
 				if (null != output)
 				{
-					output.OutputString("> " + executableName + " " + command + "\n");
+					output.OutputString(sequence.ToString() + ": " + executableName + " " + command + "\n");
 					output.OutputString(stdOut);
 					output.OutputString(stdErr);
 				}
@@ -107,11 +132,71 @@ namespace Aurora
 				{
 					if (null != output)
 					{
-                        output.OutputString("Process exit code was " + process.ExitCode + ".\n");
+                        output.OutputString(sequence.ToString() + ": Process exit code was " + process.ExitCode + ".\n");
 					}
 					return false;
 				}
 				return true;
+			}
+			
+			private class Command
+			{
+				public string exe = "";
+				public string arguments = "";
+				public string workingDir = "";
+				public OutputWindowPane output = null;
+				public int sequence = 0;
+				
+				
+				public void Run()
+				{
+					P4Operations.RunCommand(output, exe, arguments, workingDir, sequence);
+				}
+			};
+			
+			static private Mutex m_queueLock = new Mutex();
+			static private Semaphore m_startEvent = new Semaphore(0, 1);
+			static private Queue<Command> m_commandQueue = new Queue<Command>();
+			static private System.Threading.Thread m_helperThread;
+			static private int m_commandCount = 0;
+			
+			public static void InitThreadHelper()
+			{
+				m_helperThread = new System.Threading.Thread(new ThreadStart(ThreadMain));
+				m_helperThread.Start();
+			}
+
+			public static void KillThreadHelper()
+			{
+				m_helperThread.Abort();
+			}
+			
+			static public void ThreadMain()
+			{
+				while( true )
+				{
+					m_startEvent.WaitOne();
+					Command cmd = null;
+					
+					try
+					{
+						m_queueLock.WaitOne();
+						cmd = m_commandQueue.Dequeue();
+					}
+					finally
+					{
+						m_queueLock.ReleaseMutex();
+					}
+
+					try
+					{
+						System.Threading.Thread thread = new System.Threading.Thread( new ThreadStart( cmd.Run ) );
+						thread.Start();
+					}
+					catch
+					{
+					}
+				}
 			}
 		}
 	}
