@@ -31,6 +31,11 @@ namespace Aurora
 				return ScheduleRunCommand(output, "p4.exe", GetUserInfoString() + "edit \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
 			}
 
+			public static bool EditFileImmediate(OutputWindowPane output, string filename)
+			{
+				return RunCommand(output, "p4.exe", GetUserInfoString() + "edit \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename), m_commandCount++);
+			}
+
             public static bool RevertFile(OutputWindowPane output, string filename)
             {
 				return ScheduleRunCommand(output, "p4.exe", GetUserInfoString() + "revert \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));

@@ -11,6 +11,7 @@ namespace Aurora
 		class Config
 		{
 			bool m_autoCheckout = false;
+			bool m_autoCheckoutOnSave = false;
 			bool m_autoAdd = true;
 			bool m_autoDelete = false;
 			bool m_useSystemConnection = true;
@@ -23,6 +24,13 @@ namespace Aurora
 			{
 				get { return m_autoCheckout; }
 				set { m_autoCheckout = value; }
+			}
+
+			[Category("Operation"), Description("Controls if we automagically check out files from perforce before saving")]
+			public bool autoCheckoutOnSave
+			{
+				get { return m_autoCheckoutOnSave; }
+				set { m_autoCheckoutOnSave = value; }
 			}
 
 			[Category("Operation"), Description("Automagically add files to perforce")]
@@ -70,6 +78,7 @@ namespace Aurora
 			public Config()
 			{
 				m_autoCheckout = bool.Parse(RegistrySettingsProvider.GetPropertyValue("autoCheckout", m_autoCheckout.ToString()));
+				m_autoCheckoutOnSave = bool.Parse(RegistrySettingsProvider.GetPropertyValue("autoCheckoutOnSave", m_autoCheckoutOnSave.ToString()));
 				m_autoAdd = bool.Parse(RegistrySettingsProvider.GetPropertyValue("autoAdd", m_autoAdd.ToString()));
 				m_autoDelete = bool.Parse(RegistrySettingsProvider.GetPropertyValue("autoDelete", m_autoDelete.ToString()));
 				m_useSystemConnection = bool.Parse(RegistrySettingsProvider.GetPropertyValue("useSystemConnection", m_useSystemConnection.ToString()));
@@ -88,6 +97,7 @@ namespace Aurora
 					return;
 
 				RegistrySettingsProvider.SetPropertyValue("autoCheckout", m_autoCheckout.ToString());
+				RegistrySettingsProvider.SetPropertyValue("autoCheckoutOnSave", m_autoCheckoutOnSave.ToString());
 				RegistrySettingsProvider.SetPropertyValue("autoAdd", m_autoAdd.ToString());
 				RegistrySettingsProvider.SetPropertyValue("autoDelete", m_autoDelete.ToString());
 				RegistrySettingsProvider.SetPropertyValue("useSystemConnection", m_useSystemConnection.ToString());

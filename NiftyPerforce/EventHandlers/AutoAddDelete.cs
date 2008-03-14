@@ -15,14 +15,14 @@ namespace Aurora
 			private DTE2 m_application;
 			private ProjectItemsEvents m_projectEvents;
 			private SolutionEvents m_solutionEvents;
-			
+
 			public AutoAddDelete(DTE2 application, OutputWindowPane outputPane)
 			{
 				m_application = application;
 				m_outputPane = outputPane;
 
 				m_projectEvents = ((EnvDTE80.Events2)m_application.Events).ProjectItemsEvents;
-                m_solutionEvents = ((EnvDTE80.Events2)m_application.Events).SolutionEvents;
+				m_solutionEvents = ((EnvDTE80.Events2)m_application.Events).SolutionEvents;
 
 				m_projectEvents.ItemAdded += new _dispProjectItemsEvents_ItemAddedEventHandler(OnItemAdded);
 				m_projectEvents.ItemRemoved += new _dispProjectItemsEvents_ItemRemovedEventHandler(OnItemRemoved);
@@ -32,52 +32,50 @@ namespace Aurora
 
 			public void OnItemAdded(ProjectItem item)
 			{
-                if (Singleton<Config>.Instance.autoAdd)
-                {
-                    P4Operations.EditFile(m_outputPane, item.ContainingProject.FullName);
+				if (!Singleton<Config>.Instance.autoAdd)
+					return;
+				P4Operations.EditFile(m_outputPane, item.ContainingProject.FullName);
 
-                    for (int i = 0; i < item.FileCount; i++)
-                    {
-                        string name = item.get_FileNames((short)i);
-                        P4Operations.AddFile(m_outputPane, name);
-                    }
-                }
+				for (int i = 0; i < item.FileCount; i++)
+				{
+					string name = item.get_FileNames((short)i);
+					P4Operations.AddFile(m_outputPane, name);
+				}
 			}
 
 			public void OnItemRemoved(ProjectItem item)
 			{
-                if (Singleton<Config>.Instance.autoDelete)
-                {
-                    P4Operations.EditFile(m_outputPane, item.ContainingProject.FullName);
+				if (!Singleton<Config>.Instance.autoDelete)
+					return;
+					
+				P4Operations.EditFile(m_outputPane, item.ContainingProject.FullName);
 
-                    for (int i = 0; i < item.FileCount; i++)
-                    {
-                        string name = item.get_FileNames((short)i);
-                        P4Operations.DeleteFile(m_outputPane, name);
-                    }
-                }
+				for (int i = 0; i < item.FileCount; i++)
+				{
+					string name = item.get_FileNames((short)i);
+					P4Operations.DeleteFile(m_outputPane, name);
+				}
 			}
 
 			private void OnProjectAdded(Project project)
 			{
-                if (Singleton<Config>.Instance.autoAdd)
-                {
-                    P4Operations.EditFile(m_outputPane, m_application.Solution.FullName);
-                    P4Operations.AddFile(m_outputPane, project.FullName);
-                    // TODO: [jt] We should if the operation is not a add new project but rather a add existing project
-                    //       step through all the project items and add them to perforce. Or maybe we want the user
-                    //       to do this herself?
-                }
+				if (!Singleton<Config>.Instance.autoAdd)
+					return;
+				P4Operations.EditFile(m_outputPane, m_application.Solution.FullName);
+				P4Operations.AddFile(m_outputPane, project.FullName);
+				// TODO: [jt] We should if the operation is not a add new project but rather a add existing project
+				//       step through all the project items and add them to perforce. Or maybe we want the user
+				//       to do this herself?
 			}
-			
+
 			private void OnProjectRemoved(Project project)
 			{
-                if (Singleton<Config>.Instance.autoDelete)
-                {
-                    P4Operations.EditFile(m_outputPane, m_application.Solution.FullName);
-                    P4Operations.DeleteFile(m_outputPane, project.FullName);
-                    // TODO: [jt] Do we want to automatically delete the items from perforce here?
-                }
+				if (!Singleton<Config>.Instance.autoDelete)
+					return;
+					
+				P4Operations.EditFile(m_outputPane, m_application.Solution.FullName);
+				P4Operations.DeleteFile(m_outputPane, project.FullName);
+				// TODO: [jt] Do we want to automatically delete the items from perforce here?
 			}
 		}
 	}
