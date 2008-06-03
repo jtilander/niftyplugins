@@ -42,6 +42,7 @@
     <Compile Include="AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Commands\CloseToolWindows.cs" />
     <Compile Include="Connect.cs">
       <SubType>Code</SubType>
     </Compile>
