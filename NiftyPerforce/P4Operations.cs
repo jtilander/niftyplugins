@@ -160,7 +160,7 @@ namespace Aurora
 			};
 			
 			static private Mutex m_queueLock = new Mutex();
-			static private Semaphore m_startEvent = new Semaphore(0, 1);
+			static private Semaphore m_startEvent = new Semaphore(0, 9999);
 			static private Queue<Command> m_commandQueue = new Queue<Command>();
 			static private System.Threading.Thread m_helperThread;
 			static private int m_commandCount = 0;
