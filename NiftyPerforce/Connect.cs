@@ -76,6 +76,14 @@ namespace Aurora
                 m_plugin.AddMenuCommand("Cross Project Multi Item", "NiftyPerforceEditItem", "P4 Edit", "Opens the document for edit", 1, 5);
 				m_plugin.AddMenuCommand("Cross Project Multi Item", "NiftyPerforceRevertItem", "P4 Revert", "Reverts the item", 4, 8);
 
+				// Adds mouse shortcuts to the MDI tab.
+				m_plugin.AddMenuCommand("Easy MDI Document Window", "NiftyPerforceEditItem", "P4 Edit", "Opens the document for edit", 1, 4);
+				m_plugin.AddMenuCommand("Easy MDI Document Window", "NiftyPerforceRenameItem", "P4 Rename", "Renames the item", 1, 5);
+				m_plugin.AddMenuCommand("Easy MDI Document Window", "NiftyPerforceDiffItem", "P4 Diff", "Diffs the selected item with the depot", 3, 6);
+				m_plugin.AddMenuCommand("Easy MDI Document Window", "NiftyPerforceRevisionHistoryItem", "P4 Revision History", "Shows the revision history of the selected item", 6, 7);
+				m_plugin.AddMenuCommand("Easy MDI Document Window", "NiftyPerforceTimeLapseItem", "P4 Time lapse view", "Brings up the timelapse view", 7, 8);
+				m_plugin.AddMenuCommand("Easy MDI Document Window", "NiftyPerforceRevertItem", "P4 Revert", "Reverts the item", 4, 9);
+
 				m_addDelete = new AutoAddDelete( (DTE2)application, m_plugin.OutputPane );
 				m_autoCheckout = new AutoCheckout( (DTE2)application, m_plugin.OutputPane );
 				
