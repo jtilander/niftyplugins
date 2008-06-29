@@ -525,14 +525,14 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:NiftyPerforce"
-        "ProductCode" = "8:{F54E0CCC-0CFB-47E0-B84A-41938A3FDBB0}"
-        "PackageCode" = "8:{157272D9-CEEC-4089-923E-246727351ACC}"
+        "ProductCode" = "8:{7F7DEE0A-09E1-4EEC-B8D9-B32AEA14715B}"
+        "PackageCode" = "8:{795916AC-72C0-4F26-86D8-675DD6AF5CEA}"
         "UpgradeCode" = "8:{27EC1857-F66F-4B1B-BBE5-1FC273BE51FB}"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:FALSE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.0.2"
+        "ProductVersion" = "8:1.0.3"
         "Manufacturer" = "8:Aurora Development"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:http://code.google.com/p/niftyplugins/"
@@ -1015,9 +1015,6 @@
                 {
                 }
             }
-        }
-        "VJSharpPlugin"
-        {
         }
     }
 }
