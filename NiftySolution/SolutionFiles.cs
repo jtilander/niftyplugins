@@ -34,6 +34,7 @@ namespace Aurora
 					Log.Info("\tScanning project {0}", project.Name);
 					AddProjectItems(project.ProjectItems);
 				}
+				Log.Info("Scanning done ({0} files in {1} projects)", Count, m_application.Solution.Projects.Count);
 			}
 
 			private void AddProjectItems(ProjectItems projectItems)
@@ -43,23 +44,26 @@ namespace Aurora
 				// H:     {6BB5F8EE-4483-11D3-8BCF-00C04F8EC28C}
 				// Folder:{6BB5F8F0-4483-11D3-8BCF-00C04F8EC28C}
 
-				foreach(ProjectItem item in projectItems)
+				if(null!=projectItems)
 				{
-					if("{6BB5F8EE-4483-11D3-8BCF-00C04F8EC28C}" == item.Kind)
+					foreach(ProjectItem item in projectItems)
 					{
-						for(short i = 0; i < item.FileCount; i++)
+						if("{6BB5F8EE-4483-11D3-8BCF-00C04F8EC28C}" == item.Kind)
 						{
-							string name = item.get_FileNames((short)i);
+							for(short i = 0; i < item.FileCount; i++)
+							{
+								string name = item.get_FileNames((short)i);
 
-							SearchEntry entry = new SearchEntry();
-							entry.fullPath = name;
-							entry.key = name.ToLower();
-							entry.filename = Path.GetFileName(entry.key);
-							m_solutionFiles.Add(entry);
+								SearchEntry entry = new SearchEntry();
+								entry.fullPath = name;
+								entry.key = name.ToLower();
+								entry.filename = Path.GetFileName(entry.key);
+								m_solutionFiles.Add(entry);
+							}
 						}
-					}
 
-					AddProjectItems(item.ProjectItems);
+						AddProjectItems(item.ProjectItems);
+					}
 				}
 			}
 

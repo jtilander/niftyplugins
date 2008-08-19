@@ -26,7 +26,6 @@ namespace Aurora
 					Log.Info("First time fast open is run, scanning solution for files");
 					m_files = new SolutionFiles(application);
 					m_files.Refresh();
-					Log.Info("Scanning done ({0} files)", m_files.Count);
 				}
 
 				QuickOpenDialog dialog = new QuickOpenDialog(m_files);

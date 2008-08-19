@@ -86,10 +86,13 @@ namespace NiftySolution
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(578, 420);
+			this.ControlBox = false;
 			this.Controls.Add(this.mSearchResults);
 			this.Controls.Add(this.mInputText);
 			this.Controls.Add(this.mStatuStrip);
+			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
 			this.Name = "QuickOpenDialog";
+			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
 			this.Text = "QuickOpen";
 			this.mStatuStrip.ResumeLayout(false);
 			this.mStatuStrip.PerformLayout();
