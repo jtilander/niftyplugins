@@ -28,6 +28,12 @@
         "Entry"
         {
         "MsmKey" = "8:_277D36809BE19BA6E98DC41F58A05BFB"
+        "OwnerKey" = "8:_7424DD118E50CD8803642EC6FF6293E1"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_277D36809BE19BA6E98DC41F58A05BFB"
         "OwnerKey" = "8:_1CECD4FA1A23475A939BEF71746825E4"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -51,6 +57,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_7424DD118E50CD8803642EC6FF6293E1"
+        "OwnerKey" = "8:_1CECD4FA1A23475A939BEF71746825E4"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_7B7DC78AE2E54FEA8B063DC3B5988A53"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -65,6 +77,12 @@
         {
         "MsmKey" = "8:_8A247F755692CA9A175983572E332E63"
         "OwnerKey" = "8:_1CECD4FA1A23475A939BEF71746825E4"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_8A247F755692CA9A175983572E332E63"
+        "OwnerKey" = "8:_7424DD118E50CD8803642EC6FF6293E1"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -87,6 +105,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_C4FEA7FAB3BB70826237FB0262904AF2"
+        "OwnerKey" = "8:_7424DD118E50CD8803642EC6FF6293E1"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_E87A8339D6FB457480D6538B125F33EF"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -95,6 +119,12 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_277D36809BE19BA6E98DC41F58A05BFB"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_7424DD118E50CD8803642EC6FF6293E1"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -289,6 +319,37 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_7424DD118E50CD8803642EC6FF6293E1"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:AuroraCore, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_7424DD118E50CD8803642EC6FF6293E1"
+                    {
+                    "Name" = "8:AuroraCore.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:AuroraCore.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_968800FC892341F6AF787DFA7B8D0710"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_7B7DC78AE2E54FEA8B063DC3B5988A53"
@@ -509,18 +570,18 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:NiftySolution"
-        "ProductCode" = "8:{4AA77044-5368-41F2-92AF-A243D6E5B85D}"
-        "PackageCode" = "8:{292B6E6B-C1B9-4FB1-8E80-639290540E9B}"
+        "ProductCode" = "8:{C8E07617-1B78-4D51-A65E-0219DA86F93A}"
+        "PackageCode" = "8:{549619CA-E3E1-42C8-A406-9B44B77AB2E9}"
         "UpgradeCode" = "8:{F24AA19A-57F0-4280-9EA2-9C246A97640D}"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:FALSE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.0.2"
+        "ProductVersion" = "8:1.0.3"
         "Manufacturer" = "8:Aurora Development"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:http://code.google.com/p/niftyplugins/"
-        "Title" = "8:NiftySetup"
+        "Title" = "8:NiftySolution"
         "Subject" = "8:"
         "ARPCONTACT" = "8:Jim Tilander"
         "Keywords" = "8:"
@@ -973,7 +1034,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_1CECD4FA1A23475A939BEF71746825E4"
             {
-            "SourcePath" = "8:..\\NiftySolution\\obj\\Debug\\NiftySolution.dll"
+            "SourcePath" = "8:..\\NiftySolution\\obj\\Release\\NiftySolution.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_968800FC892341F6AF787DFA7B8D0710"
