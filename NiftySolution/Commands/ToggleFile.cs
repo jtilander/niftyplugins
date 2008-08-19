@@ -9,7 +9,10 @@ namespace Aurora
 {
 	namespace NiftySolution
 	{
-		class ToggleFile : CommandBase
+		// This tries to quickly switch between the .h and the .cpp file pair
+		// TODO: this could be done better, by searching through and making a list
+		//       of all the pairs given all the files in the projects.	
+		public class ToggleFile : CommandBase
 		{
 			private Dictionary<string, string[]> m_knownExtensions;
 

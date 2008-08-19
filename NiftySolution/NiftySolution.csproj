@@ -47,31 +47,42 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="EventHandlers\SolutionBuildTimings.cs" />
-    <Compile Include="OpenDialog.cs">
-      <SubType>Form</SubType>
+    <Compile Include="Commands\QuickOpen.cs">
     </Compile>
-    <Compile Include="OpenDialog.designer.cs">
-      <DependentUpon>OpenDialog.cs</DependentUpon>
-    </Compile>
-    <Compile Include="..\Shared\Plugin.cs" />
-    <Compile Include="..\Shared\Singleton.cs" />
-    <Compile Include="..\Shared\CommandBase.cs" />
-    <Compile Include="Commands\QuickOpen.cs" />
     <Compile Include="Commands\ToggleFile.cs" />
+    <Compile Include="SearchEntry.cs" />
+    <Compile Include="SolutionFiles.cs" />
     <Compile Include="ToolbarIcons.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ToolbarIcons.resx</DependentUpon>
+    </Compile>
+    <Compile Include="UI\QuickOpenDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\QuickOpenDialog.Designer.cs">
+      <DependentUpon>QuickOpenDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\SearchResultControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\SearchResultControl.Designer.cs">
+      <DependentUpon>SearchResultControl.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="CommandBar.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="OpenDialog.resx">
-      <DependentUpon>OpenDialog.cs</DependentUpon>
+    <EmbeddedResource Include="UI\QuickOpenDialog.resx">
       <SubType>Designer</SubType>
+      <DependentUpon>QuickOpenDialog.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\SearchResultControl.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>SearchResultControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="ClassDiagram1.cd" />
     <None Include="ToolbarIcons.resx">
       <SubType>Designer</SubType>
       <Generator>ResXFileCodeGenerator</Generator>
@@ -113,13 +124,16 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\..\..\..\..\Documents and Settings\Jim Tilander\My Documents\Visual Studio 2005\Addins\NiftySolution - For Testing.AddIn">
-      <Link>NiftySolution - For Testing.AddIn</Link>
-    </Content>
     <Content Include="NiftySolution.AddIn" />
     <Content Include="Resources\Configure.bmp" />
     <Content Include="Resources\Open.bmp" />
     <Content Include="Resources\Toggle.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Shared\AuroraCore.csproj">
+      <Project>{A2D1CBE2-C37F-46E7-BF45-FCA62A79F2EE}</Project>
+      <Name>AuroraCore</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
   <PropertyGroup>

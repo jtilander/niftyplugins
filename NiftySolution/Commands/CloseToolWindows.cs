@@ -9,7 +9,10 @@ namespace Aurora
 {
 	namespace NiftySolution
 	{
-		class CloseToolWindow : CommandBase
+		// This command is useful for cleaning up all those pesky tool windows that take up all that space
+		// if you have a small monitor. The alternatives are either to buy a 30" or to hide them all every
+		// now and then.
+		public class CloseToolWindow : CommandBase
 		{
 			public CloseToolWindow()
 			{
@@ -41,7 +44,6 @@ namespace Aurora
 					w.Close(EnvDTE.vsSaveChanges.vsSaveChangesNo);
 				}
 			}
-			
 		}
 	}
 }
