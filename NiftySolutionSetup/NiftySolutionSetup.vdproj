@@ -508,15 +508,15 @@
         "Product"
         {
         "Name" = "8:Microsoft Visual Studio"
-        "ProductName" = "8:NiftySetup"
-        "ProductCode" = "8:{B3ABE9BE-4946-4020-839B-978E18D0F264}"
-        "PackageCode" = "8:{DC843220-24C1-4C36-BA42-EE56CCB207F8}"
+        "ProductName" = "8:NiftySolution"
+        "ProductCode" = "8:{4AA77044-5368-41F2-92AF-A243D6E5B85D}"
+        "PackageCode" = "8:{292B6E6B-C1B9-4FB1-8E80-639290540E9B}"
         "UpgradeCode" = "8:{F24AA19A-57F0-4280-9EA2-9C246A97640D}"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:FALSE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.0.1"
+        "ProductVersion" = "8:1.0.2"
         "Manufacturer" = "8:Aurora Development"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:http://code.google.com/p/niftyplugins/"
@@ -973,7 +973,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_1CECD4FA1A23475A939BEF71746825E4"
             {
-            "SourcePath" = "8:..\\NiftySolution\\obj\\Release\\NiftySolution.dll"
+            "SourcePath" = "8:..\\NiftySolution\\obj\\Debug\\NiftySolution.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_968800FC892341F6AF787DFA7B8D0710"
@@ -999,9 +999,6 @@
                 {
                 }
             }
-        }
-        "VJSharpPlugin"
-        {
         }
     }
 }

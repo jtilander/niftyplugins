@@ -69,9 +69,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="P4Operations.cs" />
-    <Compile Include="..\Shared\Plugin.cs" />
-    <Compile Include="..\Shared\CommandBase.cs" />
-    <Compile Include="..\Shared\Singleton.cs" />
     <Compile Include="RegistrySettingsProvider.cs" />
     <Compile Include="ToolbarIcons.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -136,6 +133,12 @@
     <None Include="Resources\Icons.bmp" />
     <None Include="Resources\Configure.bmp" />
     <None Include="Resources\Edit.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Shared\AuroraCore.csproj">
+      <Project>{A2D1CBE2-C37F-46E7-BF45-FCA62A79F2EE}</Project>
+      <Name>AuroraCore</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
   <PropertyGroup>

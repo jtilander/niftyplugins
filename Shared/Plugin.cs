@@ -9,7 +9,7 @@ namespace Aurora
 {
     // Wrapper class around registering other classes to handle the actual commands.
     // Interfaces with visual studio and handles the dispatch.
-    class Plugin
+	public class Plugin
     {
         private DTE2 m_application;
         private AddIn m_addIn;
@@ -189,10 +189,7 @@ namespace Aurora
 			}
 			catch (System.ArgumentException)
 			{
-				if (null != m_outputPane)
-					m_outputPane.OutputString("Tried to register the command \"" + commandName + "\" twice!\n");
-
-				System.Diagnostics.Debug.WriteLine("Tried to register the command \"" + commandName + "\" twice!\n");
+				Log.Debug("Tried to register the command \"{0}\" twice!", commandName);
 			}
 		}
 
