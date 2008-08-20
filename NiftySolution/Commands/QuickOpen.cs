@@ -1,4 +1,4 @@
-// Copyright (C) 2006-2007 Jim Tilander. See COPYING for and README for more details.
+// Copyright (C) 2006-2008 Jim Tilander. See COPYING for and README for more details.
 using System;
 using EnvDTE;
 using EnvDTE80;
@@ -12,28 +12,34 @@ namespace Aurora
 		//       trigger rebuilding of the dialog...
 		public class QuickOpen : CommandBase
 		{
-			private SolutionFiles m_files;
+			private SolutionFiles mFiles = null;
+			QuickOpenDialog mDialog = null;
 
 			public QuickOpen()
 			{
-				m_files = null;
 			}
 
 			public override void OnCommand(DTE2 application, OutputWindowPane pane)
 			{
-				if(null == m_files)
+				if(null == mFiles)
 				{
 					Log.Info("First time fast open is run, scanning solution for files");
-					m_files = new SolutionFiles(application);
-					m_files.Refresh();
+					mFiles = new SolutionFiles(application);
+					mFiles.Refresh();
 				}
-
-				QuickOpenDialog dialog = new QuickOpenDialog(m_files);
-				if(dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+				
+				if(null == mDialog)
+					mDialog = new QuickOpenDialog(mFiles);
+				
+				if(mDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
 				{
-					string name = dialog.FileToOpen;
+					string name = mDialog.FileToOpen;
 					if(name.Length > 0 )
 						application.DTE.ExecuteCommand("File.OpenFile", name);
+
+
+					// TODO: Each time here we could save off the window position into the registry and 
+					//       use it when we open the window the next time around.
 				}
 			}
 

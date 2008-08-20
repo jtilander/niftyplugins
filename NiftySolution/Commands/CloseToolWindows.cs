@@ -1,4 +1,4 @@
-// Copyright (C) 2006-2007 Jim Tilander. See COPYING for and README for more details.
+// Copyright (C) 2006-2008 Jim Tilander. See COPYING for and README for more details.
 using System;
 using System.Collections.Generic;
 using System.IO;

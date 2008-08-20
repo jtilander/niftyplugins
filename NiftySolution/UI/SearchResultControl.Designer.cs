@@ -32,6 +32,9 @@ namespace Aurora.NiftySolution
 			// 
 			// SearchResultControl
 			// 
+			this.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
+			this.CausesValidation = false;
+			this.ImeMode = System.Windows.Forms.ImeMode.Off;
 			this.Name = "SearchResultControl";
 			this.Size = new System.Drawing.Size(315, 281);
 			this.Paint += new System.Windows.Forms.PaintEventHandler(this.SearchResultControl_Paint);

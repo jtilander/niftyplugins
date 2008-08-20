@@ -68,17 +68,20 @@ namespace NiftySolution
 			this.mInputText.Location = new System.Drawing.Point(0, 0);
 			this.mInputText.Name = "mInputText";
 			this.mInputText.Size = new System.Drawing.Size(578, 20);
-			this.mInputText.TabIndex = 1;
+			this.mInputText.TabIndex = 0;
 			this.mInputText.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
 			this.mInputText.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox1_KeyDown);
 			// 
 			// mSearchResults
 			// 
+			this.mSearchResults.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
+			this.mSearchResults.CausesValidation = false;
 			this.mSearchResults.Dock = System.Windows.Forms.DockStyle.Bottom;
+			this.mSearchResults.ImeMode = System.Windows.Forms.ImeMode.Off;
 			this.mSearchResults.Location = new System.Drawing.Point(0, 26);
 			this.mSearchResults.Name = "mSearchResults";
 			this.mSearchResults.Size = new System.Drawing.Size(578, 372);
-			this.mSearchResults.TabIndex = 2;
+			this.mSearchResults.TabIndex = 1;
 			this.mSearchResults.Resize += new System.EventHandler(this.searchResultControl1_Resize);
 			// 
 			// QuickOpenDialog
@@ -91,6 +94,7 @@ namespace NiftySolution
 			this.Controls.Add(this.mInputText);
 			this.Controls.Add(this.mStatuStrip);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
+			this.KeyPreview = true;
 			this.Name = "QuickOpenDialog";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
 			this.Text = "QuickOpen";
