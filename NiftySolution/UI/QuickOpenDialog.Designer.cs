@@ -98,6 +98,7 @@ namespace NiftySolution
 			this.Name = "QuickOpenDialog";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
 			this.Text = "QuickOpen";
+			this.Shown += new System.EventHandler(this.QuickOpenDialog_Shown);
 			this.mStatuStrip.ResumeLayout(false);
 			this.mStatuStrip.PerformLayout();
 			this.ResumeLayout(false);

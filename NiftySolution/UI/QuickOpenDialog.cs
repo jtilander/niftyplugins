@@ -77,6 +77,13 @@ namespace Aurora
 				mSearchResults.QueryString = mInputText.Text;
 				mStatusLabel.Text = string.Format("{0} hits", mSearchResults.CandidateCount);
 			}
+
+			private void QuickOpenDialog_Shown(object sender, EventArgs e)
+			{
+				if(0 == mInputText.Text.Length)
+					return;
+				mInputText.SelectAll();
+			}
 		}
 	}
 }
