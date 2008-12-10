@@ -3,6 +3,7 @@ using System;
 using EnvDTE;
 using System.Threading;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Aurora
 {
@@ -202,6 +203,25 @@ namespace Aurora
 					{
 					}
 				}
+			}
+
+			static public string ResolveFileNameWithCase(string fullpath)
+			{
+				string dirname = Path.GetDirectoryName(fullpath);
+				string basename = Path.GetFileName(fullpath).ToLower();
+				DirectoryInfo info = new DirectoryInfo(dirname);
+				FileInfo[] files = info.GetFiles();
+
+				foreach(FileInfo file in files)
+				{
+					if(file.Name.ToLower() == basename)
+					{
+						return file.FullName;
+					}
+				}
+				
+				// Should never happen...
+				return fullpath;
 			}
 		}
 	}

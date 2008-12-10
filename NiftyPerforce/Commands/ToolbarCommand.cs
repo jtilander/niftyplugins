@@ -2,6 +2,7 @@
 using System;
 using EnvDTE;
 using EnvDTE80;
+using System.IO;
 
 namespace Aurora
 {
@@ -22,7 +23,9 @@ namespace Aurora
                 // let's just see if the text editor is active
                 else if ("Document" == application.ActiveWindow.Kind && application.ActiveDocument != null)
                 {
-                    new ItemCommandT().OnExecute(null, application.ActiveDocument.FullName, pane);
+					// Let's go through the filesystem to figure out the correct case of the file.
+					string realname = P4Operations.ResolveFileNameWithCase(application.ActiveDocument.FullName);
+					new ItemCommandT().OnExecute(null, realname, pane);
                 }
             }
 
