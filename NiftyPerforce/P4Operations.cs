@@ -4,6 +4,7 @@ using EnvDTE;
 using System.Threading;
 using System.Collections.Generic;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace Aurora
 {
@@ -54,9 +55,41 @@ namespace Aurora
 
 			private static string GetUserInfoString()
 			{
+				return GetUserInfoStringFull(false, "");
+			}
+
+			private static string GetUserInfoStringFull(bool lookup, string dir)
+			{
 				// NOTE: This to allow the user to have a P4CONFIG variable and connect to multiple perforce servers seamlessly.
 				if( Singleton<Config>.Instance.useSystemEnv )
+				{
+					if(lookup)
+					{
+						try
+						{
+							string output = Process.Execute("p4", "-s -L \"{0}\" info", dir);
+							Regex userpattern = new Regex(@"User name: (?<user>.*)$", RegexOptions.Compiled | RegexOptions.Multiline);
+							Regex portpattern = new Regex(@"Server address: (?<port>.*)$", RegexOptions.Compiled | RegexOptions.Multiline);
+							Regex clientpattern = new Regex(@"Client name: (?<client>.*)$", RegexOptions.Compiled | RegexOptions.Multiline);
+
+							Match usermatch = userpattern.Match(output);
+							Match portmatch = portpattern.Match(output);
+							Match clientmatch = clientpattern.Match(output);
+
+							string port = portmatch.Groups["port"].Value.Trim();
+							string username = usermatch.Groups["user"].Value.Trim();
+							string client = clientmatch.Groups["client"].Value.Trim();
+
+							return string.Format( " -p {0} -u {1} -c {2} ", port, username, client);
+						}
+						catch(Process.Error e)
+						{
+							Log.Error( "Failed to execute info string discovery: {0}", e.info);
+						}
+					}
+
 					return "";
+				}
 					
 				string arguments = "";
 				arguments += " -p " + Singleton<Config>.Instance.port;
@@ -70,9 +103,7 @@ namespace Aurora
 			{
 				// NOTE: The timelapse view uses the undocumented feature for bringing up the timelapse view. The username, client and port needs to be given in a certain order to work (straight from perforce).
 				string arguments = " -win 0 ";
-				arguments += " -p " + Singleton<Config>.Instance.port;
-				arguments += " -u " + Singleton<Config>.Instance.username;
-				arguments += " -c " + Singleton<Config>.Instance.client;
+				arguments += GetUserInfoStringFull(true, Path.GetDirectoryName(filename));
 				arguments += " -cmd \"annotate -i " + filename + "\"";
 				return ScheduleRunCommand(output, "p4v.exe", arguments, System.IO.Path.GetDirectoryName(filename));
 			}
@@ -144,7 +175,7 @@ namespace Aurora
 				}
 				return true;
 			}
-			
+
 			private class Command
 			{
 				public string exe = "";
