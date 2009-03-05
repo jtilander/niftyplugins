@@ -14,19 +14,32 @@ namespace Aurora
 		// now and then.
 		public class CloseToolWindow : CommandBase
 		{
-			public CloseToolWindow()
+			override public int IconIndex { get { return 4; } }
+
+			public CloseToolWindow(Plugin plugin)
+				: base("CloseToolWindow", plugin, "Closes all active tool windows")
 			{
 			}
 
-			public override void OnCommand(DTE2 application, OutputWindowPane pane)
+			override public void BindToKeyboard(Command vsCommand)
 			{
-				CloseToolWindows(application);
+				object[] bindings = new object[2];
+				bindings[0] = "Global::ctrl+del";
+				bindings[1] = "Text Editor::ctrl+del";
+				vsCommand.Bindings = bindings;
+			}
+
+			public override bool OnCommand()
+			{
+				CloseToolWindows(Plugin.App);
 				
 				// Sometimes this really doesn't "bite", so we need to run through the list again.
-				CloseToolWindows(application);
+				CloseToolWindows(Plugin.App);
+
+				return true;
 			}
 
-			public override bool IsEnabled(DTE2 application)
+			public override bool IsEnabled()
 			{
 				return true;
 			}

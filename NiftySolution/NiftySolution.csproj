@@ -43,6 +43,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Commands\CloseToolWindows.cs" />
+    <Compile Include="Commands\Configure.cs" />
     <Compile Include="Connect.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -50,12 +51,19 @@
     <Compile Include="Commands\QuickOpen.cs">
     </Compile>
     <Compile Include="Commands\ToggleFile.cs" />
+    <Compile Include="Options.cs" />
     <Compile Include="SearchEntry.cs" />
     <Compile Include="SolutionFiles.cs" />
     <Compile Include="ToolbarIcons.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ToolbarIcons.resx</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ConfigDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\ConfigDialog.designer.cs">
+      <DependentUpon>ConfigDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\QuickOpenDialog.cs">
       <SubType>Form</SubType>
@@ -72,6 +80,10 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="CommandBar.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ConfigDialog.resx">
+      <DependentUpon>ConfigDialog.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\QuickOpenDialog.resx">
@@ -125,6 +137,7 @@
   <ItemGroup>
     <Content Include="NiftySolution.AddIn" />
     <Content Include="Resources\Configure.bmp" />
+    <None Include="Resources\DeleteTool.bmp" />
     <Content Include="Resources\Open.bmp" />
     <Content Include="Resources\Toggle.bmp" />
   </ItemGroup>

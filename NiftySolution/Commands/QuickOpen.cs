@@ -15,16 +15,24 @@ namespace Aurora
 			private SolutionFiles mFiles = null;
 			QuickOpenDialog mDialog = null;
 
-			public QuickOpen()
+			override public int IconIndex { get { return 1; } }
+
+			public QuickOpen(Plugin plugin) 
+				: base("QuickOpen", plugin, "Quickly opens any file in the solution")
 			{
 			}
 
-			public override void OnCommand(DTE2 application, OutputWindowPane pane)
+			override public void BindToKeyboard(Command vsCommand)
+			{
+				vsCommand.Bindings = "Global::ctrl+o";
+			}
+
+			public override bool OnCommand()
 			{
 				if(null == mFiles)
 				{
 					Log.Info("First time fast open is run, scanning solution for files");
-					mFiles = new SolutionFiles(application);
+					mFiles = new SolutionFiles(Plugin.App);
 					mFiles.Refresh();
 				}
 				
@@ -35,15 +43,16 @@ namespace Aurora
 				{
 					string name = mDialog.FileToOpen;
 					if(name.Length > 0 )
-						application.DTE.ExecuteCommand("File.OpenFile", name);
-
+						Plugin.App.DTE.ExecuteCommand("File.OpenFile", name);
 
 					// TODO: Each time here we could save off the window position into the registry and 
 					//       use it when we open the window the next time around.
 				}
+
+				return true;
 			}
 
-			public override bool IsEnabled(DTE2 application)
+			public override bool IsEnabled()
 			{
 				return true;
 			}

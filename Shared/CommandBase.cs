@@ -2,12 +2,41 @@
 using System;
 using EnvDTE;
 using EnvDTE80;
+using Microsoft.VisualStudio.CommandBars;
 
 namespace Aurora
 {
 	public abstract class CommandBase
     {
-        abstract public void OnCommand(DTE2 application, OutputWindowPane pane);
-        abstract public bool IsEnabled(DTE2 application);
+		private readonly Plugin mPlugin;
+		private readonly string mName;
+		private readonly string mTooltip;
+
+		public Plugin Plugin	{ get { return mPlugin; } }
+		public string Name		{ get { return mName; } }
+		public string Tooltip	{ get { return mTooltip; } }
+		virtual public int IconIndex { get { return -1; } }
+
+		public CommandBase(string name, Plugin plugin, string tooltip)
+		{
+			mName = name;
+			mPlugin = plugin;
+			mTooltip = tooltip;
+		}
+
+		virtual public bool RegisterGUI(Command vsCommand, CommandBar vsCommandbar)
+		{
+			// The default command is registered in the toolbar.
+			// pluginCommandbar;
+
+			return false;
+		}
+
+		virtual public void BindToKeyboard(Command vsCommand)
+		{
+		}
+
+		abstract public bool OnCommand();	// returns if the command was dispatched or not.
+        abstract public bool IsEnabled();	// is the command active?
     }
 }

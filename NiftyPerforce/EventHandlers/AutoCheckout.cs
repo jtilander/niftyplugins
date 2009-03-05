@@ -77,7 +77,7 @@ namespace Aurora
 
 			void tryEditFile(string sFileName)
 			{
-				if (0 != (File.GetAttributes(sFileName) & FileAttributes.ReadOnly))
+				if (0 != (System.IO.File.GetAttributes(sFileName) & FileAttributes.ReadOnly))
 					P4Operations.EditFileImmediate(m_outputPane, sFileName);
 			}
 

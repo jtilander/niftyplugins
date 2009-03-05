@@ -14,13 +14,13 @@ namespace Aurora
 			private Stopwatch m_timer;
 			BuildEvents m_buildEvents;
 			
-			public SolutionBuildTimings(DTE2 application)
+			public SolutionBuildTimings(Plugin plugin)
 			{
-				m_pane = Plugin.FindOutputPane(application, "Build");
+				m_pane = Plugin.FindOutputPane(plugin.App, "Build");
 				if (null == m_pane)
 					return;
 
-				m_buildEvents = ((EnvDTE80.Events2)application.Events).BuildEvents;
+				m_buildEvents = ((EnvDTE80.Events2)plugin.App).BuildEvents;
 				m_buildEvents.OnBuildBegin += new _dispBuildEvents_OnBuildBeginEventHandler(OnBuildBegin);
 				m_buildEvents.OnBuildDone += new _dispBuildEvents_OnBuildDoneEventHandler(OnBuildDone);
 
