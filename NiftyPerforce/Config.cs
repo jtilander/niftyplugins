@@ -1,4 +1,4 @@
-// Copyright (C) 2006-2008 Jim Tilander. See COPYING for and README for more details.
+// Copyright (C) 2006-2009 Jim Tilander. See COPYING for and README for more details.
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -15,6 +15,7 @@ namespace Aurora
 			private bool mDirty = false;
 			private bool mEnableBindings = false;
 			private bool m_autoCheckout = false;
+			private bool m_autoCheckoutProject = false;
 			private bool m_autoCheckoutOnSave = false;
 			private bool m_autoAdd = true;
 			private bool m_autoDelete = false;
@@ -56,6 +57,13 @@ namespace Aurora
 			{
 				get { return m_autoCheckout; }
 				set { m_autoCheckout = value; mDirty = true; }
+			}
+
+			[Category("Operation"), Description("Automatically check out projects on edit properties")]
+			public bool autoCheckoutProject
+			{
+				get { return m_autoCheckoutProject; }
+				set { m_autoCheckoutProject = value; mDirty = true; }
 			}
 
 			[Category("Operation"), Description("Controls if we automagically check out files from perforce before saving")]
@@ -107,39 +115,6 @@ namespace Aurora
 				set { m_username = value; mDirty = true; }
 			}
 
-			public Config()
-			{
-				/*m_autoCheckout = bool.Parse(RegistrySettingsProvider.GetPropertyValue("autoCheckout", m_autoCheckout.ToString()));
-				m_autoCheckoutOnSave = bool.Parse(RegistrySettingsProvider.GetPropertyValue("autoCheckoutOnSave", m_autoCheckoutOnSave.ToString()));
-				m_autoAdd = bool.Parse(RegistrySettingsProvider.GetPropertyValue("autoAdd", m_autoAdd.ToString()));
-				m_autoDelete = bool.Parse(RegistrySettingsProvider.GetPropertyValue("autoDelete", m_autoDelete.ToString()));
-				m_useSystemConnection = bool.Parse(RegistrySettingsProvider.GetPropertyValue("useSystemConnection", m_useSystemConnection.ToString()));
-				m_port = RegistrySettingsProvider.GetPropertyValue("port", "");
-				m_client = RegistrySettingsProvider.GetPropertyValue("client", "");
-				m_username = RegistrySettingsProvider.GetPropertyValue("username", "");
-				 * */
-			}
-
-			public void ShowDialog()
-			{
-				/*ConfigDialog dlg = new ConfigDialog();
-				dlg.propertyGrid1.SelectedObject = this;
-				dlg.ShowDialog();
-
-				if (dlg.wasCancelled)
-					return;
-
-				RegistrySettingsProvider.SetPropertyValue("autoCheckout", m_autoCheckout.ToString());
-				RegistrySettingsProvider.SetPropertyValue("autoCheckoutOnSave", m_autoCheckoutOnSave.ToString());
-				RegistrySettingsProvider.SetPropertyValue("autoAdd", m_autoAdd.ToString());
-				RegistrySettingsProvider.SetPropertyValue("autoDelete", m_autoDelete.ToString());
-				RegistrySettingsProvider.SetPropertyValue("useSystemConnection", m_useSystemConnection.ToString());
-				RegistrySettingsProvider.SetPropertyValue("port", m_port);
-				RegistrySettingsProvider.SetPropertyValue("client", m_client);
-				RegistrySettingsProvider.SetPropertyValue("username", m_username);
-				 * */
-			}
-
 			public static Config Load(string filename)
 			{
 				Config o;
@@ -152,6 +127,7 @@ namespace Aurora
 					o = new Config();
 				}
 				o.mFileName = filename;
+				Singleton<Config>.Instance = o;
 				return o;
 			}
 
@@ -161,6 +137,7 @@ namespace Aurora
 				{
 					File.SaveXML<Config>(mFileName, this);
 					mDirty = false;
+					Singleton<Config>.Instance = this;
 				}
 			}
 		}

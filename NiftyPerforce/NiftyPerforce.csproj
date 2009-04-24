@@ -53,7 +53,6 @@
     <Compile Include="EventHandlers\AutoAddDelete.cs" />
     <Compile Include="EventHandlers\AutoCheckout.cs" />
     <Compile Include="Commands\NiftyConfigure.cs" />
-    <Compile Include="Commands\ToolbarCommand.cs" />
     <Compile Include="Commands\P4EditItem.cs" />
     <Compile Include="Commands\P4EditModified.cs" />
     <Compile Include="Commands\P4EditSolution.cs" />
@@ -68,6 +67,8 @@
     <Compile Include="Connect.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="EventHandlers\FindEvents.cs" />
+    <Compile Include="EventHandlers\PreCommandEvent.cs" />
     <Compile Include="P4Operations.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

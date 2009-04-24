@@ -1,4 +1,4 @@
-// Copyright (C) 2006-2008 Jim Tilander. See COPYING for and README for more details.
+// Copyright (C) 2006-2009 Jim Tilander. See COPYING for and README for more details.
 using System;
 using EnvDTE;
 using EnvDTE80;
@@ -27,8 +27,6 @@ namespace Aurora
 		public virtual bool RegisterGUI(Command vsCommand, CommandBar vsCommandbar, bool toolBarOnly)
 		{
 			// The default command is registered in the toolbar.
-			// pluginCommandbar;
-
 			if(IconIndex >= 0 && toolBarOnly)
 				vsCommand.AddControl(vsCommandbar, vsCommandbar.Controls.Count + 1);
 

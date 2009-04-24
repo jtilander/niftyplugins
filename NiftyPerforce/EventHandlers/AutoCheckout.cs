@@ -1,4 +1,4 @@
-// Copyright (C) 2006-2008 Jim Tilander. See COPYING for and README for more details.
+// Copyright (C) 2006-2009 Jim Tilander. See COPYING for and README for more details.
 using System;
 using System.IO;
 using Extensibility;
@@ -19,13 +19,17 @@ namespace Aurora
 			// File.SaveAll
 			const string saveAllGuid = "{5EFC7975-14BC-11CF-9B2B-00AA00573819}";
 			const int saveAllID = 0xe0;
+
 			private OutputWindowPane m_outputPane;
 			private DTE2 m_application;
 			private EnvDTE.CommandEvents m_saveSelected;
 			private EnvDTE.CommandEvents m_saveAll;
+
 			private EnvDTE80.TextDocumentKeyPressEvents m_events;
 			private EnvDTE.TextEditorEvents m_editorEvents;
 			private Plugin m_plugin;
+
+			private CommandEvents mEditSelectedProjectsEvent;
 
 			public AutoCheckout(DTE2 application, OutputWindowPane outputPane, Plugin plugin)
 			{
@@ -44,6 +48,15 @@ namespace Aurora
 
 				m_editorEvents = ((EnvDTE80.Events2)m_application.Events).get_TextEditorEvents(null);
 				m_editorEvents.LineChanged += new _dispTextEditorEvents_LineChangedEventHandler(OnLineChanged);
+
+
+				if(Singleton<Config>.Instance.autoCheckoutProject)
+				{
+					mEditSelectedProjectsEvent = m_plugin.FindCommandEvents("ClassViewContextMenus.ClassViewProject.Properties");
+
+					if(null != mEditSelectedProjectsEvent)
+						mEditSelectedProjectsEvent.BeforeExecute += OnEditSelectedProjectProperties;
+				}
 			}
 
 			void OnSaveSelected(string Guid, int ID, object CustomIn, object CustomOut, ref bool CancelDefault)
@@ -75,6 +88,24 @@ namespace Aurora
 
 				foreach (Project p in m_application.Solution.Projects)
 					tryEditProjectRecursive(p);
+			}
+
+			void OnBuildSolution(string Guid, int ID, object CustomIn, object CustomOut, ref bool CancelDefault)
+			{
+				foreach(Document doc in m_application.Documents)
+				{
+					if(!doc.Saved && doc.ReadOnly)
+						P4Operations.EditFile(m_plugin.OutputPane, doc.FullName);
+				}
+			}
+
+			void OnEditSelectedProjectProperties(string Guid, int ID, object CustomIn, object CustomOut, ref bool CancelDefault)
+			{
+				foreach(Project project in (Array)m_application.ActiveSolutionProjects)
+				{
+					string path = project.FullName;
+					tryEditFile(path);
+				}
 			}
 
 			void tryEditFile(string sFileName)
