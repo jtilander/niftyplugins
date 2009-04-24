@@ -102,7 +102,7 @@ namespace Aurora
 			return GetCommand(commandName) != null;
 		}
 
-		private bool HasCommand(CommandBar commandBar, string caption)
+		public static bool HasCommand(CommandBar commandBar, string caption)
 		{
 			foreach(CommandBarControl control in commandBar.Controls)
 			{

@@ -20,7 +20,7 @@ namespace Aurora
 				if (null == m_pane)
 					return;
 
-				m_buildEvents = ((EnvDTE80.Events2)plugin.App).BuildEvents;
+				m_buildEvents = ((EnvDTE80.Events2)plugin.App.Events).BuildEvents;
 				m_buildEvents.OnBuildBegin += new _dispBuildEvents_OnBuildBeginEventHandler(OnBuildBegin);
 				m_buildEvents.OnBuildDone += new _dispBuildEvents_OnBuildDoneEventHandler(OnBuildDone);
 

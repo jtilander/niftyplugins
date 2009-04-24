@@ -4,6 +4,7 @@ using EnvDTE;
 using EnvDTE80;
 using System.Windows.Forms;
 using System.IO;
+using Microsoft.VisualStudio.CommandBars;
 
 namespace Aurora
 {
@@ -11,8 +12,8 @@ namespace Aurora
 	{
         class P4RenameItem : ItemCommandBase
 		{
-            public P4RenameItem()
-                :   base(true, false)
+			public P4RenameItem(Plugin plugin)
+                :  base("RenameItem", plugin, "Renames an item", true, false)
             {
             }
 

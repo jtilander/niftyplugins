@@ -8,6 +8,7 @@ namespace Aurora
 {
 	namespace NiftyPerforce
 	{
+		/*
         class ToolbarCommand<ItemCommandT> : CommandBase
             where ItemCommandT : ItemCommandBase, new()
         {
@@ -39,5 +40,6 @@ namespace Aurora
                     application.ActiveDocument != null);
             }
         }
+		 * */
 	}
 }

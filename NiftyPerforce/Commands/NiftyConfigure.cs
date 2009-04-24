@@ -9,12 +9,36 @@ namespace Aurora
 	{
         class NiftyConfigure : CommandBase
 		{
-			public override void OnCommand(DTE2 application, OutputWindowPane pane)
+			public NiftyConfigure(Plugin plugin)
+				: base("Configure", plugin, "Opens the configuration dialog")
 			{
-				Singleton<Config>.Instance.ShowDialog();
 			}
 
-            public override bool IsEnabled(DTE2 application)
+			override public int IconIndex { get { return 2; } }
+
+			public override bool OnCommand()
+			{
+				Log.Debug("Launching the configure tool");
+
+				Config options = (Config)Plugin.Options;
+				options.Save();
+
+				ConfigDialog dlg = new ConfigDialog();
+				dlg.propertyGrid1.SelectedObject = options;
+
+				if(dlg.ShowDialog() == System.Windows.Forms.DialogResult.Cancel)
+				{
+					Plugin.Options = Config.Load(options.mFileName);
+				}
+				else
+				{
+					options.Save();
+				}
+				
+				return true;
+			}
+
+            public override bool IsEnabled()
             {
                 return true;
             }

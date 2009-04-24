@@ -25,9 +25,11 @@ namespace Aurora
 			private EnvDTE.CommandEvents m_saveAll;
 			private EnvDTE80.TextDocumentKeyPressEvents m_events;
 			private EnvDTE.TextEditorEvents m_editorEvents;
+			private Plugin m_plugin;
 
-			public AutoCheckout(DTE2 application, OutputWindowPane outputPane)
+			public AutoCheckout(DTE2 application, OutputWindowPane outputPane, Plugin plugin)
 			{
+				m_plugin = plugin;
 				m_application = application;
 				m_outputPane = outputPane;
 
@@ -46,7 +48,7 @@ namespace Aurora
 
 			void OnSaveSelected(string Guid, int ID, object CustomIn, object CustomOut, ref bool CancelDefault)
 			{
-				if (!Singleton<Config>.Instance.autoCheckoutOnSave)
+				if(!((Config)m_plugin.Options).autoCheckoutOnSave)
 					return;
 
 				foreach (SelectedItem sel in m_application.SelectedItems)
@@ -62,7 +64,7 @@ namespace Aurora
 
 			void OnSaveAll(string Guid, int ID, object CustomIn, object CustomOut, ref bool CancelDefault)
 			{
-				if (!Singleton<Config>.Instance.autoCheckoutOnSave)
+				if(!((Config)m_plugin.Options).autoCheckoutOnSave)
 					return;
 
 				if (!m_application.Solution.Saved)
@@ -101,7 +103,7 @@ namespace Aurora
 
 			void OnBeforeKeyPress(string Keypress, EnvDTE.TextSelection Selection, bool InStatementCompletion, ref bool CancelKeypress)
 			{
-				if (Singleton<Config>.Instance.autoCheckout && m_application.ActiveDocument.ReadOnly)
+				if(((Config)m_plugin.Options).autoCheckout && m_application.ActiveDocument.ReadOnly)
 					P4Operations.EditFile(m_outputPane, m_application.ActiveDocument.FullName);
 			}
 
@@ -114,7 +116,7 @@ namespace Aurora
 					(Hint & (int)vsTextChanged.vsTextChangedNewline) == 0 &&
 					(Hint != 0))
 					return;
-				if (Singleton<Config>.Instance.autoCheckout && m_application.ActiveDocument.ReadOnly)
+				if(((Config)m_plugin.Options).autoCheckout && m_application.ActiveDocument.ReadOnly)
 					P4Operations.EditFile(m_outputPane, m_application.ActiveDocument.FullName);
 			}
 

@@ -9,16 +9,25 @@ namespace Aurora
 	{
 		class P4EditModified : CommandBase
 		{
-			public override void OnCommand(DTE2 application, OutputWindowPane pane)
+			public P4EditModified(Plugin plugin)
+				: base("EditModified", plugin, "Opens all the currently modifed files for edit")
 			{
-				foreach (Document doc in application.Documents)
-				{
-					if (!doc.Saved && doc.ReadOnly)
-					    P4Operations.EditFile(pane, doc.FullName);
-				}
 			}
 
-            public override bool IsEnabled(DTE2 application)
+			//override public int IconIndex { get { return 5; } }
+
+			public override bool OnCommand()
+			{
+				foreach (Document doc in Plugin.App.Documents)
+				{
+					if (!doc.Saved && doc.ReadOnly)
+					    P4Operations.EditFile(Plugin.OutputPane, doc.FullName);
+				}
+
+				return true;
+			}
+
+            public override bool IsEnabled()
             {
                 return true;
             }

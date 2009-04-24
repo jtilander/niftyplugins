@@ -15,9 +15,11 @@ namespace Aurora
 			private DTE2 m_application;
 			private ProjectItemsEvents m_projectEvents;
 			private SolutionEvents m_solutionEvents;
+			private Plugin m_plugin;
 
-			public AutoAddDelete(DTE2 application, OutputWindowPane outputPane)
+			public AutoAddDelete(DTE2 application, OutputWindowPane outputPane, Plugin plugin)
 			{
+				m_plugin = plugin;
 				m_application = application;
 				m_outputPane = outputPane;
 
@@ -32,7 +34,7 @@ namespace Aurora
 
 			public void OnItemAdded(ProjectItem item)
 			{
-				if (!Singleton<Config>.Instance.autoAdd)
+				if(!((Config)m_plugin.Options).autoAdd)
 					return;
 				P4Operations.EditFile(m_outputPane, item.ContainingProject.FullName);
 
@@ -45,7 +47,7 @@ namespace Aurora
 
 			public void OnItemRemoved(ProjectItem item)
 			{
-				if (!Singleton<Config>.Instance.autoDelete)
+				if(!((Config)m_plugin.Options).autoDelete)
 					return;
 					
 				P4Operations.EditFile(m_outputPane, item.ContainingProject.FullName);
@@ -59,7 +61,7 @@ namespace Aurora
 
 			private void OnProjectAdded(Project project)
 			{
-				if (!Singleton<Config>.Instance.autoAdd)
+				if(!((Config)m_plugin.Options).autoAdd)
 					return;
 				P4Operations.EditFile(m_outputPane, m_application.Solution.FullName);
 				P4Operations.AddFile(m_outputPane, project.FullName);
@@ -70,7 +72,7 @@ namespace Aurora
 
 			private void OnProjectRemoved(Project project)
 			{
-				if (!Singleton<Config>.Instance.autoDelete)
+				if(!((Config)m_plugin.Options).autoDelete)
 					return;
 					
 				P4Operations.EditFile(m_outputPane, m_application.Solution.FullName);

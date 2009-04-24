@@ -15,7 +15,7 @@ namespace Aurora
 		public Plugin Plugin	{ get { return mPlugin; } }
 		public string Name		{ get { return mName; } }
 		public string Tooltip	{ get { return mTooltip; } }
-		virtual public int IconIndex { get { return -1; } }
+		public virtual int IconIndex { get { return -1; } }
 
 		public CommandBase(string name, Plugin plugin, string tooltip)
 		{
@@ -24,19 +24,36 @@ namespace Aurora
 			mTooltip = tooltip;
 		}
 
-		virtual public bool RegisterGUI(Command vsCommand, CommandBar vsCommandbar)
+		public virtual bool RegisterGUI(Command vsCommand, CommandBar vsCommandbar, bool toolBarOnly)
 		{
 			// The default command is registered in the toolbar.
 			// pluginCommandbar;
 
-			return false;
+			if(IconIndex >= 0 && toolBarOnly)
+				vsCommand.AddControl(vsCommandbar, vsCommandbar.Controls.Count + 1);
+
+			return true;
 		}
 
-		virtual public void BindToKeyboard(Command vsCommand)
+		public virtual void BindToKeyboard(Command vsCommand)
 		{
 		}
 
-		abstract public bool OnCommand();	// returns if the command was dispatched or not.
-        abstract public bool IsEnabled();	// is the command active?
+		public abstract bool OnCommand();	// returns if the command was dispatched or not.
+		public abstract bool IsEnabled();	// is the command active?
+
+		protected void _RegisterGUIBar(Command vsCommand, CommandBar vsCommandbar)
+		{
+			CommandBarControl control = (CommandBarControl)vsCommand.AddControl(vsCommandbar, vsCommandbar.Controls.Count + 1);
+		}
+
+		protected void _RegisterGuiContext(Command vsCommand, string name)
+		{
+			CommandBar b = ((CommandBars)Plugin.App.CommandBars)[name];
+			if(null != b)
+			{
+				CommandBarControl control = (CommandBarControl)vsCommand.AddControl(b, b.Controls.Count + 1);
+			}
+		}
     }
 }

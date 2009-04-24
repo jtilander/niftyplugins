@@ -2,6 +2,7 @@
 using System;
 using EnvDTE;
 using EnvDTE80;
+using Microsoft.VisualStudio.CommandBars;
 
 namespace Aurora
 {
@@ -9,15 +10,35 @@ namespace Aurora
 	{
 		class P4EditSolution : CommandBase
 		{
-			public override void OnCommand(DTE2 application, OutputWindowPane pane)
+			public P4EditSolution(Plugin plugin)
+				: base("EditSolution", plugin, "Opens the solution for edit")
 			{
-                if (application.Solution != null && application.Solution.FullName != string.Empty)
-                    P4Operations.EditFile(pane, application.Solution.FullName);
 			}
 
-            public override bool IsEnabled(DTE2 application)
+			public override int IconIndex { get { return 1; } }
+
+			public override bool RegisterGUI(Command vsCommand, CommandBar vsCommandbar, bool toolBarOnly)
+			{
+				if(!toolBarOnly)
+				{
+					_RegisterGuiContext(vsCommand, "Solution");
+				}
+				return true;
+			}
+
+			public override bool OnCommand()
+			{
+				if(Plugin.App.Solution != null && Plugin.App.Solution.FullName != string.Empty)
+				{
+					P4Operations.EditFile(Plugin.OutputPane, Plugin.App.Solution.FullName);
+					return true;
+				}
+				return false;
+			}
+
+            public override bool IsEnabled()
             {
-                return application.Solution != null && application.Solution.FullName != string.Empty;
+				return Plugin.App.Solution != null && Plugin.App.Solution.FullName != string.Empty;
             }
 		}
 	}

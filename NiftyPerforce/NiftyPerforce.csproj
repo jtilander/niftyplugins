@@ -69,6 +69,11 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="P4Operations.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="RegistrySettingsProvider.cs" />
     <Compile Include="ToolbarIcons.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -83,6 +88,11 @@
     <EmbeddedResource Include="ConfigDialog.resx">
       <SubType>Designer</SubType>
       <DependentUpon>ConfigDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="ToolbarIcons.resx">
       <SubType>Designer</SubType>
@@ -126,6 +136,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="NiftyPerforce.AddIn" />
+    <Content Include="Resources\TimeLapseView.bmp" />
     <None Include="Resources\RevisionHistory.bmp" />
     <None Include="Resources\EditAll.bmp" />
     <None Include="Resources\Revert.bmp" />

@@ -24,7 +24,12 @@ namespace Aurora
 
 		public void RegisterCommand(string name, bool doBindings, CommandBase commandHandler)
 		{
-			Command command = RegisterCommandPrivate(name, commandHandler);
+			RegisterCommand(name, doBindings, commandHandler, true);
+		}
+
+		public void RegisterCommand(string name, bool doBindings, CommandBase commandHandler, bool onlyToolbar)
+		{
+			Command command = RegisterCommandPrivate(name, commandHandler, onlyToolbar);
 
 			if(doBindings)
 			{
@@ -40,8 +45,8 @@ namespace Aurora
 
 			mCommands.Add(name, commandHandler);
 		}
-
-		private Command RegisterCommandPrivate(string name, CommandBase commandHandler)
+		
+		private Command RegisterCommandPrivate(string name, CommandBase commandHandler, bool toolbarOnly)
 		{
 			Command vscommand = null;
 
@@ -65,15 +70,20 @@ namespace Aurora
 			}
 			else
 			{
-				vscommand = mPlugin.Commands.AddNamedCommand2(mPlugin.AddIn, name, commandHandler.Name, commandHandler.Tooltip, false, commandHandler.IconIndex, ref contextGuids, commandStatus, (int)vsCommandStyle.vsCommandStylePict, vsCommandControlType.vsCommandControlTypeButton);
+				int style = (int)vsCommandStyle.vsCommandStylePictAndText;
+				if(toolbarOnly)
+				{
+					style = (int)vsCommandStyle.vsCommandStylePict;
+				}
+			
+				vscommand = mPlugin.Commands.AddNamedCommand2(mPlugin.AddIn, name, commandHandler.Name, commandHandler.Tooltip, false, commandHandler.IconIndex, ref contextGuids, commandStatus, style, vsCommandControlType.vsCommandControlTypeButton);
 			}
 
 			// Register the graphics controls for this command as well.
 			// First let the command itself have a stab at register whatever it needs.
 			// Then by default we always register ourselves in the main toolbar of the application.
-			if(!commandHandler.RegisterGUI(vscommand, mCommandBar))
+			if(!commandHandler.RegisterGUI(vscommand, mCommandBar, toolbarOnly))
 			{
-				vscommand.AddControl(mCommandBar, mCommandBar.Controls.Count + 1);
 			}
 
 			return vscommand;
