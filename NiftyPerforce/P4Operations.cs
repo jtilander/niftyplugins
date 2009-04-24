@@ -45,13 +45,18 @@ namespace Aurora
 
             public static bool DiffFile(OutputWindowPane output, string filename)
             {
-				return ScheduleRunCommand(output, "p4win.exe", GetUserInfoString() + "-D \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
+				return ScheduleRunCommand(output, "p4win.exe", GetUserInfoString() + " -D \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
             }
 
             public static bool RevisionHistoryFile(OutputWindowPane output, string filename)
             {
 				return ScheduleRunCommand(output, "p4win.exe", GetUserInfoString() + " \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
             }
+
+			public static bool P4WinShowFile(OutputWindowPane output, string filename)
+			{
+				return ScheduleRunCommand(output, "p4win.exe", GetUserInfoString() + " -s \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
+			}
 
 			private static string GetUserInfoString()
 			{

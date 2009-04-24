@@ -49,6 +49,7 @@
     <Compile Include="Commands\ItemCommandBase.cs" />
     <Compile Include="Commands\P4RevertItem.cs" />
     <Compile Include="Commands\P4RevisionHistorySolution.cs" />
+    <Compile Include="Commands\P4ShowItem.cs" />
     <Compile Include="Commands\P4TimeLapseItem.cs" />
     <Compile Include="EventHandlers\AutoAddDelete.cs" />
     <Compile Include="EventHandlers\AutoCheckout.cs" />
@@ -137,6 +138,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="NiftyPerforce.AddIn" />
+    <Content Include="Resources\Show.bmp" />
     <Content Include="Resources\TimeLapseView.bmp" />
     <None Include="Resources\RevisionHistory.bmp" />
     <None Include="Resources\EditAll.bmp" />

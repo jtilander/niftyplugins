@@ -81,6 +81,8 @@ namespace Aurora
 				m_commandRegistry.RegisterCommand("NiftyRevert", doBindings, new P4RevertItem(m_plugin), true);
 				m_commandRegistry.RegisterCommand("NiftyRevertItem", doBindings, new P4RevertItem(m_plugin), false);
 
+				m_commandRegistry.RegisterCommand("NiftyShow", doBindings, new P4ShowItem(m_plugin), true);
+				m_commandRegistry.RegisterCommand("NiftyShowItem", doBindings, new P4ShowItem(m_plugin), false);
 
 				m_addDelete = new AutoAddDelete( (DTE2)application, m_plugin.OutputPane, m_plugin );
 				m_autoCheckout = new AutoCheckout((DTE2)application, m_plugin.OutputPane, m_plugin);
@@ -88,7 +90,6 @@ namespace Aurora
 #if DEBUG
 				//m_findEvents = new FindEvents(m_plugin);
 #endif
-
 
 				m_preCommandEvents = new PreCommandEvent(m_plugin);
 				//m_preCommandEvents.RegisterHandler("Build.SolutionConfigurations", new P4EditModified(m_plugin));
