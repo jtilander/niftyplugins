@@ -25,12 +25,14 @@ namespace Aurora
 
 				if(((Config)m_plugin.Options).autoAdd)
 				{
+					Log.Info("Adding handlers for automatically add files to perforce as you add them to the project");
 					m_projectEvents.ItemAdded += new _dispProjectItemsEvents_ItemAddedEventHandler(OnItemAdded);
 					m_solutionEvents.ProjectAdded += new _dispSolutionEvents_ProjectAddedEventHandler(OnProjectAdded);
 				}
 
 				if(((Config)m_plugin.Options).autoDelete)
 				{
+					Log.Info("Adding handlers for automatically deleting files from perforce as you remove them from the project");
 					m_projectEvents.ItemRemoved += new _dispProjectItemsEvents_ItemRemovedEventHandler(OnItemRemoved);
 					m_solutionEvents.ProjectRemoved += new _dispSolutionEvents_ProjectRemovedEventHandler(OnProjectRemoved);
 				}

@@ -18,6 +18,7 @@ namespace Aurora
 				if( !Singleton<Config>.Instance.autoCheckoutProject )
 					return;
 
+				Log.Info("Adding handlers for automatically checking out .vcproj files when you do changes to the project");
 				RegisterHandler("ClassViewContextMenus.ClassViewProject.Properties", OnCheckoutSelectedProjects);
 				RegisterHandler("ClassViewContextMenus.ClassViewMultiselectProjectreferencesItems.Properties", OnCheckoutSelectedProjects);
 				RegisterHandler("Project.Properties", OnCheckoutSelectedProjects);

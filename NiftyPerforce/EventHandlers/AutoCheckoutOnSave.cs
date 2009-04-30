@@ -18,6 +18,7 @@ namespace Aurora
 				if(!Singleton<Config>.Instance.autoCheckoutOnSave)
 					return;
 
+				Log.Info("Adding handlers for automatically checking out dirty files when you save");
 				RegisterHandler("File.SaveSelectedItems", OnSaveSelected);
 				RegisterHandler("File.SaveAll", OnSaveAll);
 			}

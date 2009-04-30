@@ -21,6 +21,7 @@ namespace Aurora
 				if(!Singleton<Config>.Instance.autoCheckoutOnEdit)
 					return;
 
+				Log.Info("Adding handlers for automatically checking out text files as you edit them");
 				mTextDocEvents = ((EnvDTE80.Events2)plugin.App.Events).get_TextDocumentKeyPressEvents(null);
 				mTextDocEvents.BeforeKeyPress += new _dispTextDocumentKeyPressEvents_BeforeKeyPressEventHandler(OnBeforeKeyPress);
 

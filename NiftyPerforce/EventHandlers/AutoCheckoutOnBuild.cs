@@ -18,6 +18,7 @@ namespace Aurora
 				if(!Singleton<Config>.Instance.autoCheckoutOnBuild)
 					return;
 
+				Log.Info("Adding handlers for automatically checking out dirty files when you hit build");
 				RegisterHandler("Build.BuildSolution", OnCheckoutModifiedSource);
 				RegisterHandler("Build.Compile", OnCheckoutModifiedSource);
 				RegisterHandler("ClassViewContextMenus.ClassViewProject.Build", OnCheckoutModifiedSource);
