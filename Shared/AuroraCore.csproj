@@ -42,7 +42,7 @@
     <Compile Include="CommandBase.cs" />
     <Compile Include="CommandRegistry.cs" />
     <Compile Include="DebugLogHandler.cs" />
-    <Compile Include="EventRegistry.cs" />
+    <Compile Include="Feature.cs" />
     <Compile Include="File.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="Plugin.cs" />

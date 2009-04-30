@@ -16,6 +16,7 @@ namespace Aurora
 
 			public override bool OnCommand()
 			{
+				Log.Info("Got build solution command, now checking {0} documents for modification", Plugin.App.Documents.Count);
 				foreach (Document doc in Plugin.App.Documents)
 				{
 					if (!doc.Saved && doc.ReadOnly)

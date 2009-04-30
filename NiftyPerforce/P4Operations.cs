@@ -15,46 +15,68 @@ namespace Aurora
 		{
 			public static bool IntegrateFile(OutputWindowPane output, string filename, string oldName)
 			{
-                return ScheduleRunCommand(output, "p4.exe", GetUserInfoString() + "integrate \"" + oldName + "\" \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
+				if(filename.Length == 0)
+					return false;
+				return ScheduleRunCommand(output, "p4.exe", GetUserInfoString() + "integrate \"" + oldName + "\" \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
 			}
 
 			public static bool DeleteFile(OutputWindowPane output, string filename)
 			{
+				if(filename.Length == 0)
+					return false;
 				return ScheduleRunCommand(output, "p4.exe", GetUserInfoString() + "delete \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
 			}
 
 			public static bool AddFile(OutputWindowPane output, string filename)
 			{
+				if(filename.Length == 0)
+					return false;
 				return ScheduleRunCommand(output, "p4.exe", GetUserInfoString() + "add \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
 			}
 
 			public static bool EditFile(OutputWindowPane output, string filename)
 			{
+				if(filename.Length == 0)
+					return false;
+				if(0 == (System.IO.File.GetAttributes(filename) & FileAttributes.ReadOnly))
+					return false;
 				return ScheduleRunCommand(output, "p4.exe", GetUserInfoString() + "edit \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
 			}
 
 			public static bool EditFileImmediate(OutputWindowPane output, string filename)
 			{
+				if(filename.Length == 0)
+					return false;
+				if(0 == (System.IO.File.GetAttributes(filename) & FileAttributes.ReadOnly))
+					return false;
 				return RunCommand(output, "p4.exe", GetUserInfoString() + "edit \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename), m_commandCount++);
 			}
 
             public static bool RevertFile(OutputWindowPane output, string filename)
             {
+				if(filename.Length == 0)
+					return false;
 				return ScheduleRunCommand(output, "p4.exe", GetUserInfoString() + "revert \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
             }
 
             public static bool DiffFile(OutputWindowPane output, string filename)
             {
+				if(filename.Length == 0)
+					return false;
 				return ScheduleRunCommand(output, "p4win.exe", GetUserInfoString() + " -D \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
             }
 
             public static bool RevisionHistoryFile(OutputWindowPane output, string filename)
             {
+				if(filename.Length == 0)
+					return false;
 				return ScheduleRunCommand(output, "p4win.exe", GetUserInfoString() + " \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
             }
 
 			public static bool P4WinShowFile(OutputWindowPane output, string filename)
 			{
+				if(filename.Length == 0)
+					return false;
 				return ScheduleRunCommand(output, "p4win.exe", GetUserInfoString() + " -s \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
 			}
 

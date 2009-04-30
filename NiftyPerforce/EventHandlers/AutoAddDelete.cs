@@ -9,62 +9,59 @@ namespace Aurora
 	namespace NiftyPerforce
 	{
 		// Handles registration and events for add/delete files and projects.
-		class AutoAddDelete
+		class AutoAddDelete : Feature
 		{
-			private OutputWindowPane m_outputPane;
-			private DTE2 m_application;
 			private ProjectItemsEvents m_projectEvents;
 			private SolutionEvents m_solutionEvents;
 			private Plugin m_plugin;
 
-			public AutoAddDelete(DTE2 application, OutputWindowPane outputPane, Plugin plugin)
+			public AutoAddDelete(Plugin plugin)
+				: base("AutoAddDelete", "Automatically adds and deletes files matching project add/delete")
 			{
 				m_plugin = plugin;
-				m_application = application;
-				m_outputPane = outputPane;
 
-				m_projectEvents = ((EnvDTE80.Events2)m_application.Events).ProjectItemsEvents;
-				m_solutionEvents = ((EnvDTE80.Events2)m_application.Events).SolutionEvents;
+				m_projectEvents = ((EnvDTE80.Events2)m_plugin.App.Events).ProjectItemsEvents;
+				m_solutionEvents = ((EnvDTE80.Events2)m_plugin.App.Events).SolutionEvents;
 
-				m_projectEvents.ItemAdded += new _dispProjectItemsEvents_ItemAddedEventHandler(OnItemAdded);
-				m_projectEvents.ItemRemoved += new _dispProjectItemsEvents_ItemRemovedEventHandler(OnItemRemoved);
-				m_solutionEvents.ProjectAdded += new _dispSolutionEvents_ProjectAddedEventHandler(OnProjectAdded);
-				m_solutionEvents.ProjectRemoved += new _dispSolutionEvents_ProjectRemovedEventHandler(OnProjectRemoved);
+				if(((Config)m_plugin.Options).autoAdd)
+				{
+					m_projectEvents.ItemAdded += new _dispProjectItemsEvents_ItemAddedEventHandler(OnItemAdded);
+					m_solutionEvents.ProjectAdded += new _dispSolutionEvents_ProjectAddedEventHandler(OnProjectAdded);
+				}
+
+				if(((Config)m_plugin.Options).autoDelete)
+				{
+					m_projectEvents.ItemRemoved += new _dispProjectItemsEvents_ItemRemovedEventHandler(OnItemRemoved);
+					m_solutionEvents.ProjectRemoved += new _dispSolutionEvents_ProjectRemovedEventHandler(OnProjectRemoved);
+				}
 			}
 
 			public void OnItemAdded(ProjectItem item)
 			{
-				if(!((Config)m_plugin.Options).autoAdd)
-					return;
-				P4Operations.EditFile(m_outputPane, item.ContainingProject.FullName);
+				P4Operations.EditFile(m_plugin.OutputPane, item.ContainingProject.FullName);
 
 				for (int i = 0; i < item.FileCount; i++)
 				{
 					string name = item.get_FileNames((short)i);
-					P4Operations.AddFile(m_outputPane, name);
+					P4Operations.AddFile(m_plugin.OutputPane, name);
 				}
 			}
 
 			public void OnItemRemoved(ProjectItem item)
 			{
-				if(!((Config)m_plugin.Options).autoDelete)
-					return;
-					
-				P4Operations.EditFile(m_outputPane, item.ContainingProject.FullName);
+				P4Operations.EditFile(m_plugin.OutputPane, item.ContainingProject.FullName);
 
 				for (int i = 0; i < item.FileCount; i++)
 				{
 					string name = item.get_FileNames((short)i);
-					P4Operations.DeleteFile(m_outputPane, name);
+					P4Operations.DeleteFile(m_plugin.OutputPane, name);
 				}
 			}
 
 			private void OnProjectAdded(Project project)
 			{
-				if(!((Config)m_plugin.Options).autoAdd)
-					return;
-				P4Operations.EditFile(m_outputPane, m_application.Solution.FullName);
-				P4Operations.AddFile(m_outputPane, project.FullName);
+				P4Operations.EditFile(m_plugin.OutputPane, m_plugin.App.Solution.FullName);
+				P4Operations.AddFile(m_plugin.OutputPane, project.FullName);
 				// TODO: [jt] We should if the operation is not a add new project but rather a add existing project
 				//       step through all the project items and add them to perforce. Or maybe we want the user
 				//       to do this herself?
@@ -72,11 +69,8 @@ namespace Aurora
 
 			private void OnProjectRemoved(Project project)
 			{
-				if(!((Config)m_plugin.Options).autoDelete)
-					return;
-					
-				P4Operations.EditFile(m_outputPane, m_application.Solution.FullName);
-				P4Operations.DeleteFile(m_outputPane, project.FullName);
+				P4Operations.EditFile(m_plugin.OutputPane, m_plugin.App.Solution.FullName);
+				P4Operations.DeleteFile(m_plugin.OutputPane, project.FullName);
 				// TODO: [jt] Do we want to automatically delete the items from perforce here?
 			}
 		}

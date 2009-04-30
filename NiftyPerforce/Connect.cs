@@ -16,12 +16,6 @@ namespace Aurora
 		{
 			private Plugin m_plugin = null;
 			private CommandRegistry m_commandRegistry = null;
-			private AutoAddDelete m_addDelete = null;
-			private AutoCheckout m_autoCheckout = null;
-#if DEBUG
-			private FindEvents m_findEvents = null;
-#endif
-			private PreCommandEvent m_preCommandEvents = null;
 
 			public Connect()
 			{
@@ -84,15 +78,14 @@ namespace Aurora
 				m_commandRegistry.RegisterCommand("NiftyShow", doBindings, new P4ShowItem(m_plugin), true);
 				m_commandRegistry.RegisterCommand("NiftyShowItem", doBindings, new P4ShowItem(m_plugin), false);
 
-				m_addDelete = new AutoAddDelete( (DTE2)application, m_plugin.OutputPane, m_plugin );
-				m_autoCheckout = new AutoCheckout((DTE2)application, m_plugin.OutputPane, m_plugin);
+				m_plugin.AddFeature(new AutoAddDelete(m_plugin ));
+				m_plugin.AddFeature(new AutoCheckoutProject(m_plugin));
+				m_plugin.AddFeature(new AutoCheckoutOnBuild(m_plugin));
+				m_plugin.AddFeature(new AutoCheckoutTextEdit(m_plugin));
 				
 #if DEBUG
-				//m_findEvents = new FindEvents(m_plugin);
+				//m_plugin.AddFeature(new FindEvents(m_plugin));
 #endif
-
-				m_preCommandEvents = new PreCommandEvent(m_plugin);
-				//m_preCommandEvents.RegisterHandler("Build.SolutionConfigurations", new P4EditModified(m_plugin));
 
 				P4Operations.InitThreadHelper();
 

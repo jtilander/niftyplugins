@@ -14,12 +14,14 @@ namespace Aurora
 		{
 			private bool mDirty = false;
 			private bool mEnableBindings = false;
-			private bool m_autoCheckout = false;
+			private bool m_autoCheckoutOnEdit = false;
 			private bool m_autoCheckoutProject = false;
 			private bool m_autoCheckoutOnSave = false;
+			private bool m_autoCheckoutOnBuild = false;
 			private bool m_autoAdd = true;
 			private bool m_autoDelete = false;
 			private bool m_useSystemConnection = true;
+			//private bool m_warnOnEditNewerFile = false;
 			private string m_port = "";
 			private string m_client = "";
 			private string m_username = "";
@@ -52,14 +54,14 @@ namespace Aurora
 				}
 			}
 
-			[Category("Operation"), Description("Controls if we automagically check out files from perforce upon keypress")]
-			public bool autoCheckout
+			[Category("Operation"), Description("Controls if we automagically check out files from perforce upon keypress (loose some performance in editor)")]
+			public bool autoCheckoutOnEdit
 			{
-				get { return m_autoCheckout; }
-				set { m_autoCheckout = value; mDirty = true; }
+				get { return m_autoCheckoutOnEdit; }
+				set { m_autoCheckoutOnEdit = value; mDirty = true; }
 			}
 
-			[Category("Operation"), Description("Automatically check out projects on edit properties")]
+			[Category("Operation"), Description("Automatically check out projects on edit properties (loose some performance in editor)")]
 			public bool autoCheckoutProject
 			{
 				get { return m_autoCheckoutProject; }
@@ -73,6 +75,13 @@ namespace Aurora
 				set { m_autoCheckoutOnSave = value; mDirty = true; }
 			}
 
+			[Category("Operation"), Description("Automagically check out files when building (loose some performance in editor)")]
+			public bool autoCheckoutOnBuild
+			{
+				get { return m_autoCheckoutOnBuild; }
+				set { m_autoCheckoutOnBuild = value; mDirty = true; }
+			}
+
 			[Category("Operation"), Description("Automagically add files to perforce")]
 			public bool autoAdd
 			{
@@ -80,12 +89,19 @@ namespace Aurora
 				set { m_autoAdd = value; mDirty = true; }
 			}
 
-			[Category("Operation"), Description("Automagically delete files from perforce when we're deleting files from visual studio")]
+			[Category("Operation"), Description("Automagically delete files from perforce when we're deleting files from visual studio (fairly dangerous)")]
 			public bool autoDelete
 			{
 				get { return m_autoDelete; }
 				set { m_autoDelete = value; mDirty = true; }
 			}
+
+			/*[Category("Operation"), Description("Throw up a dialog box if you try to edit a file that has a newer version in the repository.")]
+			public bool warnOnEditNewerFile
+			{
+				get { return m_warnOnEditNewerFile; }
+				set { m_warnOnEditNewerFile = value; mDirty = true; }
+			}*/
 
 			[Category("Connection"), Description("Use config from system. Effectivly disables the settings inside this dialog for the client etc and picks up the settings from the registry/p4config environment.")]
 			public bool useSystemEnv

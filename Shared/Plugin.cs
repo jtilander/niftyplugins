@@ -16,6 +16,7 @@ namespace Aurora
 		private OutputWindowPane m_outputPane;
 
 		private Dictionary<string, CommandBase> m_commands = new Dictionary<string, CommandBase>();
+		private Dictionary<string, Feature> m_features = new Dictionary<string, Feature>();
 		private string m_connectPath;
 		private object mOptions;
 
@@ -35,6 +36,11 @@ namespace Aurora
 			m_addIn = addIn;
 			m_outputPane = AquireOutputPane(application, panelName);
 			mOptions = options;
+		}
+
+		public void AddFeature(Feature feature)
+		{
+			m_features.Add(feature.Name, feature);
 		}
 
 		public void RegisterCommand(string commandName, CommandBase command)
