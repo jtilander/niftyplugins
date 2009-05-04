@@ -124,12 +124,6 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_7424DD118E50CD8803642EC6FF6293E1"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_C4FEA7FAB3BB70826237FB0262904AF2"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -143,6 +137,12 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_1CECD4FA1A23475A939BEF71746825E4"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_7424DD118E50CD8803642EC6FF6293E1"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -510,7 +510,7 @@
             "SourcePath" = "8:..\\NiftySolution\\bin\\en-US\\NiftySolution.resources.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
-            "Folder" = "8:_6B9EFF68B0C4406DA879D1AEE46C5A2A"
+            "Folder" = "8:_3A6E1C73B3664A3F90265C91BA9112A1"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -553,6 +553,17 @@
             "Property" = "8:NEWPROPERTY1"
                 "Folders"
                 {
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_3A6E1C73B3664A3F90265C91BA9112A1"
+                    {
+                    "Name" = "8:en-us"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_1AB2283E2FAC498C8DC05D7344480CF9"
+                        "Folders"
+                        {
+                        }
+                    }
                 }
             }
         }

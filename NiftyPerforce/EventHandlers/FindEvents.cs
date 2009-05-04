@@ -34,8 +34,10 @@ namespace Aurora
 					if(command == null)
 						return;
 
-					string commandName = command.Name.Length > 0 ? command.Name : "<unnamed>";
+					if(command.Name.Length == 0)
+						return;
 
+					string commandName = command.Name.Length > 0 ? command.Name : "<unnamed>";
 					Log.Info("Command: {0} (GUID: {1}, ID: {2})", commandName, Guid, ID);
 				}
 				catch
