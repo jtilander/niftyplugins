@@ -12,6 +12,7 @@ namespace Aurora
 	{
 		public class SolutionFiles
 		{
+			private Plugin mPlugin;
 			private DTE2 m_application;
 			private List<SearchEntry> m_solutionFiles  = new List<SearchEntry>();
 			private List<SearchEntry> mHits = new List<SearchEntry>();
@@ -21,9 +22,10 @@ namespace Aurora
 				get { return m_solutionFiles.Count; }
 			}
 
-			public SolutionFiles(DTE2 application)
+			public SolutionFiles(Plugin plugin)
 			{
-				m_application = application;
+				m_application = plugin.App;
+				mPlugin = plugin;
 			}
 
 			public void Refresh()
@@ -36,6 +38,42 @@ namespace Aurora
 					AddProjectItems(project.ProjectItems);
 				}
 				Log.Info("Scanning done ({0} files in {1} projects)", Count, m_application.Solution.Projects.Count);
+
+
+				// Now, let's add the files that were explicitly referenced from the config dialog.
+				Options options = (Options)mPlugin.Options;
+				string[] directories = options.ExtraSearchDirs.Split(';');
+
+				foreach(string dir in directories)
+				{
+					string expanded = Environment.ExpandEnvironmentVariables(dir);
+					Log.Info("Scanning files from {0}", expanded);
+					int count = AddFilesFromDir(expanded);
+					Log.Info("Added {0} files", count);
+				}
+			}
+
+			private int AddFilesFromDir(string dirname)
+			{
+				int count = 0;
+
+				foreach(string file in Directory.GetFiles(dirname))
+				{
+					SearchEntry entry = new SearchEntry();
+					entry.fullPath = file;
+					entry.key = file.ToLower();
+					entry.filename = Path.GetFileName(file);
+					m_solutionFiles.Add(entry);
+
+					count++;
+				}
+				
+				foreach(string dir in Directory.GetDirectories(dirname))
+				{
+					count += AddFilesFromDir(dir);
+				}
+				
+				return count;
 			}
 
 			private void AddProjectItems(ProjectItems projectItems)

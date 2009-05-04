@@ -32,7 +32,7 @@ namespace Aurora
 				if(null == mFiles)
 				{
 					Log.Info("First time fast open is run, scanning solution for files");
-					mFiles = new SolutionFiles(Plugin.App);
+					mFiles = new SolutionFiles(Plugin);
 					mFiles.Refresh();
 				}
 				
@@ -43,7 +43,7 @@ namespace Aurora
 				{
 					string name = mDialog.FileToOpen;
 					if(name.Length > 0 )
-						Plugin.App.DTE.ExecuteCommand("File.OpenFile", name);
+						Plugin.App.DTE.ExecuteCommand("File.OpenFile", string.Format("\"{0}\"", name));
 
 					// TODO: Each time here we could save off the window position into the registry and 
 					//       use it when we open the window the next time around.

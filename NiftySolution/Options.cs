@@ -14,6 +14,8 @@ namespace Aurora
 			private bool mDirty = false;
 			private bool mEnableBindings = false;
 
+			private string mExtraSearchDirectories = "";
+
 			[XmlIgnore]
 			public string mFileName = "";
 
@@ -40,6 +42,13 @@ namespace Aurora
 					mEnableBindings = value;
 					mDirty = true;
 				}
+			}
+
+			[Category("NiftyOpen"), Description("Also add all the files underneath these ; delimited directories")]
+			public string ExtraSearchDirs
+			{
+				get { return mExtraSearchDirectories; }
+				set { mExtraSearchDirectories = value; mDirty = true; }
 			}
 
 			public static Options Load(string filename)
