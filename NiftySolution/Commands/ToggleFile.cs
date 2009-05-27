@@ -22,9 +22,12 @@ namespace Aurora
 				: base("ToggleFile", plugin, "Toggles between the header and the cpp file")
 			{
 				m_knownExtensions = new Dictionary<string, string[]>();
-				m_knownExtensions.Add(".h", new string[] { ".cpp", ".c", ".inl", ".cxx" });
+				m_knownExtensions.Add(".h", new string[] { ".inl", ".cpp", ".c", ".cxx", ".mm", ".m" });
 				m_knownExtensions.Add(".c", new string[] { ".h" });
 				m_knownExtensions.Add(".cpp", new string[] { ".h", ".hxx", ".hpp" });
+				m_knownExtensions.Add(".mm", new string[] { ".h", ".hxx", ".hpp" });
+				m_knownExtensions.Add(".m", new string[] { ".h", ".hxx", ".hpp" });
+				m_knownExtensions.Add(".inl", new string[] { ".cpp", ".c", ".cxx", ".mm", ".m" });
 			}
 
 			override public void BindToKeyboard(Command vsCommand)
