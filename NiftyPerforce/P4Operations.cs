@@ -13,10 +13,16 @@ namespace Aurora
 		// Simplification wrapper around running perforce commands.
 		class P4Operations
 		{
+			private static bool g_p4installed = false;
+			private static bool g_p4wininstalled = false;
+			private static bool g_p4vinstalled = false;
+
 			public static bool IntegrateFile(OutputWindowPane output, string filename, string oldName)
 			{
 				if(filename.Length == 0)
 					return false;
+				if(!g_p4installed)
+					return NotifyUser("could not find p4 exe installed in perforce directory");
 				return ScheduleRunCommand(output, "p4.exe", GetUserInfoString() + "integrate \"" + oldName + "\" \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
 			}
 
@@ -24,6 +30,8 @@ namespace Aurora
 			{
 				if(filename.Length == 0)
 					return false;
+				if(!g_p4installed)
+					return NotifyUser("could not find p4 exe installed in perforce directory");
 				return ScheduleRunCommand(output, "p4.exe", GetUserInfoString() + "delete \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
 			}
 
@@ -31,6 +39,8 @@ namespace Aurora
 			{
 				if(filename.Length == 0)
 					return false;
+				if(!g_p4installed)
+					return NotifyUser("could not find p4 exe installed in perforce directory");
 				return ScheduleRunCommand(output, "p4.exe", GetUserInfoString() + "add \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
 			}
 
@@ -40,6 +50,8 @@ namespace Aurora
 					return false;
 				if(0 == (System.IO.File.GetAttributes(filename) & FileAttributes.ReadOnly))
 					return false;
+				if(!g_p4installed)
+					return NotifyUser("could not find p4 exe installed in perforce directory");
 				return ScheduleRunCommand(output, "p4.exe", GetUserInfoString() + "edit \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
 			}
 
@@ -49,6 +61,8 @@ namespace Aurora
 					return false;
 				if(0 == (System.IO.File.GetAttributes(filename) & FileAttributes.ReadOnly))
 					return false;
+				if(!g_p4installed)
+					return NotifyUser("could not find p4 exe installed in perforce directory");
 				return RunCommand(output, "p4.exe", GetUserInfoString() + "edit \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename), m_commandCount++);
 			}
 
@@ -56,6 +70,8 @@ namespace Aurora
             {
 				if(filename.Length == 0)
 					return false;
+				if(!g_p4installed)
+					return NotifyUser("could not find p4 exe installed in perforce directory");
 				return ScheduleRunCommand(output, "p4.exe", GetUserInfoString() + "revert \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
             }
 
@@ -63,6 +79,8 @@ namespace Aurora
             {
 				if(filename.Length == 0)
 					return false;
+				if(!g_p4wininstalled)
+					return NotifyUser("could not find p4win exe installed in perforce directory");
 				return ScheduleRunCommand(output, "p4win.exe", GetUserInfoString() + " -D \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
             }
 
@@ -70,6 +88,8 @@ namespace Aurora
             {
 				if(filename.Length == 0)
 					return false;
+				if(!g_p4wininstalled)
+					return NotifyUser("could not find p4win exe installed in perforce directory");
 				return ScheduleRunCommand(output, "p4win.exe", GetUserInfoString() + " \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
             }
 
@@ -77,6 +97,8 @@ namespace Aurora
 			{
 				if(filename.Length == 0)
 					return false;
+				if(!g_p4wininstalled)
+					return NotifyUser("could not find p4win exe installed in perforce directory");
 				return ScheduleRunCommand(output, "p4win.exe", GetUserInfoString() + " -s \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
 			}
 
@@ -128,6 +150,8 @@ namespace Aurora
 
 			public static bool TimeLapseView(OutputWindowPane output, string filename)
 			{
+				if(!g_p4vinstalled)
+					return NotifyUser("could not find p4v exe installed in perforce directory");
 				// NOTE: The timelapse view uses the undocumented feature for bringing up the timelapse view. The username, client and port needs to be given in a certain order to work (straight from perforce).
 				string arguments = " -win 0 ";
 				arguments += GetUserInfoStringFull(true, Path.GetDirectoryName(filename));
@@ -280,6 +304,55 @@ namespace Aurora
 				
 				// Should never happen...
 				return fullpath;
+			}
+
+			public static void CheckInstalledFiles()
+			{
+				Log.Debug("Looking for installed files...");
+				g_p4installed = false;
+				g_p4wininstalled = false;
+				g_p4vinstalled = false;
+
+				// First find the perforce directory.
+				Microsoft.Win32.RegistryKey hklm = Microsoft.Win32.Registry.LocalMachine;
+				hklm = hklm.OpenSubKey("SOFTWARE\\Perforce\\Environment12121");
+				if(null == hklm)
+				{
+					Log.Error("Could not find any peforce installation in the registry!!!");
+					return;
+				}
+				Object regValue = hklm.GetValue("P4INSTROOT");
+				if(null == regValue)
+				{
+					Log.Error("Could not find any peforce installation in the registry!!!");
+					return;
+				}
+
+				string installRoot = (string)regValue;
+
+				Log.Info("Found perforce installation at {0}", installRoot);
+
+				if(System.IO.File.Exists(System.IO.Path.Combine(installRoot, "p4.exe")))
+				{
+					g_p4installed = true;
+					Log.Info("Found p4.exe");
+				}
+				if(System.IO.File.Exists(System.IO.Path.Combine(installRoot, "p4win.exe")))
+				{
+					g_p4wininstalled = true;
+					Log.Info("Found p4win.exe");
+				}
+				if(System.IO.File.Exists(System.IO.Path.Combine(installRoot, "p4v.exe")))
+				{
+					g_p4vinstalled = true;
+					Log.Info("Found p4v.exe");
+				}
+			}
+
+			private static bool NotifyUser(string message)
+			{
+				System.Windows.Forms.MessageBox.Show(message, "NiftyPerforce Notice!", System.Windows.Forms.MessageBoxButtons.OK);
+				return false;
 			}
 		}
 	}

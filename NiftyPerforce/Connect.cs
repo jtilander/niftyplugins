@@ -82,10 +82,13 @@ namespace Aurora
 				m_plugin.AddFeature(new AutoCheckoutProject(m_plugin));
 				m_plugin.AddFeature(new AutoCheckoutOnBuild(m_plugin));
 				m_plugin.AddFeature(new AutoCheckoutTextEdit(m_plugin));
+				m_plugin.AddFeature(new AutoCheckoutOnSave(m_plugin));
 				
 #if DEBUG
 				//m_plugin.AddFeature(new FindEvents(m_plugin));
 #endif
+
+				P4Operations.CheckInstalledFiles();
 
 				P4Operations.InitThreadHelper();
 
