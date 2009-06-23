@@ -315,7 +315,7 @@ namespace Aurora
 
 				// First find the perforce directory.
 				Microsoft.Win32.RegistryKey hklm = Microsoft.Win32.Registry.LocalMachine;
-				hklm = hklm.OpenSubKey("SOFTWARE\\Perforce\\Environment12121");
+				hklm = hklm.OpenSubKey("SOFTWARE\\Perforce\\Environment");
 				if(null == hklm)
 				{
 					Log.Error("Could not find any peforce installation in the registry!!!");
@@ -356,5 +356,4 @@ namespace Aurora
 			}
 		}
 	}
-
 }
