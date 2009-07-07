@@ -79,18 +79,22 @@ namespace Aurora
             {
 				if(filename.Length == 0)
 					return false;
-				if(!g_p4wininstalled)
-					return NotifyUser("could not find p4win exe installed in perforce directory");
-				return ScheduleRunCommand(output, "p4win.exe", GetUserInfoString() + " -D \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
+				if(g_p4wininstalled)
+					return ScheduleRunCommand(output, "p4win.exe", GetUserInfoString() + " -D \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
+				if(g_p4installed)
+					return ScheduleRunCommand(output, "p4.exe", GetUserInfoString() + " diff -du \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
+				return NotifyUser("could not find p4win.exe/p4.exe installed in perforce directory");
             }
 
             public static bool RevisionHistoryFile(OutputWindowPane output, string filename)
             {
 				if(filename.Length == 0)
 					return false;
-				if(!g_p4wininstalled)
-					return NotifyUser("could not find p4win exe installed in perforce directory");
-				return ScheduleRunCommand(output, "p4win.exe", GetUserInfoString() + " \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
+				if(g_p4wininstalled)
+					return ScheduleRunCommand(output, "p4win.exe", GetUserInfoString() + " \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
+				if(g_p4vinstalled)
+					return ScheduleRunCommand(output, "p4v.exe", GetUserInfoString() + " -cmd \"history " + filename + "\"", System.IO.Path.GetDirectoryName(filename));
+				return NotifyUser("could not find p4win.exe/p4v.exe installed in perforce directory");
             }
 
 			public static bool P4WinShowFile(OutputWindowPane output, string filename)
