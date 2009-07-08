@@ -550,7 +550,7 @@
             }
             "{994432C3-9487-495D-8656-3E829A8DBDDE}:_E691877D460E426F9157CFEA6798ADAA"
             {
-            "DefaultLocation" = "8:[PersonalFolder]\\Visual Studio 2005\\Addins"
+            "DefaultLocation" = "8:[AppDataFolder]\\Microsoft\\MSEnvShared\\Addins"
             "Name" = "8:AddinFolder"
             "AlwaysCreate" = "11:FALSE"
             "Condition" = "8:"
@@ -586,14 +586,14 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:NiftyPerforce"
-        "ProductCode" = "8:{CB93F930-F1EF-4472-BC25-32357669A08E}"
-        "PackageCode" = "8:{677A1304-8E25-4EF7-9EAE-201F36A25DA9}"
+        "ProductCode" = "8:{89542DA5-925D-4DA8-AACC-B24D0116ABC6}"
+        "PackageCode" = "8:{A4D3C2D0-F26A-492C-A34D-1E96331BF6EE}"
         "UpgradeCode" = "8:{27EC1857-F66F-4B1B-BBE5-1FC273BE51FB}"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:FALSE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.2.1"
+        "ProductVersion" = "8:1.2.2"
         "Manufacturer" = "8:Aurora Development"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:http://code.google.com/p/niftyplugins/"

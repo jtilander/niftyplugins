@@ -545,7 +545,7 @@
             }
             "{994432C3-9487-495D-8656-3E829A8DBDDE}:_968800FC892341F6AF787DFA7B8D0710"
             {
-            "DefaultLocation" = "8:[PersonalFolder]\\Visual Studio 2005\\Addins"
+            "DefaultLocation" = "8:[AppDataFolder]\\Microsoft\\MSEnvShared\\Addins"
             "Name" = "8:AddIns Folder"
             "AlwaysCreate" = "11:FALSE"
             "Condition" = "8:"
@@ -581,14 +581,14 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:NiftySolution"
-        "ProductCode" = "8:{FBB5DCB6-EAED-420C-96D0-6BD22849B94D}"
-        "PackageCode" = "8:{01ADB576-D34D-480B-9E81-863EEB8EDC25}"
+        "ProductCode" = "8:{EC84E866-6A22-4F0A-82C1-EE5BED8913C1}"
+        "PackageCode" = "8:{E261A332-1EA3-46ED-9B99-84DB4A9F11E9}"
         "UpgradeCode" = "8:{F24AA19A-57F0-4280-9EA2-9C246A97640D}"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:FALSE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.2.1"
+        "ProductVersion" = "8:1.2.2"
         "Manufacturer" = "8:Aurora Development"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:http://code.google.com/p/niftyplugins/"
