@@ -57,8 +57,20 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_7203C30BFC9848B6B301731A84EF0D15"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_7424DD118E50CD8803642EC6FF6293E1"
         "OwnerKey" = "8:_1CECD4FA1A23475A939BEF71746825E4"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_776CEEFF2C4048F98CCA86E39A9B35CF"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -207,6 +219,34 @@
     {
         "CustomAction"
         {
+            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_31E2BB9252BC4B1DB20C5EDFB2A2BD37"
+            {
+            "Name" = "8:InstallNiftySolution.vbs"
+            "Condition" = "8:"
+            "Object" = "8:_7203C30BFC9848B6B301731A84EF0D15"
+            "FileType" = "3:4"
+            "InstallAction" = "3:1"
+            "Arguments" = "8:"
+            "EntryPoint" = "8:"
+            "Sequence" = "3:1"
+            "Identifier" = "8:_756FD49B_00E1_4F67_BA7B_9E0F44B843F7"
+            "InstallerClass" = "11:FALSE"
+            "CustomActionData" = "8:"
+            }
+            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_445DDF7BA36447998A9D33E90385AE41"
+            {
+            "Name" = "8:UninstallNiftySolution.vbs"
+            "Condition" = "8:"
+            "Object" = "8:_776CEEFF2C4048F98CCA86E39A9B35CF"
+            "FileType" = "3:4"
+            "InstallAction" = "3:4"
+            "Arguments" = "8:"
+            "EntryPoint" = "8:"
+            "Sequence" = "3:1"
+            "Identifier" = "8:_A38CD717_F27B_4B5A_8794_25FAEA26A8B0"
+            "InstallerClass" = "11:FALSE"
+            "CustomActionData" = "8:"
+            }
         }
         "DefaultFeature"
         {
@@ -321,6 +361,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_7203C30BFC9848B6B301731A84EF0D15"
+            {
+            "SourcePath" = "8:InstallNiftySolution.vbs"
+            "TargetName" = "8:InstallNiftySolution.vbs"
+            "Tag" = "8:"
+            "Folder" = "8:_968800FC892341F6AF787DFA7B8D0710"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_7424DD118E50CD8803642EC6FF6293E1"
             {
             "AssemblyRegister" = "3:1"
@@ -350,6 +410,26 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_776CEEFF2C4048F98CCA86E39A9B35CF"
+            {
+            "SourcePath" = "8:UninstallNiftySolution.vbs"
+            "TargetName" = "8:UninstallNiftySolution.vbs"
+            "Tag" = "8:"
+            "Folder" = "8:_968800FC892341F6AF787DFA7B8D0710"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_7B7DC78AE2E54FEA8B063DC3B5988A53"
@@ -582,7 +662,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:NiftySolution"
         "ProductCode" = "8:{EC84E866-6A22-4F0A-82C1-EE5BED8913C1}"
-        "PackageCode" = "8:{E261A332-1EA3-46ED-9B99-84DB4A9F11E9}"
+        "PackageCode" = "8:{C86DDA7C-50EF-4A3E-AEFF-FAAE45D9A701}"
         "UpgradeCode" = "8:{F24AA19A-57F0-4280-9EA2-9C246A97640D}"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:FALSE"

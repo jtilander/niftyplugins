@@ -57,6 +57,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_1B91E47F8ADD4BD990932C4F5B6D057A"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_2FE5992D458D4843922DEC559C9CB206"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -89,6 +95,12 @@
         {
         "MsmKey" = "8:_8AA0DF9B4C619AB18567F35EC332EF52"
         "OwnerKey" = "8:_E4E75D29BC3802332336E5A557BFC706"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_B921CCE9B34A42ED9A13E2CC28B38235"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -212,6 +224,34 @@
     {
         "CustomAction"
         {
+            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_6C1B518D78404EDB87D7F859D321EECF"
+            {
+            "Name" = "8:InstallNiftyPerforce.vbs"
+            "Condition" = "8:"
+            "Object" = "8:_1B91E47F8ADD4BD990932C4F5B6D057A"
+            "FileType" = "3:4"
+            "InstallAction" = "3:1"
+            "Arguments" = "8:"
+            "EntryPoint" = "8:"
+            "Sequence" = "3:1"
+            "Identifier" = "8:_CD0EAFB3_2ACC_4313_B624_6AC30E81FC3C"
+            "InstallerClass" = "11:FALSE"
+            "CustomActionData" = "8:"
+            }
+            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_D1F46F13AB93478DA9B2F2EDF104C66B"
+            {
+            "Name" = "8:UninstallNiftyPerforce.vbs"
+            "Condition" = "8:"
+            "Object" = "8:_B921CCE9B34A42ED9A13E2CC28B38235"
+            "FileType" = "3:4"
+            "InstallAction" = "3:4"
+            "Arguments" = "8:"
+            "EntryPoint" = "8:"
+            "Sequence" = "3:1"
+            "Identifier" = "8:_FD170665_1517_4921_A541_EF2E30F1F6A2"
+            "InstallerClass" = "11:FALSE"
+            "CustomActionData" = "8:"
+            }
         }
         "DefaultFeature"
         {
@@ -315,6 +355,26 @@
             "Register" = "3:1"
             "Exclude" = "11:TRUE"
             "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_1B91E47F8ADD4BD990932C4F5B6D057A"
+            {
+            "SourcePath" = "8:InstallNiftyPerforce.vbs"
+            "TargetName" = "8:InstallNiftyPerforce.vbs"
+            "Tag" = "8:"
+            "Folder" = "8:_E691877D460E426F9157CFEA6798ADAA"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_2FE5992D458D4843922DEC559C9CB206"
@@ -426,6 +486,26 @@
             "Register" = "3:1"
             "Exclude" = "11:TRUE"
             "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_B921CCE9B34A42ED9A13E2CC28B38235"
+            {
+            "SourcePath" = "8:UninstallNiftyPerforce.vbs"
+            "TargetName" = "8:UninstallNiftyPerforce.vbs"
+            "Tag" = "8:"
+            "Folder" = "8:_E691877D460E426F9157CFEA6798ADAA"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_C0D52B307C844587A87729FF9183DE13"
@@ -587,7 +667,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:NiftyPerforce"
         "ProductCode" = "8:{89542DA5-925D-4DA8-AACC-B24D0116ABC6}"
-        "PackageCode" = "8:{A4D3C2D0-F26A-492C-A34D-1E96331BF6EE}"
+        "PackageCode" = "8:{BF692B61-EF70-40ED-AEB7-5D9487E27FFC}"
         "UpgradeCode" = "8:{27EC1857-F66F-4B1B-BBE5-1FC273BE51FB}"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
