@@ -188,47 +188,55 @@ namespace Aurora
             
             public static bool RunCommand(OutputWindowPane output, string executableName, string command, string workingDirectory, int sequence)
 			{
-				System.Diagnostics.Process process = new System.Diagnostics.Process();
-				process.StartInfo.UseShellExecute = false;
-				process.StartInfo.FileName = executableName;
-				process.StartInfo.RedirectStandardOutput = true;
-				process.StartInfo.RedirectStandardError = true;
-				process.StartInfo.CreateNoWindow = true;
-				process.StartInfo.WorkingDirectory = workingDirectory;
-				process.StartInfo.Arguments = command;
-				if (!process.Start())
+				try
 				{
-					if (null != output)
+					System.Diagnostics.Process process = new System.Diagnostics.Process();
+					process.StartInfo.UseShellExecute = false;
+					process.StartInfo.FileName = executableName;
+					process.StartInfo.RedirectStandardOutput = true;
+					process.StartInfo.RedirectStandardError = true;
+					process.StartInfo.CreateNoWindow = true;
+					process.StartInfo.WorkingDirectory = workingDirectory;
+					process.StartInfo.Arguments = command;
+					if(!process.Start())
 					{
-						output.OutputString(string.Format( "{0}: Failed to start {1}. Is Perforce installed and in the path?\n", sequence, executableName ));
+						if(null != output)
+						{
+							output.OutputString(string.Format("{0}: Failed to start {1}. Is Perforce installed and in the path?\n", sequence, executableName));
+						}
+						return false;
 					}
+					process.WaitForExit();
+
+					string stdOut = process.StandardOutput.ReadToEnd();
+					string stdErr = process.StandardError.ReadToEnd();
+
+					if(null != output)
+					{
+						output.OutputString(sequence.ToString() + ": " + executableName + " " + command + "\n");
+						output.OutputString(stdOut);
+						output.OutputString(stdErr);
+					}
+
+					System.Diagnostics.Debug.WriteLine(command + "\n");
+					System.Diagnostics.Debug.WriteLine(stdOut);
+					System.Diagnostics.Debug.WriteLine(stdErr);
+
+					if(0 != process.ExitCode)
+					{
+						if(null != output)
+						{
+							output.OutputString(sequence.ToString() + ": Process exit code was " + process.ExitCode + ".\n");
+						}
+						return false;
+					}
+					return true;
+				}
+				catch(System.ComponentModel.Win32Exception e)
+				{
+					output.OutputString("Failed to spawn process: " + e.ToString());
 					return false;
 				}
-				process.WaitForExit();
-
-				string stdOut = process.StandardOutput.ReadToEnd();
-				string stdErr = process.StandardError.ReadToEnd();
-
-				if (null != output)
-				{
-					output.OutputString(sequence.ToString() + ": " + executableName + " " + command + "\n");
-					output.OutputString(stdOut);
-					output.OutputString(stdErr);
-				}
-
-				System.Diagnostics.Debug.WriteLine(command + "\n");
-				System.Diagnostics.Debug.WriteLine(stdOut);
-				System.Diagnostics.Debug.WriteLine(stdErr);
-
-				if (0 != process.ExitCode)
-				{
-					if (null != output)
-					{
-                        output.OutputString(sequence.ToString() + ": Process exit code was " + process.ExitCode + ".\n");
-					}
-					return false;
-				}
-				return true;
 			}
 
 			private class Command
