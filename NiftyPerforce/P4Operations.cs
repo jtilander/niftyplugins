@@ -16,6 +16,7 @@ namespace Aurora
 			private static bool g_p4installed = false;
 			private static bool g_p4wininstalled = false;
 			private static bool g_p4vinstalled = false;
+			private static bool g_p4customdiff = false;
 
 			public static bool IntegrateFile(OutputWindowPane output, string filename, string oldName)
 			{
@@ -82,7 +83,18 @@ namespace Aurora
 				if(g_p4wininstalled)
 					return ScheduleRunCommand(output, "p4win.exe", GetUserInfoString() + " -D \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
 				if(g_p4installed)
-					return ScheduleRunCommand(output, "p4.exe", GetUserInfoString() + " diff -du \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
+				{
+					// Let's figure out if the user has some custom diff tool installed. Then we just send whatever we have without any fancy options.
+					if(g_p4customdiff)
+					{
+						return ScheduleRunCommand(output, "p4.exe", GetUserInfoString() + " diff \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
+					}
+					else
+					{
+						// Otherwise let's show a unified diff in the outputpane.
+						return ScheduleRunCommand(output, "p4.exe", GetUserInfoString() + " diff -du \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
+					}
+				}
 				return NotifyUser("could not find p4win.exe/p4.exe installed in perforce directory");
             }
 
@@ -318,30 +330,43 @@ namespace Aurora
 				return fullpath;
 			}
 
+			public static string GetRegistryValue(string key, string value, bool global)
+			{
+				Microsoft.Win32.RegistryKey hklm = Microsoft.Win32.Registry.LocalMachine;
+				if( !global )
+					hklm = Microsoft.Win32.Registry.CurrentUser;
+				hklm = hklm.OpenSubKey(key);
+				if(null == hklm)
+				{
+					Log.Error("Could not find registry key " + key);
+					return null;
+				}
+				Object regValue = hklm.GetValue(value);
+				if(null == regValue)
+				{
+					Log.Error("Could not find registry value " + value + " in " + key);
+					return null;
+				}
+
+				return (string)regValue;
+			}
+
 			public static void CheckInstalledFiles()
 			{
 				Log.Debug("Looking for installed files...");
 				g_p4installed = false;
 				g_p4wininstalled = false;
 				g_p4vinstalled = false;
+				g_p4customdiff = false;
 
-				// First find the perforce directory.
-				Microsoft.Win32.RegistryKey hklm = Microsoft.Win32.Registry.LocalMachine;
-				hklm = hklm.OpenSubKey("SOFTWARE\\Perforce\\Environment");
-				if(null == hklm)
+				string installRoot = GetRegistryValue("SOFTWARE\\Perforce\\Environment", "P4INSTROOT", true); ;
+				
+				// TODO: We might want to check for older versions of perforce here as well...
+				if(null == installRoot)
 				{
 					Log.Error("Could not find any peforce installation in the registry!!!");
 					return;
 				}
-				Object regValue = hklm.GetValue("P4INSTROOT");
-				if(null == regValue)
-				{
-					Log.Error("Could not find any peforce installation in the registry!!!");
-					return;
-				}
-
-				string installRoot = (string)regValue;
-
 				Log.Info("Found perforce installation at {0}", installRoot);
 
 				if(System.IO.File.Exists(System.IO.Path.Combine(installRoot, "p4.exe")))
@@ -358,6 +383,23 @@ namespace Aurora
 				{
 					g_p4vinstalled = true;
 					Log.Info("Found p4v.exe");
+				}
+
+				string p4diff = System.Environment.GetEnvironmentVariable("P4DIFF");
+				if(null != p4diff)
+				{
+					g_p4customdiff = true;
+				}
+
+				p4diff = GetRegistryValue("SOFTWARE\\Perforce\\Environment", "P4DIFF", true);
+				if(null != p4diff && p4diff.Length > 0)
+				{
+					g_p4customdiff = true;
+				}
+				p4diff = GetRegistryValue("SOFTWARE\\Perforce\\Environment", "P4DIFF", false);
+				if(null != p4diff && p4diff.Length > 0)
+				{
+					g_p4customdiff = true;
 				}
 			}
 
