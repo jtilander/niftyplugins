@@ -44,6 +44,7 @@
     <Compile Include="DebugLogHandler.cs" />
     <Compile Include="Feature.cs" />
     <Compile Include="File.cs" />
+    <Compile Include="Help.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Process.cs" />

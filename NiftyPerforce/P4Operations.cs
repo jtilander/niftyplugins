@@ -358,48 +358,69 @@ namespace Aurora
 				g_p4wininstalled = false;
 				g_p4vinstalled = false;
 				g_p4customdiff = false;
-
+				string p4diff = null;
 				string installRoot = GetRegistryValue("SOFTWARE\\Perforce\\Environment", "P4INSTROOT", true); ;
 				
 				// TODO: We might want to check for older versions of perforce here as well...
-				if(null == installRoot)
+				if(null != installRoot)
 				{
-					Log.Error("Could not find any peforce installation in the registry!!!");
-					return;
-				}
-				Log.Info("Found perforce installation at {0}", installRoot);
+					Log.Info("Found perforce installation at {0}", installRoot);
 
-				if(System.IO.File.Exists(System.IO.Path.Combine(installRoot, "p4.exe")))
-				{
-					g_p4installed = true;
-					Log.Info("Found p4.exe");
+					if(System.IO.File.Exists(System.IO.Path.Combine(installRoot, "p4.exe")))
+					{
+						g_p4installed = true;
+						Log.Info("Found p4.exe");
+					}
+					if(System.IO.File.Exists(System.IO.Path.Combine(installRoot, "p4win.exe")))
+					{
+						g_p4wininstalled = true;
+						Log.Info("Found p4win.exe");
+					}
+					if(System.IO.File.Exists(System.IO.Path.Combine(installRoot, "p4v.exe")))
+					{
+						g_p4vinstalled = true;
+						Log.Info("Found p4v.exe");
+					}
+					
+					p4diff = GetRegistryValue("SOFTWARE\\Perforce\\Environment", "P4DIFF", true);
+					if(null != p4diff && p4diff.Length > 0)
+					{
+						g_p4customdiff = true;
+					}
+					p4diff = GetRegistryValue("SOFTWARE\\Perforce\\Environment", "P4DIFF", false);
+					if(null != p4diff && p4diff.Length > 0)
+					{
+						g_p4customdiff = true;
+					}
 				}
-				if(System.IO.File.Exists(System.IO.Path.Combine(installRoot, "p4win.exe")))
+				else
 				{
-					g_p4wininstalled = true;
-					Log.Info("Found p4win.exe");
-				}
-				if(System.IO.File.Exists(System.IO.Path.Combine(installRoot, "p4v.exe")))
-				{
-					g_p4vinstalled = true;
-					Log.Info("Found p4v.exe");
-				}
+					// Let's try to find the executables through the path variable instead.
+					if(null != Help.FindFileInPath("p4.exe"))
+					{
+						g_p4installed = true;
+						Log.Info("Found p4 in path");
+					}
 
-				string p4diff = System.Environment.GetEnvironmentVariable("P4DIFF");
-				if(null != p4diff)
-				{
-					g_p4customdiff = true;
-				}
+					if(null != Help.FindFileInPath("p4win.exe"))
+					{
+						g_p4wininstalled = true;
+						Log.Info("Found p4win in path");
+					}
 
-				p4diff = GetRegistryValue("SOFTWARE\\Perforce\\Environment", "P4DIFF", true);
-				if(null != p4diff && p4diff.Length > 0)
-				{
-					g_p4customdiff = true;
-				}
-				p4diff = GetRegistryValue("SOFTWARE\\Perforce\\Environment", "P4DIFF", false);
-				if(null != p4diff && p4diff.Length > 0)
-				{
-					g_p4customdiff = true;
+					if(null != Help.FindFileInPath("p4v.exe"))
+					{
+						g_p4vinstalled = true;
+						Log.Info("Found p4v in path");
+					}
+
+					Log.Warning("Could not find any peforce installation in the registry!!!");
+
+					p4diff = System.Environment.GetEnvironmentVariable("P4DIFF");
+					if(null != p4diff)
+					{
+						g_p4customdiff = true;
+					}
 				}
 			}
 
