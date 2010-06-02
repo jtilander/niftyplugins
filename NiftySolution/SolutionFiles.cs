@@ -82,27 +82,33 @@ namespace Aurora
 				// CPP:   {6BB5F8EE-4483-11D3-8BCF-00C04F8EC28C}
 				// H:     {6BB5F8EE-4483-11D3-8BCF-00C04F8EC28C}
 				// Folder:{6BB5F8F0-4483-11D3-8BCF-00C04F8EC28C}
-
-				if(null!=projectItems)
+				//
+				// "{5F422961-1EE4-47EB-A53B-777B4164F8DF}" <-- it's a folder ?
+				if(null == projectItems)
+					return;
+				foreach(ProjectItem item in projectItems)
 				{
-					foreach(ProjectItem item in projectItems)
+					if("{6BB5F8EE-4483-11D3-8BCF-00C04F8EC28C}" == item.Kind)
 					{
-						if("{6BB5F8EE-4483-11D3-8BCF-00C04F8EC28C}" == item.Kind)
+						for(short i = 0; i < item.FileCount; i++)
 						{
-							for(short i = 0; i < item.FileCount; i++)
-							{
-								string name = item.get_FileNames((short)i);
+							string name = item.get_FileNames((short)i);
 
-								SearchEntry entry = new SearchEntry();
-								entry.fullPath = name;
-								entry.key = name.ToLower();
-								entry.filename = Path.GetFileName(entry.key);
-								m_solutionFiles.Add(entry);
-							}
+							SearchEntry entry = new SearchEntry();
+							entry.fullPath = name;
+							entry.key = name.ToLower();
+							entry.filename = Path.GetFileName(entry.key);
+							m_solutionFiles.Add(entry);
 						}
-
-						AddProjectItems(item.ProjectItems);
 					}
+
+					AddProjectItems(item.ProjectItems);
+					
+					if(item.SubProject != null)
+					{
+						AddProjectItems(item.SubProject.ProjectItems);
+					}
+
 				}
 			}
 
