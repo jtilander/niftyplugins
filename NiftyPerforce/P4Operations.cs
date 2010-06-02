@@ -81,18 +81,18 @@ namespace Aurora
 				if(filename.Length == 0)
 					return false;
 				if(g_p4wininstalled)
-					return ScheduleRunCommand(output, "p4win.exe", GetUserInfoString() + " -D \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
+					return ScheduleRunCommand(output, "p4win.exe", GetUserInfoString() + " -D \"" + filename + "#have\"", System.IO.Path.GetDirectoryName(filename));
 				if(g_p4installed)
 				{
 					// Let's figure out if the user has some custom diff tool installed. Then we just send whatever we have without any fancy options.
 					if(g_p4customdiff)
 					{
-						return ScheduleRunCommand(output, "p4.exe", GetUserInfoString() + " diff \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
+						return ScheduleRunCommand(output, "p4.exe", GetUserInfoString() + " diff \"" + filename + "#have\"", System.IO.Path.GetDirectoryName(filename));
 					}
 					else
 					{
 						// Otherwise let's show a unified diff in the outputpane.
-						return ScheduleRunCommand(output, "p4.exe", GetUserInfoString() + " diff -du \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
+						return ScheduleRunCommand(output, "p4.exe", GetUserInfoString() + " diff -du \"" + filename + "#have\"", System.IO.Path.GetDirectoryName(filename));
 					}
 				}
 				return NotifyUser("could not find p4win.exe/p4.exe installed in perforce directory");
