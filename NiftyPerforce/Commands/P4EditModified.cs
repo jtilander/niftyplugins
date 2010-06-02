@@ -17,10 +17,16 @@ namespace Aurora
 			public override bool OnCommand()
 			{
 				Log.Info("Got build solution command, now checking {0} documents for modification", Plugin.App.Documents.Count);
+
+				bool ignoreReadOnly = ((Config)(Plugin.Options)).ignoreReadOnlyOnEdit;
+
 				foreach (Document doc in Plugin.App.Documents)
 				{
-					if (!doc.Saved && doc.ReadOnly)
-					    P4Operations.EditFile(Plugin.OutputPane, doc.FullName);
+					if(doc.Saved)
+						continue;
+					if(!ignoreReadOnly && !doc.ReadOnly)
+						continue;
+					P4Operations.EditFile(Plugin.OutputPane, doc.FullName, ignoreReadOnly);
 				}
 
 				return true;

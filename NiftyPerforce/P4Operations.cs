@@ -45,22 +45,22 @@ namespace Aurora
 				return ScheduleRunCommand(output, "p4.exe", GetUserInfoString() + "add \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
 			}
 
-			public static bool EditFile(OutputWindowPane output, string filename)
+			public static bool EditFile(OutputWindowPane output, string filename, bool ignoreReadOnly)
 			{
 				if(filename.Length == 0)
 					return false;
-				if(0 == (System.IO.File.GetAttributes(filename) & FileAttributes.ReadOnly))
+				if(!ignoreReadOnly && 0 == (System.IO.File.GetAttributes(filename) & FileAttributes.ReadOnly))
 					return false;
 				if(!g_p4installed)
 					return NotifyUser("could not find p4 exe installed in perforce directory");
 				return ScheduleRunCommand(output, "p4.exe", GetUserInfoString() + "edit \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
 			}
 
-			public static bool EditFileImmediate(OutputWindowPane output, string filename)
+			public static bool EditFileImmediate(OutputWindowPane output, string filename, bool ignoreReadOnly)
 			{
 				if(filename.Length == 0)
 					return false;
-				if(0 == (System.IO.File.GetAttributes(filename) & FileAttributes.ReadOnly))
+				if(!ignoreReadOnly && 0 == (System.IO.File.GetAttributes(filename) & FileAttributes.ReadOnly))
 					return false;
 				if(!g_p4installed)
 					return NotifyUser("could not find p4 exe installed in perforce directory");

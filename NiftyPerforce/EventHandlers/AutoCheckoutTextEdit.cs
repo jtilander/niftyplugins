@@ -36,7 +36,7 @@ namespace Aurora
 			private void OnBeforeKeyPress(string Keypress, EnvDTE.TextSelection Selection, bool InStatementCompletion, ref bool CancelKeypress)
 			{
 				if(mPlugin.App.ActiveDocument.ReadOnly)
-					P4Operations.EditFile(mPlugin.OutputPane, mPlugin.App.ActiveDocument.FullName);
+					P4Operations.EditFile(mPlugin.OutputPane, mPlugin.App.ActiveDocument.FullName, false); // no auto p4 edit on writeable files here since it will be too costly.
 			}
 
 			// [jt] This handler checks for things like paste operations. In theory we should be able to remove the handler above, but
@@ -49,13 +49,13 @@ namespace Aurora
 					(Hint != 0))
 					return;
 				if(mPlugin.App.ActiveDocument.ReadOnly && !mPlugin.App.ActiveDocument.Saved)
-					P4Operations.EditFile(mPlugin.OutputPane, mPlugin.App.ActiveDocument.FullName);
+					P4Operations.EditFile(mPlugin.OutputPane, mPlugin.App.ActiveDocument.FullName, false); // no auto p4 edit on writeable files here since it will be too costly.
 			}
 
 			private void OnCheckoutCurrentDocument(string Guid, int ID, object CustomIn, object CustomOut, ref bool CancelDefault)
 			{
 				if(mPlugin.App.ActiveDocument.ReadOnly && !mPlugin.App.ActiveDocument.Saved)
-					P4Operations.EditFile(mPlugin.OutputPane, mPlugin.App.ActiveDocument.FullName);
+					P4Operations.EditFile(mPlugin.OutputPane, mPlugin.App.ActiveDocument.FullName, false); // no auto p4 edit on writeable files here since it will be too costly.
 			}
 
 		}

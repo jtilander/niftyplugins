@@ -31,7 +31,7 @@ namespace Aurora
                 {
                     string newName = dlg.FileName;
                     P4Operations.IntegrateFile(pane, newName, fileName);
-                    P4Operations.EditFile(pane, item.ProjectItem.ContainingProject.FullName);
+					P4Operations.EditFile(pane, item.ProjectItem.ContainingProject.FullName, ((Config)Plugin.Options).ignoreReadOnlyOnEdit);
                     item.ProjectItem.Collection.AddFromFile(newName);
                     item.ProjectItem.Delete();
                     P4Operations.DeleteFile(pane, fileName);

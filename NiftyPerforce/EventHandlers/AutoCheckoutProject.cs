@@ -28,9 +28,11 @@ namespace Aurora
 
 			private void OnCheckoutSelectedProjects(string Guid, int ID, object CustomIn, object CustomOut, ref bool CancelDefault)
 			{
+				bool ignoreReadOnly = ((Config)mPlugin.Options).ignoreReadOnlyOnEdit;
+
 				foreach(Project project in (Array)mPlugin.App.ActiveSolutionProjects)
 				{
-					P4Operations.EditFileImmediate(mPlugin.OutputPane, project.FullName);
+					P4Operations.EditFileImmediate(mPlugin.OutputPane, project.FullName, ignoreReadOnly);
 				}
 			}
 		}

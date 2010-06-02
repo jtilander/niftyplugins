@@ -21,6 +21,7 @@ namespace Aurora
 			private bool m_autoAdd = true;
 			private bool m_autoDelete = false;
 			private bool m_useSystemConnection = true;
+			private bool m_ignoreReadOnlyOnEdit = false;
 			//private bool m_warnOnEditNewerFile = false;
 			private string m_port = "";
 			private string m_client = "";
@@ -94,6 +95,13 @@ namespace Aurora
 			{
 				get { return m_autoDelete; }
 				set { m_autoDelete = value; mDirty = true; }
+			}
+
+			[Category("Operation"), Description("Try to do a p4 edit even though the file is writable. Useful if you have a git repository above your p4 workspace. Costly!")]
+			public bool ignoreReadOnlyOnEdit
+			{
+				get { return m_ignoreReadOnlyOnEdit; }
+				set { m_ignoreReadOnlyOnEdit = value; mDirty = true; }
 			}
 
 			/*[Category("Operation"), Description("Throw up a dialog box if you try to edit a file that has a newer version in the repository.")]

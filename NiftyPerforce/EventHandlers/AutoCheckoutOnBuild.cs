@@ -27,10 +27,16 @@ namespace Aurora
 
 			private void OnCheckoutModifiedSource(string Guid, int ID, object CustomIn, object CustomOut, ref bool CancelDefault)
 			{
+				Config cfg = mPlugin.Options as Config;
+				bool ignoreReadOnly = cfg.ignoreReadOnlyOnEdit;
+
 				foreach(Document doc in mPlugin.App.Documents)
 				{
-					if(!doc.Saved && doc.ReadOnly)
-						P4Operations.EditFileImmediate(mPlugin.OutputPane, doc.FullName);
+					if(doc.Saved)
+						continue;
+					if(!ignoreReadOnly && !doc.ReadOnly)
+						continue;
+					P4Operations.EditFileImmediate(mPlugin.OutputPane, doc.FullName, ignoreReadOnly);
 				}
 			}
 		}
