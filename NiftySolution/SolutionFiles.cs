@@ -90,7 +90,8 @@ namespace Aurora
 				{
 					if("{6BB5F8EE-4483-11D3-8BCF-00C04F8EC28C}" == item.Kind)
 					{
-						for(short i = 0; i < item.FileCount; i++)
+						// Indices starts at 1 ... http://msdn.microsoft.com/en-us/library/envdte.projectitem.filenames.aspx
+						for(short i = 1; i < item.FileCount; i++)
 						{
 							string name = item.get_FileNames((short)i);
 

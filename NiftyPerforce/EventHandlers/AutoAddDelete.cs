@@ -42,7 +42,8 @@ namespace Aurora
 			{
 				P4Operations.EditFile(m_plugin.OutputPane, item.ContainingProject.FullName, ((Config)m_plugin.Options).ignoreReadOnlyOnEdit);
 
-				for (int i = 0; i < item.FileCount; i++)
+				// Indices starts at 1 ... http://msdn.microsoft.com/en-us/library/envdte.projectitem.filenames.aspx
+				for (int i = 1; i < item.FileCount; i++)
 				{
 					string name = item.get_FileNames((short)i);
 					P4Operations.AddFile(m_plugin.OutputPane, name);
@@ -53,7 +54,8 @@ namespace Aurora
 			{
 				P4Operations.EditFile(m_plugin.OutputPane, item.ContainingProject.FullName, ((Config)m_plugin.Options).ignoreReadOnlyOnEdit);
 
-				for (int i = 0; i < item.FileCount; i++)
+				// Indices starts at 1 ... http://msdn.microsoft.com/en-us/library/envdte.projectitem.filenames.aspx
+				for (int i = 1; i < item.FileCount; i++)
 				{
 					string name = item.get_FileNames((short)i);
 					P4Operations.DeleteFile(m_plugin.OutputPane, name);
