@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AsyncProcess.cs" />
     <Compile Include="CommandBase.cs" />
     <Compile Include="CommandRegistry.cs" />
     <Compile Include="DebugLogHandler.cs" />

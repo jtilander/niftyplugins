@@ -92,7 +92,7 @@ namespace Aurora
 
 				P4Operations.CheckInstalledFiles();
 
-				P4Operations.InitThreadHelper();
+				AsyncProcess.Init();
 
 				Log.DecIndent();
 				Log.Debug("Initialized...");
@@ -103,8 +103,7 @@ namespace Aurora
                 //Log.Info("NiftyPerforce (Release)");
 #endif
 				// Show where we are and when we were compiled...
-				Log.Info("exe :" + Assembly.GetExecutingAssembly().Location);
-				Log.Info("exe :" + System.IO.File.GetLastWriteTime(Assembly.GetExecutingAssembly().Location));
+				Log.Info("I'm running {0} compiled on {1}", Assembly.GetExecutingAssembly().Location, System.IO.File.GetLastWriteTime(Assembly.GetExecutingAssembly().Location));
 			}
 
 			public void QueryStatus(string commandName, vsCommandStatusTextWanted neededText, ref vsCommandStatus status, ref object commandText)
@@ -133,7 +132,7 @@ namespace Aurora
 			public void OnBeginShutdown(ref Array custom)
 			{
 				//TODO: Make this thing unregister all the callbacks we've just made... gahhh... C# and destructors... 
-				P4Operations.KillThreadHelper();
+				AsyncProcess.Term();
 			}
 
 			public void OnDisconnection(ext_DisconnectMode disconnectMode, ref Array custom)
