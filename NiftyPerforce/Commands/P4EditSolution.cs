@@ -30,8 +30,7 @@ namespace Aurora
 			{
 				if(Plugin.App.Solution != null && Plugin.App.Solution.FullName != string.Empty)
 				{
-					Config cfg = Plugin.Options as Config;
-					P4Operations.EditFile(Plugin.OutputPane, Plugin.App.Solution.FullName, cfg.ignoreReadOnlyOnEdit);
+					P4Operations.EditFile(Plugin.OutputPane, Plugin.App.Solution.FullName);
 					return true;
 				}
 				return false;

@@ -45,39 +45,45 @@ namespace Aurora
 				return ScheduleRunCommand(output, "p4.exe", GetUserInfoString() + "add \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
 			}
 
-			public static bool EditFile(OutputWindowPane output, string filename, bool ignoreReadOnly)
+			public static bool EditFile(OutputWindowPane output, string filename)
 			{
 				if(filename.Length == 0)
 					return false;
-				if(!ignoreReadOnly && 0 == (System.IO.File.GetAttributes(filename) & FileAttributes.ReadOnly))
+
+				Log.Debug("EditFile : " + filename);
+
+				if(0 == (System.IO.File.GetAttributes(filename) & FileAttributes.ReadOnly))
 					return false;
 				if(!g_p4installed)
 					return NotifyUser("could not find p4 exe installed in perforce directory");
 				return ScheduleRunCommand(output, "p4.exe", GetUserInfoString() + "edit \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
 			}
 
-			public static bool EditFileImmediate(OutputWindowPane output, string filename, bool ignoreReadOnly)
+			public static bool EditFileImmediate(OutputWindowPane output, string filename)
 			{
 				if(filename.Length == 0)
 					return false;
-				if(!ignoreReadOnly && 0 == (System.IO.File.GetAttributes(filename) & FileAttributes.ReadOnly))
+
+				Log.Debug("EditFileImmediate : " + filename);
+
+				if(0 == (System.IO.File.GetAttributes(filename) & FileAttributes.ReadOnly))
 					return false;
 				if(!g_p4installed)
 					return NotifyUser("could not find p4 exe installed in perforce directory");
 				return RunCommand(output, "p4.exe", GetUserInfoString() + "edit \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename), m_commandCount++);
 			}
 
-            public static bool RevertFile(OutputWindowPane output, string filename)
-            {
+			public static bool RevertFile(OutputWindowPane output, string filename)
+			{
 				if(filename.Length == 0)
 					return false;
 				if(!g_p4installed)
 					return NotifyUser("could not find p4 exe installed in perforce directory");
 				return ScheduleRunCommand(output, "p4.exe", GetUserInfoString() + "revert \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
-            }
+			}
 
-            public static bool DiffFile(OutputWindowPane output, string filename)
-            {
+			public static bool DiffFile(OutputWindowPane output, string filename)
+			{
 				if(filename.Length == 0)
 					return false;
 				if(g_p4wininstalled)
@@ -96,10 +102,10 @@ namespace Aurora
 					}
 				}
 				return NotifyUser("could not find p4win.exe/p4.exe installed in perforce directory");
-            }
+			}
 
-            public static bool RevisionHistoryFile(OutputWindowPane output, string filename)
-            {
+			public static bool RevisionHistoryFile(OutputWindowPane output, string filename)
+			{
 				if(filename.Length == 0)
 					return false;
 				if(g_p4wininstalled)
@@ -107,7 +113,7 @@ namespace Aurora
 				if(g_p4vinstalled)
 					return ScheduleRunCommand(output, "p4v.exe", GetUserInfoString() + " -cmd \"history " + filename + "\"", System.IO.Path.GetDirectoryName(filename));
 				return NotifyUser("could not find p4win.exe/p4v.exe installed in perforce directory");
-            }
+			}
 
 			public static bool P4WinShowFile(OutputWindowPane output, string filename)
 			{
@@ -126,7 +132,7 @@ namespace Aurora
 			private static string GetUserInfoStringFull(bool lookup, string dir)
 			{
 				// NOTE: This to allow the user to have a P4CONFIG variable and connect to multiple perforce servers seamlessly.
-				if( Singleton<Config>.Instance.useSystemEnv )
+				if(Singleton<Config>.Instance.useSystemEnv)
 				{
 					if(lookup)
 					{
@@ -145,23 +151,30 @@ namespace Aurora
 							string username = usermatch.Groups["user"].Value.Trim();
 							string client = clientmatch.Groups["client"].Value.Trim();
 
-							return string.Format( " -p {0} -u {1} -c {2} ", port, username, client);
+							string ret = string.Format(" -p {0} -u {1} -c {2} ", port, username, client);
+
+							Log.Debug("GetUserInfoStringFull : " + ret);
+
+							return ret;
 						}
 						catch(Process.Error e)
 						{
-							Log.Error( "Failed to execute info string discovery: {0}", e.info);
+							Log.Error("Failed to execute info string discovery: {0}", e.info);
 						}
 					}
 
 					return "";
 				}
-					
+
 				string arguments = "";
 				arguments += " -p " + Singleton<Config>.Instance.port;
 				arguments += " -u " + Singleton<Config>.Instance.username;
 				arguments += " -c " + Singleton<Config>.Instance.client;
 				arguments += " ";
-				return arguments;						
+
+				Log.Debug("GetUserInfoStringFull : " + arguments);
+
+				return arguments;
 			}
 
 			public static bool TimeLapseView(OutputWindowPane output, string filename)
@@ -174,10 +187,10 @@ namespace Aurora
 				arguments += " -cmd \"annotate -i " + filename + "\"";
 				return ScheduleRunCommand(output, "p4v.exe", arguments, System.IO.Path.GetDirectoryName(filename));
 			}
-            
-            private static bool ScheduleRunCommand(OutputWindowPane output, string executableName, string command, string workingDirectory)
-            {
-				Command cmd = new Command();
+
+			private static bool ScheduleRunCommand(OutputWindowPane output, string executableName, string command, string workingDirectory)
+			{
+				CommandThread cmd = new CommandThread();
 				cmd.output = output;
 				cmd.exe = executableName;
 				cmd.arguments = command;
@@ -192,13 +205,13 @@ namespace Aurora
 				{
 					m_queueLock.ReleaseMutex();
 				}
-				
+
 				m_startEvent.Release();
-				output.OutputString(string.Format( "{0}: Scheduled {1} {2}\n", cmd.sequence, cmd.exe, cmd.arguments ) );
+				output.OutputString(string.Format("{0}: Scheduled {1} {2}\n", cmd.sequence, cmd.exe, cmd.arguments));
 				return true;
-            }
-            
-            public static bool RunCommand(OutputWindowPane output, string executableName, string command, string workingDirectory, int sequence)
+			}
+
+			public static bool RunCommandSub(OutputWindowPane output, string executableName, string command, string workingDirectory, int sequence, int timeoutMillis)
 			{
 				try
 				{
@@ -210,6 +223,11 @@ namespace Aurora
 					process.StartInfo.CreateNoWindow = true;
 					process.StartInfo.WorkingDirectory = workingDirectory;
 					process.StartInfo.Arguments = command;
+
+					Log.Debug("executableName : " + executableName);
+					Log.Debug("workingDirectory : " + workingDirectory);
+					Log.Debug("command : " + command);
+
 					if(!process.Start())
 					{
 						if(null != output)
@@ -218,30 +236,39 @@ namespace Aurora
 						}
 						return false;
 					}
-					process.WaitForExit();
+					bool exited = process.WaitForExit(timeoutMillis);
 
-					string stdOut = process.StandardOutput.ReadToEnd();
-					string stdErr = process.StandardError.ReadToEnd();
-
-					if(null != output)
+					if(!exited)
 					{
-						output.OutputString(sequence.ToString() + ": " + executableName + " " + command + "\n");
-						output.OutputString(stdOut);
-						output.OutputString(stdErr);
-					}
-
-					System.Diagnostics.Debug.WriteLine(command + "\n");
-					System.Diagnostics.Debug.WriteLine(stdOut);
-					System.Diagnostics.Debug.WriteLine(stdErr);
-
-					if(0 != process.ExitCode)
-					{
-						if(null != output)
-						{
-							output.OutputString(sequence.ToString() + ": Process exit code was " + process.ExitCode + ".\n");
-						}
+						output.OutputString(sequence.ToString() + ": Process not done yet!\n");
 						return false;
 					}
+					else
+					{
+						string stdOut = process.StandardOutput.ReadToEnd();
+						string stdErr = process.StandardError.ReadToEnd();
+
+						if(null != output)
+						{
+							output.OutputString(sequence.ToString() + ": " + executableName + " " + command + "\n");
+							output.OutputString(stdOut);
+							output.OutputString(stdErr);
+						}
+
+						System.Diagnostics.Debug.WriteLine(command + "\n");
+						System.Diagnostics.Debug.WriteLine(stdOut);
+						System.Diagnostics.Debug.WriteLine(stdErr);
+
+						if(0 != process.ExitCode)
+						{
+							if(null != output)
+							{
+								output.OutputString(sequence.ToString() + ": Process exit code was " + process.ExitCode + ".\n");
+							}
+							return false;
+						}
+					}
+
 					return true;
 				}
 				catch(System.ComponentModel.Win32Exception e)
@@ -251,27 +278,39 @@ namespace Aurora
 				}
 			}
 
-			private class Command
+			public static bool RunCommand(OutputWindowPane output, string executableName, string command, string workingDirectory, int sequence)
+			{
+				int timeout = 1000;
+				if(!RunCommandSub(output, executableName, command, workingDirectory, sequence, timeout))
+				{
+					Log.Debug("immediate failed, scheduling retry : " + command);
+					return ScheduleRunCommand(output, executableName, command, workingDirectory);
+				}
+				return true;
+			}
+
+			private class CommandThread
 			{
 				public string exe = "";
 				public string arguments = "";
 				public string workingDir = "";
 				public OutputWindowPane output = null;
 				public int sequence = 0;
-				
-				
+
+
 				public void Run()
 				{
-					P4Operations.RunCommand(output, exe, arguments, workingDir, sequence);
+					int timeout = 10000;
+					P4Operations.RunCommandSub(output, exe, arguments, workingDir, sequence, timeout);
 				}
 			};
-			
+
 			static private Mutex m_queueLock = new Mutex();
 			static private Semaphore m_startEvent = new Semaphore(0, 9999);
-			static private Queue<Command> m_commandQueue = new Queue<Command>();
+			static private Queue<CommandThread> m_commandQueue = new Queue<CommandThread>();
 			static private System.Threading.Thread m_helperThread;
 			static private int m_commandCount = 0;
-			
+
 			public static void InitThreadHelper()
 			{
 				m_helperThread = new System.Threading.Thread(new ThreadStart(ThreadMain));
@@ -282,14 +321,14 @@ namespace Aurora
 			{
 				m_helperThread.Abort();
 			}
-			
+
 			static public void ThreadMain()
 			{
-				while( true )
+				while(true)
 				{
 					m_startEvent.WaitOne();
-					Command cmd = null;
-					
+					CommandThread cmd = null;
+
 					try
 					{
 						m_queueLock.WaitOne();
@@ -302,7 +341,7 @@ namespace Aurora
 
 					try
 					{
-						System.Threading.Thread thread = new System.Threading.Thread( new ThreadStart( cmd.Run ) );
+						System.Threading.Thread thread = new System.Threading.Thread(new ThreadStart(cmd.Run));
 						thread.Start();
 					}
 					catch
@@ -325,7 +364,7 @@ namespace Aurora
 						return file.FullName;
 					}
 				}
-				
+
 				// Should never happen...
 				return fullpath;
 			}
@@ -333,18 +372,18 @@ namespace Aurora
 			public static string GetRegistryValue(string key, string value, bool global)
 			{
 				Microsoft.Win32.RegistryKey hklm = Microsoft.Win32.Registry.LocalMachine;
-				if( !global )
+				if(!global)
 					hklm = Microsoft.Win32.Registry.CurrentUser;
 				hklm = hklm.OpenSubKey(key);
 				if(null == hklm)
 				{
-					Log.Error("Could not find registry key " + key);
+					Log.Debug("Could not find registry key " + key);
 					return null;
 				}
 				Object regValue = hklm.GetValue(value);
 				if(null == regValue)
 				{
-					Log.Error("Could not find registry value " + value + " in " + key);
+					Log.Debug("Could not find registry value " + value + " in " + key);
 					return null;
 				}
 
@@ -360,7 +399,7 @@ namespace Aurora
 				g_p4customdiff = false;
 				string p4diff = null;
 				string installRoot = GetRegistryValue("SOFTWARE\\Perforce\\Environment", "P4INSTROOT", true); ;
-				
+
 				// TODO: We might want to check for older versions of perforce here as well...
 				if(null != installRoot)
 				{
@@ -381,15 +420,17 @@ namespace Aurora
 						g_p4vinstalled = true;
 						Log.Info("Found p4v.exe");
 					}
-					
+
 					p4diff = GetRegistryValue("SOFTWARE\\Perforce\\Environment", "P4DIFF", true);
 					if(null != p4diff && p4diff.Length > 0)
 					{
+						Log.Info("Found p4 custom diff");
 						g_p4customdiff = true;
 					}
 					p4diff = GetRegistryValue("SOFTWARE\\Perforce\\Environment", "P4DIFF", false);
 					if(null != p4diff && p4diff.Length > 0)
 					{
+						Log.Info("Found p4 custom diff");
 						g_p4customdiff = true;
 					}
 				}
@@ -419,6 +460,7 @@ namespace Aurora
 					p4diff = System.Environment.GetEnvironmentVariable("P4DIFF");
 					if(null != p4diff)
 					{
+						Log.Info("Found p4 custom diff");
 						g_p4customdiff = true;
 					}
 				}

@@ -25,31 +25,27 @@ namespace Aurora
 
 			private void OnSaveSelected(string Guid, int ID, object CustomIn, object CustomOut, ref bool CancelDefault)
 			{
-				Config cfg = mPlugin.Options as Config;
-
 				foreach(SelectedItem sel in mPlugin.App.SelectedItems)
 				{
 					if(sel.Project != null)
-						P4Operations.EditFileImmediate(mPlugin.OutputPane, sel.Project.FullName, cfg.ignoreReadOnlyOnEdit);
+						P4Operations.EditFileImmediate(mPlugin.OutputPane, sel.Project.FullName);
 					else if(sel.ProjectItem != null)
-						P4Operations.EditFileImmediate(mPlugin.OutputPane, sel.ProjectItem.Document.FullName, cfg.ignoreReadOnlyOnEdit);
+						P4Operations.EditFileImmediate(mPlugin.OutputPane, sel.ProjectItem.Document.FullName);
 					else
-						P4Operations.EditFileImmediate(mPlugin.OutputPane, mPlugin.App.Solution.FullName, cfg.ignoreReadOnlyOnEdit);
+						P4Operations.EditFileImmediate(mPlugin.OutputPane, mPlugin.App.Solution.FullName);
 				}
 			}
 
 			private void OnSaveAll(string Guid, int ID, object CustomIn, object CustomOut, ref bool CancelDefault)
 			{
-				Config cfg = mPlugin.Options as Config;
-
 				if(!mPlugin.App.Solution.Saved)
-					P4Operations.EditFileImmediate(mPlugin.OutputPane, mPlugin.App.Solution.FullName, cfg.ignoreReadOnlyOnEdit);
+					P4Operations.EditFileImmediate(mPlugin.OutputPane, mPlugin.App.Solution.FullName);
 
 				foreach(Document doc in mPlugin.App.Documents)
 				{
 					if(doc.Saved)
 						continue;
-					P4Operations.EditFileImmediate(mPlugin.OutputPane, doc.FullName, cfg.ignoreReadOnlyOnEdit);
+					P4Operations.EditFileImmediate(mPlugin.OutputPane, doc.FullName);
 				}
 
 				if(mPlugin.App.Solution.Projects == null)
@@ -63,10 +59,8 @@ namespace Aurora
 
 			private void EditProjectRecursive(Project p)
 			{
-				Config cfg = mPlugin.Options as Config;
-
 				if(!p.Saved)
-					P4Operations.EditFileImmediate(mPlugin.OutputPane, p.FullName, cfg.ignoreReadOnlyOnEdit);
+					P4Operations.EditFileImmediate(mPlugin.OutputPane, p.FullName);
 
 				if(p.ProjectItems == null)
 					return;
@@ -80,7 +74,7 @@ namespace Aurora
 					else if(!pi.Saved)
 					{
 						for(short i = 1; i <= pi.FileCount; i++)
-							P4Operations.EditFileImmediate(mPlugin.OutputPane, pi.get_FileNames(i), cfg.ignoreReadOnlyOnEdit);
+							P4Operations.EditFileImmediate(mPlugin.OutputPane, pi.get_FileNames(i));
 					}
 				}
 			}

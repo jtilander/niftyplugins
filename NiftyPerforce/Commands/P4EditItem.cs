@@ -36,8 +36,7 @@ namespace Aurora
 
             public override void OnExecute(SelectedItem item, string fileName, OutputWindowPane pane)
             {
-				bool ignoreReadOnly = ((Config)Plugin.Options).ignoreReadOnlyOnEdit;
-				P4Operations.EditFile(pane, fileName, ignoreReadOnly);
+				P4Operations.EditFile(pane, fileName);
             }
 		}
 	}

@@ -141,6 +141,9 @@
     <Content Include="NiftyPerforce.AddIn" />
     <Content Include="Resources\Show.bmp" />
     <Content Include="Resources\TimeLapseView.bmp" />
+    <None Include="AUTHORS" />
+    <None Include="COPYING" />
+    <None Include="README" />
     <None Include="Resources\RevisionHistory.bmp" />
     <None Include="Resources\EditAll.bmp" />
     <None Include="Resources\Revert.bmp" />

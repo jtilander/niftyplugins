@@ -21,9 +21,9 @@ namespace Aurora
 			{
 			}
 
- 			public void OnConnection(object application, ext_ConnectMode connectMode, object addInInst_, ref Array custom)
+			public void OnConnection(object application, ext_ConnectMode connectMode, object addInInst_, ref Array custom)
 			{
-				if( null != m_plugin)
+				if(null != m_plugin)
 					return;
 
 				// Load up the options from file.
@@ -51,40 +51,42 @@ namespace Aurora
 				Log.Debug("Booting up...");
 				Log.IncIndent();
 
+				bool doContextCommands = true;
 
 				bool doBindings = options.EnableBindings;
 				m_commandRegistry.RegisterCommand("NiftyConfig", doBindings, new NiftyConfigure(m_plugin), true);
 
 				m_commandRegistry.RegisterCommand("NiftyEditModified", doBindings, new P4EditModified(m_plugin), true);
-				
+
 				m_commandRegistry.RegisterCommand("NiftyEdit", doBindings, new P4EditItem(m_plugin), true);
-				m_commandRegistry.RegisterCommand("NiftyEditItem", doBindings, new P4EditItem(m_plugin), false);
-				m_commandRegistry.RegisterCommand("NiftyEditSolution", doBindings, new P4EditSolution(m_plugin), false);
+				if(doContextCommands) m_commandRegistry.RegisterCommand("NiftyEditItem", doBindings, new P4EditItem(m_plugin), false);
+				if(doContextCommands) m_commandRegistry.RegisterCommand("NiftyEditSolution", doBindings, new P4EditSolution(m_plugin), false);
 
 				m_commandRegistry.RegisterCommand("NiftyDiff", doBindings, new P4DiffItem(m_plugin), true);
-				m_commandRegistry.RegisterCommand("NiftyDiffItem", doBindings, new P4DiffItem(m_plugin), false);
-				m_commandRegistry.RegisterCommand("NiftyDiffSolution", doBindings, new P4DiffSolution(m_plugin), false);
+				if(doContextCommands) m_commandRegistry.RegisterCommand("NiftyDiffItem", doBindings, new P4DiffItem(m_plugin), false);
+				if(doContextCommands) m_commandRegistry.RegisterCommand("NiftyDiffSolution", doBindings, new P4DiffSolution(m_plugin), false);
 
 				m_commandRegistry.RegisterCommand("NiftyHistory", doBindings, new P4RevisionHistoryItem(m_plugin), true);
-				m_commandRegistry.RegisterCommand("NiftyHistoryItem", doBindings, new P4RevisionHistoryItem(m_plugin), false);
-				m_commandRegistry.RegisterCommand("NiftyHistorySolution", doBindings, new P4RevisionHistorySolution(m_plugin), false);
+				if(doContextCommands) m_commandRegistry.RegisterCommand("NiftyHistoryItem", doBindings, new P4RevisionHistoryItem(m_plugin), false);
+				if(doContextCommands) m_commandRegistry.RegisterCommand("NiftyHistorySolution", doBindings, new P4RevisionHistorySolution(m_plugin), false);
 
 				m_commandRegistry.RegisterCommand("NiftyTimeLapse", doBindings, new P4TimeLapseItem(m_plugin), true);
-				m_commandRegistry.RegisterCommand("NiftyTimeLapseItem", doBindings, new P4TimeLapseItem(m_plugin), false);
+				if(doContextCommands) m_commandRegistry.RegisterCommand("NiftyTimeLapseItem", doBindings, new P4TimeLapseItem(m_plugin), false);
 
 				m_commandRegistry.RegisterCommand("NiftyRevert", doBindings, new P4RevertItem(m_plugin), true);
-				m_commandRegistry.RegisterCommand("NiftyRevertItem", doBindings, new P4RevertItem(m_plugin), false);
+				if(doContextCommands) m_commandRegistry.RegisterCommand("NiftyRevertItem", doBindings, new P4RevertItem(m_plugin), false);
 
 				m_commandRegistry.RegisterCommand("NiftyShow", doBindings, new P4ShowItem(m_plugin), true);
-				m_commandRegistry.RegisterCommand("NiftyShowItem", doBindings, new P4ShowItem(m_plugin), false);
+				if(doContextCommands) m_commandRegistry.RegisterCommand("NiftyShowItem", doBindings, new P4ShowItem(m_plugin), false);
 
-				m_plugin.AddFeature(new AutoAddDelete(m_plugin ));
+				m_plugin.AddFeature(new AutoAddDelete(m_plugin));
 				m_plugin.AddFeature(new AutoCheckoutProject(m_plugin));
 				m_plugin.AddFeature(new AutoCheckoutOnBuild(m_plugin));
 				m_plugin.AddFeature(new AutoCheckoutTextEdit(m_plugin));
 				m_plugin.AddFeature(new AutoCheckoutOnSave(m_plugin));
-				
+
 #if DEBUG
+				// Use this to track down event GUIDs.
 				//m_plugin.AddFeature(new FindEvents(m_plugin));
 #endif
 
@@ -94,6 +96,15 @@ namespace Aurora
 
 				Log.DecIndent();
 				Log.Debug("Initialized...");
+
+#if DEBUG
+				Log.Info("NiftyPerforce (Debug)");
+#else
+                //Log.Info("NiftyPerforce (Release)");
+#endif
+				// Show where we are and when we were compiled...
+				Log.Info("exe :" + Assembly.GetExecutingAssembly().Location);
+				Log.Info("exe :" + System.IO.File.GetLastWriteTime(Assembly.GetExecutingAssembly().Location));
 			}
 
 			public void QueryStatus(string commandName, vsCommandStatusTextWanted neededText, ref vsCommandStatus status, ref object commandText)
@@ -134,12 +145,12 @@ namespace Aurora
 				((Config)m_plugin.Options).Save();
 				Log.ClearHandlers();
 			}
-			
-			public void OnAddInsUpdate(ref Array custom) 
-			{ 
+
+			public void OnAddInsUpdate(ref Array custom)
+			{
 			}
-			public void OnStartupComplete(ref Array custom) 
-			{ 
+			public void OnStartupComplete(ref Array custom)
+			{
 			}
 
 		}

@@ -40,7 +40,7 @@ namespace Aurora
 
 			public void OnItemAdded(ProjectItem item)
 			{
-				P4Operations.EditFile(m_plugin.OutputPane, item.ContainingProject.FullName, ((Config)m_plugin.Options).ignoreReadOnlyOnEdit);
+				P4Operations.EditFile(m_plugin.OutputPane, item.ContainingProject.FullName);
 
 				// Indices starts at 1 ... http://msdn.microsoft.com/en-us/library/envdte.projectitem.filenames.aspx
 				for (int i = 1; i < item.FileCount; i++)
@@ -52,7 +52,7 @@ namespace Aurora
 
 			public void OnItemRemoved(ProjectItem item)
 			{
-				P4Operations.EditFile(m_plugin.OutputPane, item.ContainingProject.FullName, ((Config)m_plugin.Options).ignoreReadOnlyOnEdit);
+				P4Operations.EditFile(m_plugin.OutputPane, item.ContainingProject.FullName);
 
 				// Indices starts at 1 ... http://msdn.microsoft.com/en-us/library/envdte.projectitem.filenames.aspx
 				for (int i = 1; i < item.FileCount; i++)
@@ -64,7 +64,7 @@ namespace Aurora
 
 			private void OnProjectAdded(Project project)
 			{
-				P4Operations.EditFile(m_plugin.OutputPane, m_plugin.App.Solution.FullName, ((Config)m_plugin.Options).ignoreReadOnlyOnEdit);
+				P4Operations.EditFile(m_plugin.OutputPane, m_plugin.App.Solution.FullName);
 				P4Operations.AddFile(m_plugin.OutputPane, project.FullName);
 				// TODO: [jt] We should if the operation is not a add new project but rather a add existing project
 				//       step through all the project items and add them to perforce. Or maybe we want the user
@@ -73,7 +73,7 @@ namespace Aurora
 
 			private void OnProjectRemoved(Project project)
 			{
-				P4Operations.EditFile(m_plugin.OutputPane, m_plugin.App.Solution.FullName, ((Config)m_plugin.Options).ignoreReadOnlyOnEdit);
+				P4Operations.EditFile(m_plugin.OutputPane, m_plugin.App.Solution.FullName);
 				P4Operations.DeleteFile(m_plugin.OutputPane, project.FullName);
 				// TODO: [jt] Do we want to automatically delete the items from perforce here?
 			}

@@ -16,26 +16,36 @@ namespace Aurora
 
 			public override bool OnCommand()
 			{
-				Log.Info("Got build solution command, now checking {0} documents for modification", Plugin.App.Documents.Count);
+				Log.Info("P4EditModified : now checking {0} documents for modification", Plugin.App.Documents.Count);
 
-				bool ignoreReadOnly = ((Config)(Plugin.Options)).ignoreReadOnlyOnEdit;
-
-				foreach (Document doc in Plugin.App.Documents)
+				if(!Plugin.App.Solution.Saved)
 				{
-					if(doc.Saved)
-						continue;
-					if(!ignoreReadOnly && !doc.ReadOnly)
-						continue;
-					P4Operations.EditFile(Plugin.OutputPane, doc.FullName, ignoreReadOnly);
+					P4Operations.EditFile(Plugin.OutputPane, Plugin.App.Solution.FullName);
+				}
+
+				foreach(Project p in Plugin.App.Solution.Projects)
+				{
+					if(!p.Saved)
+					{
+						P4Operations.EditFile(Plugin.OutputPane, p.FullName);
+					}
+				}
+
+				foreach(Document doc in Plugin.App.Documents)
+				{
+					if(!doc.Saved)
+					{
+						P4Operations.EditFile(Plugin.OutputPane, doc.FullName);
+					}
 				}
 
 				return true;
 			}
 
-            public override bool IsEnabled()
-            {
-                return true;
-            }
+			public override bool IsEnabled()
+			{
+				return true;
+			}
 		}
 	}
 }
