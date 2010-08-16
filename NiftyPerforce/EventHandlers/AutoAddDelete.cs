@@ -1,4 +1,4 @@
-// Copyright (C) 2006-2009 Jim Tilander. See COPYING for and README for more details.
+// Copyright (C) 2006-2010 Jim Tilander. See COPYING for and README for more details.
 using System;
 using System.IO;
 using EnvDTE;
@@ -42,8 +42,7 @@ namespace Aurora
 			{
 				P4Operations.EditFile(m_plugin.OutputPane, item.ContainingProject.FullName);
 
-				// Indices starts at 1 ... http://msdn.microsoft.com/en-us/library/envdte.projectitem.filenames.aspx
-				for (int i = 1; i < item.FileCount; i++)
+				for (int i = 0; i < item.FileCount; i++)
 				{
 					string name = item.get_FileNames((short)i);
 					P4Operations.AddFile(m_plugin.OutputPane, name);
@@ -54,8 +53,7 @@ namespace Aurora
 			{
 				P4Operations.EditFile(m_plugin.OutputPane, item.ContainingProject.FullName);
 
-				// Indices starts at 1 ... http://msdn.microsoft.com/en-us/library/envdte.projectitem.filenames.aspx
-				for (int i = 1; i < item.FileCount; i++)
+				for (int i = 0; i < item.FileCount; i++)
 				{
 					string name = item.get_FileNames((short)i);
 					P4Operations.DeleteFile(m_plugin.OutputPane, name);

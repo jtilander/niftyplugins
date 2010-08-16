@@ -1,4 +1,4 @@
-// Copyright (C) 2006-2009 Jim Tilander. See COPYING for and README for more details.
+// Copyright (C) 2006-2010 Jim Tilander. See COPYING for and README for more details.
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -91,7 +91,7 @@ namespace Aurora
 					if("{6BB5F8EE-4483-11D3-8BCF-00C04F8EC28C}" == item.Kind)
 					{
 						// Indices starts at 1 ... http://msdn.microsoft.com/en-us/library/envdte.projectitem.filenames.aspx
-						for(short i = 1; i < item.FileCount; i++)
+						for(short i = 0; i < item.FileCount; i++)
 						{
 							string name = item.get_FileNames((short)i);
 

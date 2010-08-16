@@ -1,4 +1,4 @@
-// Copyright (C) 2006-2009 Jim Tilander. See COPYING for and README for more details.
+// Copyright (C) 2006-2010 Jim Tilander. See COPYING for and README for more details.
 using System;
 using System.IO;
 using Extensibility;
@@ -73,7 +73,7 @@ namespace Aurora
 					}
 					else if(!pi.Saved)
 					{
-						for(short i = 1; i <= pi.FileCount; i++)
+						for(short i = 0; i <= pi.FileCount; i++)
 							P4Operations.EditFileImmediate(mPlugin.OutputPane, pi.get_FileNames(i));
 					}
 				}
