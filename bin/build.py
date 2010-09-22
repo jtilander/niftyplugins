@@ -19,9 +19,11 @@ elif 'VS80COMNTOOLS' in os.environ.keys():
 else:
     print "No visual studio found!"
 
-
 # (source name, dest dir)
 FILES=[
+    (r'README', ''),
+    (r'COPYING', ''),
+    (r'AUTHORS', ''),
     (r'NiftySolution\bin\NiftySolution.dll', ''),
     (r'NiftyPerforce\bin\NiftyPerforce.dll', ''),
     (r'NiftyPerforce\bin\AuroraCore.dll', ''),
