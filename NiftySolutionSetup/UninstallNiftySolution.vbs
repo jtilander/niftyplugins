@@ -50,3 +50,4 @@ call RemoveAddIn("NiftySolution")
 
 Call UnInstallPlugin("8.0", "Aurora.NiftySolution.Connect")
 Call UnInstallPlugin("9.0", "Aurora.NiftySolution.Connect")
+Call UnInstallPlugin("10.0", "Aurora.NiftySolution.Connect")

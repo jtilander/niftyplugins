@@ -22,3 +22,4 @@ End Sub
 
 Call ResetPlugin("8.0", "Aurora.NiftyPerforce.Connect")
 Call ResetPlugin("9.0", "Aurora.NiftyPerforce.Connect")
+Call ResetPlugin("10.0", "Aurora.NiftyPerforce.Connect")

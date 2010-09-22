@@ -49,3 +49,4 @@ End Sub
 call RemoveAddIn("NiftyPerforce")
 Call UnInstallPlugin("8.0", "Aurora.NiftyPerforce.Connect")
 Call UnInstallPlugin("9.0", "Aurora.NiftyPerforce.Connect")
+Call UnInstallPlugin("10.0", "Aurora.NiftyPerforce.Connect")
