@@ -53,6 +53,7 @@ namespace Aurora
 				foreach(Project project in (Array)mPlugin.App.ActiveSolutionProjects)
 				{
 					P4Operations.EditFileImmediate(mPlugin.OutputPane, project.FullName);
+                    P4Operations.EditFileImmediate(mPlugin.OutputPane, project.FullName + ".filters");
 				}
 			}
 		}

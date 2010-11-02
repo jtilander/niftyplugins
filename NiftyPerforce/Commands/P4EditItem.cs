@@ -37,6 +37,11 @@ namespace Aurora
             public override void OnExecute(SelectedItem item, string fileName, OutputWindowPane pane)
             {
 				P4Operations.EditFile(pane, fileName);
+
+                if (System.IO.Path.GetExtension(fileName).ToLower() == ".vcxproj")
+                {
+                    P4Operations.EditFile(pane, fileName + ".filters");
+                }
             }
 		}
 	}
