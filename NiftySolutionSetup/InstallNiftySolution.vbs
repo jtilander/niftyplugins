@@ -20,6 +20,6 @@ Sub ResetPlugin(ByVal vsVersion, ByVal pluginName)
 	Set shell = Nothing
 End Sub
 
-Call ResetPlugin("8.0", "Aurora.NiftyPerforce.Connect")
-Call ResetPlugin("9.0", "Aurora.NiftyPerforce.Connect")
-Call ResetPlugin("10.0", "Aurora.NiftyPerforce.Connect")
+Call ResetPlugin("8.0", "Aurora.NiftySolution.Connect")
+Call ResetPlugin("9.0", "Aurora.NiftySolution.Connect")
+Call ResetPlugin("10.0", "Aurora.NiftySolution.Connect")
