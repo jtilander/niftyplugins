@@ -28,19 +28,13 @@
         "Entry"
         {
         "MsmKey" = "8:_277D36809BE19BA6E98DC41F58A05BFB"
-        "OwnerKey" = "8:_C70548E73D4FA9E24614AC8F0739ACE0"
+        "OwnerKey" = "8:_7424DD118E50CD8803642EC6FF6293E1"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_277D36809BE19BA6E98DC41F58A05BFB"
         "OwnerKey" = "8:_1CECD4FA1A23475A939BEF71746825E4"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_3A2A43D8FC842924E922CF6A7267896A"
-        "OwnerKey" = "8:_C4FEA7FAB3BB70826237FB0262904AF2"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -59,6 +53,12 @@
         {
         "MsmKey" = "8:_7203C30BFC9848B6B301731A84EF0D15"
         "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_7424DD118E50CD8803642EC6FF6293E1"
+        "OwnerKey" = "8:_1CECD4FA1A23475A939BEF71746825E4"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -88,23 +88,29 @@
         "Entry"
         {
         "MsmKey" = "8:_8A247F755692CA9A175983572E332E63"
-        "OwnerKey" = "8:_C70548E73D4FA9E24614AC8F0739ACE0"
+        "OwnerKey" = "8:_7424DD118E50CD8803642EC6FF6293E1"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_8D3331D3E02A81E02ECF72F67D1A7245"
-        "OwnerKey" = "8:_277D36809BE19BA6E98DC41F58A05BFB"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_93C932050D5B2711087775B188F518B4"
+        "MsmKey" = "8:_8B6E08C0E054A75AD46BCB975A4DEA51"
         "OwnerKey" = "8:_8A247F755692CA9A175983572E332E63"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
+        "MsmKey" = "8:_A100EDCE59CF6351A1722B780983139E"
+        "OwnerKey" = "8:_C4FEA7FAB3BB70826237FB0262904AF2"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_B584AB518A1B7D2539692EB143B0BE47"
+        "OwnerKey" = "8:_277D36809BE19BA6E98DC41F58A05BFB"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_C4FEA7FAB3BB70826237FB0262904AF2"
         "OwnerKey" = "8:_1CECD4FA1A23475A939BEF71746825E4"
         "MsmSig" = "8:_UNDEFINED"
@@ -112,13 +118,7 @@
         "Entry"
         {
         "MsmKey" = "8:_C4FEA7FAB3BB70826237FB0262904AF2"
-        "OwnerKey" = "8:_C70548E73D4FA9E24614AC8F0739ACE0"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_C70548E73D4FA9E24614AC8F0739ACE0"
-        "OwnerKey" = "8:_1CECD4FA1A23475A939BEF71746825E4"
+        "OwnerKey" = "8:_7424DD118E50CD8803642EC6FF6293E1"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -154,7 +154,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_C70548E73D4FA9E24614AC8F0739ACE0"
+        "OwnerKey" = "8:_7424DD118E50CD8803642EC6FF6293E1"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -301,26 +301,6 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3A2A43D8FC842924E922CF6A7267896A"
-            {
-            "SourcePath" = "8:dte80.olb"
-            "TargetName" = "8:dte80.olb"
-            "Tag" = "8:"
-            "Folder" = "8:_6B9EFF68B0C4406DA879D1AEE46C5A2A"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:TRUE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_54BE433F41364358834D132A62B92D3C"
             {
             "SourcePath" = "8:..\\README"
@@ -379,6 +359,37 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_7424DD118E50CD8803642EC6FF6293E1"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:AuroraCore, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_7424DD118E50CD8803642EC6FF6293E1"
+                    {
+                    "Name" = "8:AuroraCore.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:AuroraCore.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_968800FC892341F6AF787DFA7B8D0710"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_776CEEFF2C4048F98CCA86E39A9B35CF"
@@ -472,10 +483,10 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_8D3331D3E02A81E02ECF72F67D1A7245"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_8B6E08C0E054A75AD46BCB975A4DEA51"
             {
-            "SourcePath" = "8:dte80a.olb"
-            "TargetName" = "8:dte80a.olb"
+            "SourcePath" = "8:vsmso.olb"
+            "TargetName" = "8:vsmso.olb"
             "Tag" = "8:"
             "Folder" = "8:_6B9EFF68B0C4406DA879D1AEE46C5A2A"
             "Condition" = "8:"
@@ -492,10 +503,30 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_93C932050D5B2711087775B188F518B4"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_A100EDCE59CF6351A1722B780983139E"
             {
-            "SourcePath" = "8:vsmso.olb"
-            "TargetName" = "8:vsmso.olb"
+            "SourcePath" = "8:dte80.olb"
+            "TargetName" = "8:dte80.olb"
+            "Tag" = "8:"
+            "Folder" = "8:_6B9EFF68B0C4406DA879D1AEE46C5A2A"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:TRUE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_B584AB518A1B7D2539692EB143B0BE47"
+            {
+            "SourcePath" = "8:dte80a.olb"
+            "TargetName" = "8:dte80a.olb"
             "Tag" = "8:"
             "Folder" = "8:_6B9EFF68B0C4406DA879D1AEE46C5A2A"
             "Condition" = "8:"
@@ -540,37 +571,6 @@
             "PackageAs" = "3:1"
             "Register" = "3:1"
             "Exclude" = "11:TRUE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_C70548E73D4FA9E24614AC8F0739ACE0"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:AuroraCore, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_C70548E73D4FA9E24614AC8F0739ACE0"
-                    {
-                    "Name" = "8:AuroraCore.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:AuroraCore.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_968800FC892341F6AF787DFA7B8D0710"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
@@ -661,14 +661,14 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:NiftySolution"
-        "ProductCode" = "8:{409A923F-2D80-4277-B3A9-4119036D483A}"
-        "PackageCode" = "8:{0638169D-1ABC-4522-99A4-48A4938B7232}"
+        "ProductCode" = "8:{C5C4BC22-ED1F-43E6-863A-922EA5124F8C}"
+        "PackageCode" = "8:{4AEFBA69-B0E6-49A5-ACAB-2D274194A32E}"
         "UpgradeCode" = "8:{F24AA19A-57F0-4280-9EA2-9C246A97640D}"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:FALSE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.2.3"
+        "ProductVersion" = "8:1.3.1"
         "Manufacturer" = "8:Aurora Development"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:http://code.google.com/p/niftyplugins/"
@@ -1125,7 +1125,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_1CECD4FA1A23475A939BEF71746825E4"
             {
-            "SourcePath" = "8:..\\NiftySolution\\obj\\Debug\\NiftySolution.dll"
+            "SourcePath" = "8:..\\NiftySolution\\obj\\Release\\NiftySolution.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_968800FC892341F6AF787DFA7B8D0710"
