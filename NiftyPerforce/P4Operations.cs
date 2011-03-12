@@ -238,7 +238,13 @@ namespace Aurora
 				string p4diff = null;
 				string installRoot = GetRegistryValue("SOFTWARE\\Perforce\\Environment", "P4INSTROOT", true); ;
 
-				// TODO: We might want to check for older versions of perforce here as well...
+                if (null == installRoot)
+                {
+                    // Perhaps it's an older installation?
+                    // http://code.google.com/p/niftyplugins/issues/detail?id=47&can=1&q=path
+                    installRoot = GetRegistryValue("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\App Paths", "p4.exe", true);
+                }
+				
 				if(null != installRoot)
 				{
 					Log.Info("Found perforce installation at {0}", installRoot);
