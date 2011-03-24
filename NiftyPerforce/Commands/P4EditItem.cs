@@ -1,5 +1,6 @@
 // Copyright (C) 2006-2010 Jim Tilander. See COPYING for and README for more details.
 using System;
+using System.IO;
 using EnvDTE;
 using EnvDTE80;
 using Microsoft.VisualStudio.CommandBars;
@@ -38,9 +39,16 @@ namespace Aurora
             {
 				P4Operations.EditFile(pane, fileName);
 
-                if (System.IO.Path.GetExtension(fileName).ToLower() == ".vcxproj")
+                string ext = Path.GetExtension(fileName).ToLower();
+
+                if ( ext == ".vcxproj")
                 {
                     P4Operations.EditFile(pane, fileName + ".filters");
+                }
+
+                if (ext == ".settings" || ext == ".resx" || ext == ".cs")
+                {
+                    P4Operations.EditFile(pane, Path.ChangeExtension(fileName, ".Designer.cs") );
                 }
             }
 		}

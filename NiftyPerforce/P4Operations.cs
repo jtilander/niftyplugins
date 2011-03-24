@@ -52,6 +52,8 @@ namespace Aurora
 
 				Log.Debug("EditFile : " + filename);
 
+                if (!System.IO.File.Exists(filename))
+                    return false;
 				if(0 == (System.IO.File.GetAttributes(filename) & FileAttributes.ReadOnly))
 					return false;
 				if(!g_p4installed)
@@ -66,7 +68,9 @@ namespace Aurora
 
 				Log.Debug("EditFileImmediate : " + filename);
 
-				if(0 == (System.IO.File.GetAttributes(filename) & FileAttributes.ReadOnly))
+                if (!System.IO.File.Exists(filename))
+                    return false;
+                if (0 == (System.IO.File.GetAttributes(filename) & FileAttributes.ReadOnly))
 					return false;
 				if(!g_p4installed)
 					return NotifyUser("could not find p4 exe installed in perforce directory");
