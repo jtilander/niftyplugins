@@ -48,7 +48,7 @@ namespace Aurora
 				string filename = Path.Combine(Path.GetDirectoryName(fullPath), Path.GetFileNameWithoutExtension(fullPath));
 
 				// TODO: This needs to cycle though the indices based on the current extension
-
+                Log.Debug("Trying to find a pair to {0} in path", filename);
 				try
 				{
 					string[] candidates = m_knownExtensions[extension];
@@ -58,7 +58,7 @@ namespace Aurora
 						if (System.IO.File.Exists(candidatePath))
 						{
 							Plugin.App.DTE.ExecuteCommand("File.OpenFile", candidatePath);
-							break;
+                            return true;
 						}
 					}
 				}
@@ -67,7 +67,32 @@ namespace Aurora
 					return false;
 				}
 
-				return true;
+                try
+                {
+                    Log.Debug("Could not find pair file to {0} in path, now checking the opened documents.", filename);
+
+                    // As a fallback we can just step through the currently opened documents -- should be fairly useful.
+                    string[] candidates = m_knownExtensions[extension];
+                    foreach (string candidate in candidates)
+                    {
+                        string candidatePath = Path.GetFileName((filename + candidate).ToLower());
+                        
+                        foreach(Document doc in Plugin.App.Documents)
+                        {
+                            if( Path.GetFileName(doc.FullName.ToLower()) == candidatePath )
+                            {
+                                Plugin.App.DTE.ExecuteCommand("File.OpenFile", doc.FullName);
+                                return true;
+                            }
+                        }
+                    }
+                }
+                catch (KeyNotFoundException)
+                {
+                    return false;
+                }
+
+				return false;
 			}
 
 			public override bool IsEnabled()
