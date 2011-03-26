@@ -18,6 +18,54 @@ namespace Aurora
 			private static bool g_p4vinstalled = false;
 			private static bool g_p4customdiff = false;
 
+            private static Dictionary<string, bool> g_opsInFlight = new Dictionary<string, bool>();
+
+            private static bool LockOp(string token)
+            {
+                try
+                {
+                    lock (g_opsInFlight)
+                    {
+                        g_opsInFlight.Add(token, true);
+                    }
+                    Log.Debug("## Locked \"" + token + "\"" );
+                    return true;
+                }
+                catch(ArgumentException)
+                {
+                    //Log.Debug("!! Failed to lock \"" + token + "\"");
+                    Log.Error(token + " already in progress");
+                    return false;
+                }
+            }
+
+            private static void UnlockOp(bool ok, object token_)
+            {
+                string token = (string)token_;
+                try
+                {
+                    lock (g_opsInFlight)
+                    {
+                        if (g_opsInFlight.Remove(token))
+                        {
+                            Log.Debug("## Unlocked \"" + token + "\"");
+                        }
+                        else
+                        {
+                            Log.Debug("!! Failed to unlock \"" + token + "\"");
+                        }
+                    }
+                }
+                catch (ArgumentNullException)
+                {
+                }
+            }
+
+            private static string FormatToken(string operation, string filename)
+            {
+                string token = operation + " " + Path.GetFullPath(filename).ToLower();
+                return token;
+            }
 
             public delegate bool CheckoutCallback(OutputWindowPane output, string filename);
 
@@ -27,7 +75,12 @@ namespace Aurora
 					return false;
 				if(!g_p4installed)
 					return NotifyUser("could not find p4 exe installed in perforce directory");
-				return AsyncProcess.Schedule(output, "p4.exe", GetUserInfoString() + "integrate \"" + oldName + "\" \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
+
+                string token = FormatToken("integrate", filename);
+                if (!LockOp(token))
+                    return false;
+
+				return AsyncProcess.Schedule(output, "p4.exe", GetUserInfoString() + "integrate \"" + oldName + "\" \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename), new AsyncProcess.OnDone(UnlockOp), token);
 			}
 
 			public static bool DeleteFile(OutputWindowPane output, string filename)
@@ -36,7 +89,11 @@ namespace Aurora
 					return false;
 				if(!g_p4installed)
 					return NotifyUser("could not find p4 exe installed in perforce directory");
-				return AsyncProcess.Schedule(output, "p4.exe", GetUserInfoString() + "delete \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
+
+                string token = FormatToken("delete", filename);
+                if (!LockOp(token))
+                    return false;
+                return AsyncProcess.Schedule(output, "p4.exe", GetUserInfoString() + "delete \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename), new AsyncProcess.OnDone(UnlockOp), token);
 			}
 
 			public static bool AddFile(OutputWindowPane output, string filename)
@@ -45,7 +102,11 @@ namespace Aurora
 					return false;
 				if(!g_p4installed)
 					return NotifyUser("could not find p4 exe installed in perforce directory");
-				return AsyncProcess.Schedule(output, "p4.exe", GetUserInfoString() + "add \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
+
+                string token = FormatToken("add", filename);
+                if (!LockOp(token))
+                    return false;
+                return AsyncProcess.Schedule(output, "p4.exe", GetUserInfoString() + "add \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename), new AsyncProcess.OnDone(UnlockOp), token);
 			}
 
             public static bool EditFile(OutputWindowPane output, string filename)
@@ -86,32 +147,36 @@ namespace Aurora
 			{
 				if(filename.Length == 0)
 					return false;
-
-				Log.Debug("EditFile : " + filename);
-
                 if (!System.IO.File.Exists(filename))
                     return false;
 				if(0 == (System.IO.File.GetAttributes(filename) & FileAttributes.ReadOnly))
 					return false;
 				if(!g_p4installed)
 					return NotifyUser("could not find p4 exe installed in perforce directory");
-				return AsyncProcess.Schedule(output, "p4.exe", GetUserInfoString() + "edit \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
+
+                Log.Debug("EditFile : " + filename);
+                string token = FormatToken("edit", filename);
+                if (!LockOp(token))
+                    return false;
+                return AsyncProcess.Schedule(output, "p4.exe", GetUserInfoString() + "edit \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename), new AsyncProcess.OnDone(UnlockOp), token);
 			}
 
             private static bool Internal_EditFileImmediate(OutputWindowPane output, string filename)
 			{
 				if(filename.Length == 0)
 					return false;
-
-				Log.Debug("EditFileImmediate : " + filename);
-
                 if (!System.IO.File.Exists(filename))
                     return false;
                 if (0 == (System.IO.File.GetAttributes(filename) & FileAttributes.ReadOnly))
 					return false;
 				if(!g_p4installed)
 					return NotifyUser("could not find p4 exe installed in perforce directory");
-				return AsyncProcess.Run(output, "p4.exe", GetUserInfoString() + "edit \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
+
+                Log.Debug("EditFileImmediate : " + filename);
+                string token = FormatToken("edit", filename);
+                if (!LockOp(token))
+                    return false;
+                return AsyncProcess.Run(output, "p4.exe", GetUserInfoString() + "edit \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename), new AsyncProcess.OnDone(UnlockOp), token);
 			}
 
 			public static bool RevertFile(OutputWindowPane output, string filename)
@@ -120,26 +185,35 @@ namespace Aurora
 					return false;
 				if(!g_p4installed)
 					return NotifyUser("could not find p4 exe installed in perforce directory");
-				return AsyncProcess.Schedule(output, "p4.exe", GetUserInfoString() + "revert \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
+
+                string token = FormatToken("revert", filename);
+                if (!LockOp(token))
+                    return false;
+                return AsyncProcess.Schedule(output, "p4.exe", GetUserInfoString() + "revert \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename), new AsyncProcess.OnDone(UnlockOp), token);
 			}
 
 			public static bool DiffFile(OutputWindowPane output, string filename)
 			{
 				if(filename.Length == 0)
 					return false;
-				if(g_p4wininstalled)
-					return AsyncProcess.Schedule(output, "p4win.exe", GetUserInfoString() + " -D \"" + filename + "#have\"", System.IO.Path.GetDirectoryName(filename));
+
+                string token = FormatToken("diff", filename);
+                if (!LockOp(token))
+                    return false;
+                
+                if(g_p4wininstalled)
+                    return AsyncProcess.Schedule(output, "p4win.exe", GetUserInfoString() + " -D \"" + filename + "#have\"", System.IO.Path.GetDirectoryName(filename), new AsyncProcess.OnDone(UnlockOp), token);
 				if(g_p4installed)
 				{
 					// Let's figure out if the user has some custom diff tool installed. Then we just send whatever we have without any fancy options.
 					if(g_p4customdiff)
 					{
-						return AsyncProcess.Schedule(output, "p4.exe", GetUserInfoString() + " diff \"" + filename + "#have\"", System.IO.Path.GetDirectoryName(filename));
+                        return AsyncProcess.Schedule(output, "p4.exe", GetUserInfoString() + " diff \"" + filename + "#have\"", System.IO.Path.GetDirectoryName(filename), new AsyncProcess.OnDone(UnlockOp), token);
 					}
 					else
 					{
 						// Otherwise let's show a unified diff in the outputpane.
-						return AsyncProcess.Schedule(output, "p4.exe", GetUserInfoString() + " diff -du \"" + filename + "#have\"", System.IO.Path.GetDirectoryName(filename));
+                        return AsyncProcess.Schedule(output, "p4.exe", GetUserInfoString() + " diff -du \"" + filename + "#have\"", System.IO.Path.GetDirectoryName(filename), new AsyncProcess.OnDone(UnlockOp), token);
 					}
 				}
 				return NotifyUser("could not find p4win.exe/p4.exe installed in perforce directory");
@@ -149,10 +223,13 @@ namespace Aurora
 			{
 				if(filename.Length == 0)
 					return false;
-				if(g_p4wininstalled)
-					return AsyncProcess.Schedule(output, "p4win.exe", GetUserInfoString() + " \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
+                string token = FormatToken("history", filename);
+                if (!LockOp(token))
+                    return false;
+                if (g_p4wininstalled)
+                    return AsyncProcess.Schedule(output, "p4win.exe", GetUserInfoString() + " \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename), new AsyncProcess.OnDone(UnlockOp), token, 0);
 				if(g_p4vinstalled)
-					return AsyncProcess.Schedule(output, "p4v.exe", GetUserInfoString() + " -cmd \"history " + filename + "\"", System.IO.Path.GetDirectoryName(filename));
+                    return AsyncProcess.Schedule(output, "p4v.exe", GetUserInfoString() + " -cmd \"history " + filename + "\"", System.IO.Path.GetDirectoryName(filename), new AsyncProcess.OnDone(UnlockOp), token, 0);
 				return NotifyUser("could not find p4win.exe/p4v.exe installed in perforce directory");
 			}
 
@@ -162,7 +239,8 @@ namespace Aurora
 					return false;
 				if(!g_p4wininstalled)
 					return NotifyUser("could not find p4win exe installed in perforce directory");
-				return AsyncProcess.Schedule(output, "p4win.exe", GetUserInfoString() + " -s \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
+                
+                return AsyncProcess.Schedule(output, "p4win.exe", GetUserInfoString() + " -q -s \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename), null, null, 0);
 			}
 
 			private static string GetUserInfoString()
@@ -226,7 +304,12 @@ namespace Aurora
 				string arguments = " -win 0 ";
 				arguments += GetUserInfoStringFull(true, Path.GetDirectoryName(filename));
 				arguments += " -cmd \"annotate -i " + filename + "\"";
-				return AsyncProcess.Schedule(output, "p4v.exe", arguments, System.IO.Path.GetDirectoryName(filename));
+
+
+                string token = FormatToken("timelapse", filename);
+                if (!LockOp(token))
+                    return false;
+                return AsyncProcess.Schedule(output, "p4v.exe", arguments, System.IO.Path.GetDirectoryName(filename), new AsyncProcess.OnDone(UnlockOp), token);
 			}
 
 			static public string ResolveFileNameWithCase(string fullpath)

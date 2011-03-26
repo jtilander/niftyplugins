@@ -8,7 +8,11 @@ namespace Aurora
 {
 	public static class AsyncProcess
 	{
-		public static void Init()
+        private static int s_defaultTimeout = 30000; // in ms
+
+        public delegate void OnDone(bool ok, object arg0);
+
+        public static void Init()
 		{
 			m_helperThread = new System.Threading.Thread(new ThreadStart(ThreadMain));
 			m_helperThread.Start();
@@ -19,26 +23,42 @@ namespace Aurora
 			m_helperThread.Abort();
 		}
 
-		public static bool Run(OutputWindowPane output, string executable, string commandline, string workingdir)
+        public static bool Run(OutputWindowPane output, string executable, string commandline, string workingdir, OnDone callback, object callbackArg)
 		{
 			int timeout = 1000;
 
-			if(!RunCommand(output, executable, commandline, workingdir, timeout))
-			{
-				Log.Debug("Failed to run immediate (process hung?), trying again on a remote thread: " + commandline);
-				return Schedule(output, executable, commandline, workingdir);
-			}
+            if (!RunCommand(output, executable, commandline, workingdir, timeout))
+            {
+                Log.Debug("Failed to run immediate (process hung?), trying again on a remote thread: " + commandline);
+                return Schedule(output, executable, commandline, workingdir, callback, callbackArg);
+            }
+            else
+            {
+                if (null != callback)
+                {
+                    callback(true, callbackArg);
+                }
+            }
 
 			return true;
 		}
 
-		public static bool Schedule(OutputWindowPane output, string executable, string commandline, string workingdir)
+        public static bool Schedule(OutputWindowPane output, string executable, string commandline, string workingdir, OnDone callback, object callbackArg)
+        {
+            return Schedule(output, executable, commandline, workingdir, callback, callbackArg, s_defaultTimeout);
+        }
+
+        public static bool Schedule(OutputWindowPane output, string executable, string commandline, string workingdir, OnDone callback, object callbackArg, int timeout)
 		{
 			CommandThread cmd = new CommandThread();
 			cmd.output = output;
 			cmd.executable = executable;
 			cmd.commandline = commandline;
 			cmd.workingdir = workingdir;
+            cmd.callback = callback;
+            cmd.callbackArg = callbackArg;
+            cmd.timeout = timeout;
+
 			try
 			{
 				m_queueLock.WaitOne();
@@ -98,11 +118,17 @@ namespace Aurora
 			public string commandline = "";
 			public string workingdir = "";
 			public OutputWindowPane output = null;
-
+            public OnDone callback = null;
+            public object callbackArg = null;
+            public int timeout = 10000;
 			public void Run()
 			{
-				int timeout = 10000;
-				RunCommand(output, executable, commandline, workingdir, timeout);
+				bool ok = RunCommand(output, executable, commandline, workingdir, timeout);
+
+                if (null != callback)
+                {
+                    callback(ok, callbackArg);
+                }
 			}
 		}
 
@@ -128,12 +154,19 @@ namespace Aurora
 					Log.Error("{0}: {1} Failed to start. Is Perforce installed and in the path?\n", executable, commandline);
 					return false;
 				}
-				
+
+                if (0 == timeout)
+                {
+                    // Fire and forget task.
+                    return true;
+                }
+
 				bool exited = process.WaitForExit(timeout);
 
 				if(!exited)
 				{
 					Log.Info("{0}: {1} timed out ({2} ms)", executable, commandline, timeout);
+                    process.Kill();
 					return false;
 				}
 				else
