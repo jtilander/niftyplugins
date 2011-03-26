@@ -27,9 +27,17 @@ namespace Aurora
                 foreach (SelectedItem sel in Plugin.App.SelectedItems)
                 {
                     if (m_executeForFileItems && sel.ProjectItem != null && m_fileItemGUID == sel.ProjectItem.Kind)
+                    {
                         OnExecute(sel, sel.ProjectItem.get_FileNames(0), Plugin.OutputPane);
+                    }
+                    else if (m_executeForFileItems && sel.ProjectItem == null && Plugin.App.ActiveWindow.Type == vsWindowType.vsWindowTypeDocument)
+                    {
+                        OnExecute(sel, Plugin.App.ActiveDocument.FullName, Plugin.OutputPane);
+                    }
                     else if (m_executeForProjectItems && sel.Project != null)
-						OnExecute(sel, sel.Project.FullName, Plugin.OutputPane);
+                    {
+                        OnExecute(sel, sel.Project.FullName, Plugin.OutputPane);
+                    }
                 }
 
 				return true;
