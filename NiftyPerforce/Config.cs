@@ -23,6 +23,7 @@ namespace Aurora
 			private bool m_useSystemConnection = true;
 			private bool m_ignoreReadOnlyOnEdit = false;
 			//private bool m_warnOnEditNewerFile = false;
+            private bool m_preferFoolVisualClient = false;      // <<--- use p4v instead of p4win
 			private string m_port = "";
 			private string m_client = "";
 			private string m_username = "";
@@ -110,6 +111,13 @@ namespace Aurora
 				get { return m_warnOnEditNewerFile; }
 				set { m_warnOnEditNewerFile = value; mDirty = true; }
 			}*/
+
+            [Category("Operation"), Description("Use p4v even if superior p4win is found.")]
+            public bool preferVisualClient
+            {
+                get { return m_preferFoolVisualClient; }
+                set { m_preferFoolVisualClient = value; mDirty = true; }
+            }
 
 			[Category("Connection"), Description("Use config from system. Effectivly disables the settings inside this dialog for the client etc and picks up the settings from the registry/p4config environment.")]
 			public bool useSystemEnv

@@ -44,6 +44,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Commands\P4DiffSolution.cs" />
+    <Compile Include="Commands\P4RevisionGraphItem.cs" />
     <Compile Include="Commands\P4RevisionHistoryItem.cs" />
     <Compile Include="Commands\P4DiffItem.cs" />
     <Compile Include="Commands\ItemCommandBase.cs" />
@@ -138,12 +139,13 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="NiftyPerforce.AddIn" />
-    <Content Include="Resources\Show.bmp" />
-    <Content Include="Resources\TimeLapseView.bmp" />
     <None Include="AUTHORS" />
     <None Include="COPYING" />
     <None Include="README" />
+    <None Include="NiftyPerforce.AddIn" />
+    <None Include="Resources\Show.bmp" />
+    <None Include="Resources\TimeLapseView.bmp" />
+    <None Include="Resources\RevisionGraph.bmp" />
     <None Include="Resources\RevisionHistory.bmp" />
     <None Include="Resources\EditAll.bmp" />
     <None Include="Resources\Revert.bmp" />

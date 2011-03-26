@@ -73,6 +73,9 @@ namespace Aurora
 				m_commandRegistry.RegisterCommand("NiftyTimeLapse", doBindings, new P4TimeLapseItem(m_plugin), true);
 				if(doContextCommands) m_commandRegistry.RegisterCommand("NiftyTimeLapseItem", doBindings, new P4TimeLapseItem(m_plugin), false);
 
+                m_commandRegistry.RegisterCommand("NiftyRevisionGraph", doBindings, new P4RevisionGraphItem(m_plugin), true);
+                if (doContextCommands) m_commandRegistry.RegisterCommand("NiftyRevisionGraphItem", doBindings, new P4RevisionGraphItem(m_plugin), false);
+
 				m_commandRegistry.RegisterCommand("NiftyRevert", doBindings, new P4RevertItem(m_plugin), true);
 				if(doContextCommands) m_commandRegistry.RegisterCommand("NiftyRevertItem", doBindings, new P4RevertItem(m_plugin), false);
 
