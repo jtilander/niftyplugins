@@ -15,22 +15,6 @@ NiftySolution
 	Adds a open files in solution dialog.
 	Adds a toggle header/cpp file command.
 
-
-
-Installation:
-
-Simply unzip all the files to:
-
-    My Documents\Visual Studio 2005\Addins
-
-If you need the addins to be active across multiple versions of 
-Visual Studio, simply unzip the files here instead:
-
-    %APPDATA%\Microsoft\MSEnvShared\Addins\
-
-You might need to actually create the directory ...
-
-
 That's it for now.
 
 Jim Tilander
