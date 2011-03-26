@@ -38,18 +38,6 @@ namespace Aurora
             public override void OnExecute(SelectedItem item, string fileName, OutputWindowPane pane)
             {
 				P4Operations.EditFile(pane, fileName);
-
-                string ext = Path.GetExtension(fileName).ToLower();
-
-                if ( ext == ".vcxproj")
-                {
-                    P4Operations.EditFile(pane, fileName + ".filters");
-                }
-
-                if (ext == ".settings" || ext == ".resx" || ext == ".cs")
-                {
-                    P4Operations.EditFile(pane, Path.ChangeExtension(fileName, ".Designer.cs") );
-                }
             }
 		}
 	}

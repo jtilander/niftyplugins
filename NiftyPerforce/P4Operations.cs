@@ -18,6 +18,9 @@ namespace Aurora
 			private static bool g_p4vinstalled = false;
 			private static bool g_p4customdiff = false;
 
+
+            public delegate bool CheckoutCallback(OutputWindowPane output, string filename);
+
 			public static bool IntegrateFile(OutputWindowPane output, string filename, string oldName)
 			{
 				if(filename.Length == 0)
@@ -45,7 +48,41 @@ namespace Aurora
 				return AsyncProcess.Schedule(output, "p4.exe", GetUserInfoString() + "add \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
 			}
 
-			public static bool EditFile(OutputWindowPane output, string filename)
+            public static bool EditFile(OutputWindowPane output, string filename)
+            {
+                return Internal_CheckEditFile(new CheckoutCallback(Internal_EditFile), output, filename);
+            }
+
+            public static bool EditFileImmediate(OutputWindowPane output, string filename)
+            {
+                return Internal_CheckEditFile(new CheckoutCallback(Internal_EditFileImmediate), output, filename);
+            }
+
+            private static bool Internal_CheckEditFile(CheckoutCallback callback, OutputWindowPane output, string filename)
+            {
+                bool result = callback(output, filename);
+
+                string ext = Path.GetExtension(filename).ToLower();
+                if (ext == ".vcxproj")
+                {
+                    callback(output, filename + ".filters");
+                }
+
+                if (ext == ".settings" || ext == ".resx")
+                {
+                    callback(output, Path.ChangeExtension(filename, ".Designer.cs"));
+                }
+                
+                if (ext == ".cs")
+                {
+                    callback(output, Path.ChangeExtension(filename, ".Designer.cs"));
+                    callback(output, Path.ChangeExtension(filename, ".resx"));
+                }
+
+                return result;
+            }
+
+            private static bool Internal_EditFile(OutputWindowPane output, string filename)
 			{
 				if(filename.Length == 0)
 					return false;
@@ -61,7 +98,7 @@ namespace Aurora
 				return AsyncProcess.Schedule(output, "p4.exe", GetUserInfoString() + "edit \"" + filename + "\"", System.IO.Path.GetDirectoryName(filename));
 			}
 
-			public static bool EditFileImmediate(OutputWindowPane output, string filename)
+            private static bool Internal_EditFileImmediate(OutputWindowPane output, string filename)
 			{
 				if(filename.Length == 0)
 					return false;
