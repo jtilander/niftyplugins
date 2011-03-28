@@ -22,25 +22,6 @@ elif 'VS80COMNTOOLS' in os.environ.keys():
 else:
     print "No visual studio found!"
 
-# (source name, dest dir)
-FILES=[
-    (r'README', ''),
-    (r'COPYING', ''),
-    (r'AUTHORS', ''),
-    (r'NiftySolution\bin\NiftySolution.dll', ''),
-    (r'NiftyPerforce\bin\NiftyPerforce.dll', ''),
-    (r'NiftyPerforce\bin\AuroraCore.dll', ''),
-    #(r'NiftySolution\NiftySolution2010.AddIn', ''),
-    #(r'NiftyPerforce\NiftyPerforce2010.AddIn', ''),
-    (r'NiftySolution\NiftySolution.AddIn', ''),
-    (r'NiftyPerforce\NiftyPerforce.AddIn', ''),
-    (r'NiftySolution\bin\en-US\NiftySolution.resources.dll', 'en-US'),
-    (r'NiftyPerforce\bin\en-US\NiftyPerforce.resources.dll', 'en-US'),
-]
-
-
-# "ProductVersion" = "8:1.3.3"
-
 SETUP_PROJECTS = [
    r'NiftySolutionSetup\NiftySolutionSetup.vdproj', 
    r'NiftyPerforceSetup\NiftyPerforceSetup.vdproj', 
@@ -136,16 +117,6 @@ def msbuild(solution, config, command):
         print 'Result: %s' % res
         sys.exit(res)
 
-def makearchive(filename):
-    z = zipfile.ZipFile(filename, 'w')
-    for name, destdir in FILES:
-        fullname = os.path.join(BASE, name)
-        basename = os.path.basename(fullname)
-        destname = os.path.join(destdir, basename)
-        
-        z.write(fullname, destname)
-    z.close()
-
 def generateUUID(name):
     text = name
     import md5
@@ -204,19 +175,17 @@ Usage: build.py <version>
     if VS2010:
         msbuild(os.path.join(BASE, SOLUTION2010), 'Release', 'Rebuild')
     elif VS2005:
-        print "Updating versions to %s" % versionstring
+        print "Updating versions to \"%s\"..." % versionstring
         updateVersion(versionstring)
         
-        print "Cleaning solution"
+        print "Cleaning solution..."
         cleanSolution(os.path.join(BASE, SOLUTION2005), 'Release')
         
-        print "Building installers"
+        print "Building installers..."
         buildSolution(os.path.join(BASE, SOLUTION2005), 'Release')
         
-        print "Publishing the installers"
+        print "Publishing the installers..."
         moveOutputIntoPlace(versionstring)
-    
-    #makearchive(os.path.join(DISTDIR, 'NiftyPlugins-%s.zip' % version))
 
 if __name__ == '__main__':
     sys.exit( main(sys.argv[1:]) )
