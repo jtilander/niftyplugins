@@ -12,7 +12,8 @@ namespace Aurora
 		{
 			private OutputWindowPane m_pane;
 			private Stopwatch m_timer;
-			BuildEvents m_buildEvents;
+			private BuildEvents m_buildEvents;
+            private DateTime m_start;
 			
 			public SolutionBuildTimings(Plugin plugin)
 			{
@@ -32,10 +33,15 @@ namespace Aurora
 				if (Scope != vsBuildScope.vsBuildScopeSolution)
 					return;
 
+                
+                DateTime now = DateTime.Now;
+
 				m_timer.Stop();
 				TimeSpan ts = m_timer.Elapsed;
-				string timeMessage = String.Format("Total solution build time: {0:00}:{1:00}:{2:00}.{3:00}\n", ts.Hours, ts.Minutes, ts.Seconds, ts.Milliseconds / 10);
-				m_pane.OutputString(timeMessage);
+				string timeMessage = String.Format("Total solution build time: {0:00}:{1:00}:{2:00}.{3:00} (started {4} {5} and ended {6} {7})\n", 
+                    ts.Hours, ts.Minutes, ts.Seconds, ts.Milliseconds / 10, m_start.ToShortDateString(), m_start.ToLongTimeString(), now.ToShortDateString(), now.ToLongTimeString());
+                m_pane.OutputString(timeMessage);
+                
 				
 				m_timer.Reset();
 			}
@@ -45,6 +51,7 @@ namespace Aurora
 				if (Scope != vsBuildScope.vsBuildScopeSolution)
 					return;
 				m_timer.Start();
+                m_start = DateTime.Now;
 			}
 		}
 	}
