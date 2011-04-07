@@ -208,7 +208,7 @@ namespace Aurora
 
                 if (g_p4wininstalled /*&& !Singleton<Config>.Instance.preferVisualClient*/)
                 {
-                    return AsyncProcess.Schedule(output, "p4win.exe", GetUserInfoString() + " -D \"" + filename + "#have\"", Path.GetDirectoryName(filename), new AsyncProcess.OnDone(UnlockOp), token);
+                    return AsyncProcess.Schedule(output, "p4win.exe", GetUserInfoString() + " -D \"" + filename + "#have\"", Path.GetDirectoryName(filename), new AsyncProcess.OnDone(UnlockOp), token, 0);
                 }
 
                 // NOTE: this doesn't work since it leaves zombie p4v processes around!
@@ -333,7 +333,7 @@ namespace Aurora
                 string token = FormatToken("timelapse", filename);
                 if (!LockOp(token))
                     return false;
-                return AsyncProcess.Schedule(output, "p4v.exe", arguments, Path.GetDirectoryName(filename), new AsyncProcess.OnDone(UnlockOp), token);
+                return AsyncProcess.Schedule(output, "p4v.exe", arguments, Path.GetDirectoryName(filename), new AsyncProcess.OnDone(UnlockOp), token, 0);
 			}
 
             public static bool RevisionGraph(OutputWindowPane output, string filename)
@@ -349,7 +349,7 @@ namespace Aurora
                 string token = FormatToken("revisiongraph", filename);
                 if (!LockOp(token))
                     return false;
-                return AsyncProcess.Schedule(output, "p4v.exe", arguments, Path.GetDirectoryName(filename), new AsyncProcess.OnDone(UnlockOp), token);
+                return AsyncProcess.Schedule(output, "p4v.exe", arguments, Path.GetDirectoryName(filename), new AsyncProcess.OnDone(UnlockOp), token, 0);
             }
 
 			static public string ResolveFileNameWithCase(string fullpath)
