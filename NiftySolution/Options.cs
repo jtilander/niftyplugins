@@ -13,6 +13,8 @@ namespace Aurora
 		{
 			private bool mDirty = false;
 			private bool mEnableBindings = false;
+            private bool mEnableVC6DebuggerExceptions = false;
+			private bool mIgnoreDebuggerExceptions = false;
 
 			private string mExtraSearchDirectories = "";
 
@@ -43,6 +45,36 @@ namespace Aurora
 					mDirty = true;
 				}
 			}
+
+            [Category("General"), Description("Exceptions in debugger behaves as in VC6")]
+            public bool EnableVC6DebuggerExceptions
+            {
+                get
+                {
+                    return mEnableVC6DebuggerExceptions;
+                }
+
+                set
+                {
+                    mEnableVC6DebuggerExceptions = value;
+                    mDirty = true;
+                }
+            }
+
+            [Category("General"), Description("All exceptions in debugger are ignored")]
+            public bool IgnoreDebuggerExceptions
+            {
+                get
+                {
+                    return mIgnoreDebuggerExceptions;
+                }
+
+                set
+                {
+                    mIgnoreDebuggerExceptions = value;
+                    mDirty = true;
+                }
+            }
 
 			[Category("NiftyOpen"), Description("Also add all the files underneath these ; delimited directories")]
 			public string ExtraSearchDirs
