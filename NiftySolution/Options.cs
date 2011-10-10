@@ -13,7 +13,7 @@ namespace Aurora
 		{
 			private bool mDirty = false;
 			private bool mEnableBindings = false;
-            private bool mEnableVC6DebuggerExceptions = false;
+            private bool mSilentDebuggerExceptions = false;
 			private bool mIgnoreDebuggerExceptions = false;
 
 			private string mExtraSearchDirectories = "";
@@ -47,16 +47,16 @@ namespace Aurora
 			}
 
             [Category("General"), Description("Exceptions in debugger behaves as in VC6")]
-            public bool EnableVC6DebuggerExceptions
+            public bool SilentDebuggerExceptions
             {
                 get
                 {
-                    return mEnableVC6DebuggerExceptions;
+                    return mSilentDebuggerExceptions;
                 }
 
                 set
                 {
-                    mEnableVC6DebuggerExceptions = value;
+                    mSilentDebuggerExceptions = value;
                     mDirty = true;
                 }
             }
