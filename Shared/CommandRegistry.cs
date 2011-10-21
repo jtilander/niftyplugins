@@ -66,7 +66,7 @@ namespace Aurora
 
 			if(0 == commandHandler.IconIndex)
 			{
-				vscommand = mPlugin.Commands.AddNamedCommand2(mPlugin.AddIn, name, commandHandler.Name, commandHandler.Tooltip, true, -1, ref contextGuids, commandStatus, (int)vsCommandStyle.vsCommandStyleText, vsCommandControlType.vsCommandControlTypeButton);
+				vscommand = mPlugin.Commands.AddNamedCommand2(mPlugin.AddIn, name, name/*commandHandler.Name*/, commandHandler.Tooltip, true, -1, ref contextGuids, commandStatus, (int)vsCommandStyle.vsCommandStyleText, vsCommandControlType.vsCommandControlTypeButton);
 			}
 			else
 			{
@@ -76,7 +76,7 @@ namespace Aurora
 					style = (int)vsCommandStyle.vsCommandStylePict;
 				}
 			
-				vscommand = mPlugin.Commands.AddNamedCommand2(mPlugin.AddIn, name, commandHandler.Name, commandHandler.Tooltip, false, commandHandler.IconIndex, ref contextGuids, commandStatus, style, vsCommandControlType.vsCommandControlTypeButton);
+				vscommand = mPlugin.Commands.AddNamedCommand2(mPlugin.AddIn, name, name/*commandHandler.Name*/, commandHandler.Tooltip, false, commandHandler.IconIndex, ref contextGuids, commandStatus, style, vsCommandControlType.vsCommandControlTypeButton);
 			}
 
 			// Register the graphics controls for this command as well.

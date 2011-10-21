@@ -237,7 +237,7 @@ namespace Aurora
 				return NotifyUser("could not find p4win.exe/p4.exe installed in perforce directory");
 			}
 
-			public static bool RevisionHistoryFile(OutputWindowPane output, string filename)
+			public static bool RevisionHistoryFile(OutputWindowPane output, string dirname, string filename)
 			{
 				if(filename.Length == 0)
 					return false;
@@ -245,9 +245,9 @@ namespace Aurora
                 if (!LockOp(token))
                     return false;
                 if (g_p4wininstalled && !Singleton<Config>.Instance.preferVisualClient)
-                    return AsyncProcess.Schedule(output, "p4win.exe", GetUserInfoStringFull(true, Path.GetDirectoryName(filename)) + " \"" + filename + "\"", Path.GetDirectoryName(filename), new AsyncProcess.OnDone(UnlockOp), token, 0);
+					return AsyncProcess.Schedule(output, "p4win.exe", GetUserInfoStringFull(true, dirname) + " -H \"" + filename + "\"", dirname, new AsyncProcess.OnDone(UnlockOp), token, 0);
 				if(g_p4vinstalled)
-                    return AsyncProcess.Schedule(output, "p4v.exe", " -win 0 " + GetUserInfoStringFull(true, Path.GetDirectoryName(filename)) + " -cmd \"history " + filename + "\"", Path.GetDirectoryName(filename), new AsyncProcess.OnDone(UnlockOp), token, 0);
+					return AsyncProcess.Schedule(output, "p4v.exe", " -win 0 " + GetUserInfoStringFull(true, dirname) + " -cmd \"history " + filename + "\"", dirname, new AsyncProcess.OnDone(UnlockOp), token, 0);
 				return NotifyUser("could not find p4win.exe/p4v.exe installed in perforce directory");
 			}
 
@@ -281,7 +281,7 @@ namespace Aurora
 					{
 						try
 						{
-							string output = Process.Execute("p4", "-s -L \"{0}\" info", dir);
+							string output = Process.Execute("p4", dir, "-s -L \"{0}\" info", dir);
 							Regex userpattern = new Regex(@"User name: (?<user>.*)$", RegexOptions.Compiled | RegexOptions.Multiline);
 							Regex portpattern = new Regex(@"Server address: (?<port>.*)$", RegexOptions.Compiled | RegexOptions.Multiline);
 							Regex clientpattern = new Regex(@"Client name: (?<client>.*)$", RegexOptions.Compiled | RegexOptions.Multiline);
@@ -320,36 +320,35 @@ namespace Aurora
 				return arguments;
 			}
 
-			public static bool TimeLapseView(OutputWindowPane output, string filename)
+			public static bool TimeLapseView(OutputWindowPane output, string dirname, string filename)
 			{
 				if(!g_p4vinstalled)
 					return NotifyUser("could not find p4v exe installed in perforce directory");
 				// NOTE: The timelapse view uses the undocumented feature for bringing up the timelapse view. The username, client and port needs to be given in a certain order to work (straight from perforce).
                 string arguments = " -win 0 ";
-				arguments += GetUserInfoStringFull(true, Path.GetDirectoryName(filename));
+				arguments += GetUserInfoStringFull(true, dirname);
 				arguments += " -cmd \"annotate -i " + filename + "\"";
 
 
                 string token = FormatToken("timelapse", filename);
                 if (!LockOp(token))
                     return false;
-                return AsyncProcess.Schedule(output, "p4v.exe", arguments, Path.GetDirectoryName(filename), new AsyncProcess.OnDone(UnlockOp), token, 0);
+				return AsyncProcess.Schedule(output, "p4v.exe", arguments, dirname, new AsyncProcess.OnDone(UnlockOp), token, 0);
 			}
 
-            public static bool RevisionGraph(OutputWindowPane output, string filename)
+            public static bool RevisionGraph(OutputWindowPane output, string dirname, string filename)
             {
                 if (!g_p4vinstalled)
                     return NotifyUser("could not find p4v exe installed in perforce directory");
                 // NOTE: The timelapse view uses the undocumented feature for bringing up the timelapse view. The username, client and port needs to be given in a certain order to work (straight from perforce).
                 string arguments = " -win 0 ";
-                arguments += GetUserInfoStringFull(true, Path.GetDirectoryName(filename));
+				arguments += GetUserInfoStringFull(true, dirname);
                 arguments += " -cmd \"tree -i " + filename + "\"";
-
 
                 string token = FormatToken("revisiongraph", filename);
                 if (!LockOp(token))
                     return false;
-                return AsyncProcess.Schedule(output, "p4v.exe", arguments, Path.GetDirectoryName(filename), new AsyncProcess.OnDone(UnlockOp), token, 0);
+				return AsyncProcess.Schedule(output, "p4v.exe", arguments, dirname, new AsyncProcess.OnDone(UnlockOp), token, 0);
             }
 
 			static public string ResolveFileNameWithCase(string fullpath)
@@ -478,6 +477,33 @@ namespace Aurora
 			{
 				System.Windows.Forms.MessageBox.Show(message, "NiftyPerforce Notice!", System.Windows.Forms.MessageBoxButtons.OK);
 				return false;
+			}
+			
+			public static string RemapToMain(string filename, string mainline)
+			{
+				Log.Debug("RemapToMain : {0} {1}", filename, mainline);
+				
+				if (mainline.Length == 0)
+				{
+					Log.Error( "Tried to find the mainline version of {0}, but the mainline path spec is empty", filename);
+					throw new Exception( string.Format("Tried to find the mainline version of {0}, but the mainline path spec is empty", filename) );
+				}
+				
+				string result = Process.Execute("p4.exe", Path.GetDirectoryName(filename), GetUserInfoString() + "integrated \"" + filename + "\"");
+
+				Regex pattern = new Regex(@"//(.*)#\d+ - .*//([^#]+)#\d+", RegexOptions.Compiled);
+				
+				string mainline_ = mainline.ToLower();
+				
+				foreach( Match m in pattern.Matches(result) )
+				{
+					string candidate = "//" + m.Groups[2].ToString().ToLower();
+					
+					if( candidate.StartsWith(mainline_) )
+						return candidate;
+				}
+				
+				return filename;
 			}
 		}
 	}

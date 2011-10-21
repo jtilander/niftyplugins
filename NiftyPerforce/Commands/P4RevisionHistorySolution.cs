@@ -3,6 +3,7 @@ using System;
 using EnvDTE;
 using EnvDTE80;
 using Microsoft.VisualStudio.CommandBars;
+using System.IO;
 
 namespace Aurora
 {
@@ -30,7 +31,7 @@ namespace Aurora
 			{
 				if(Plugin.App.Solution != null && Plugin.App.Solution.FullName != string.Empty)
 				{
-					P4Operations.RevisionHistoryFile(Plugin.OutputPane, Plugin.App.Solution.FullName);
+					P4Operations.RevisionHistoryFile(Plugin.OutputPane, Path.GetDirectoryName(Plugin.App.Solution.FullName), Plugin.App.Solution.FullName);
 					return true;
 				}
 				return false;

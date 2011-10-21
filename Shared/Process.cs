@@ -11,7 +11,7 @@ namespace Aurora
 			public Error(string info_, params object[] vaargs_) { info = string.Format(info_, vaargs_); }
 		};
 
-		public static string Execute(string executable, string arguments, params object[] vaargs)
+		public static string Execute(string executable, string workingdir, string arguments, params object[] vaargs)
 		{
 			System.Diagnostics.Process process = new System.Diagnostics.Process();
 			process.StartInfo.UseShellExecute = false;
@@ -19,6 +19,7 @@ namespace Aurora
 			process.StartInfo.RedirectStandardOutput = true;
 			process.StartInfo.RedirectStandardError = true;
 			process.StartInfo.CreateNoWindow = true;
+			process.StartInfo.WorkingDirectory = workingdir;
 			process.StartInfo.Arguments = string.Format(arguments, vaargs);
 			
 			if(!process.Start())

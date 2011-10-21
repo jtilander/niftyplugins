@@ -13,7 +13,7 @@ namespace Aurora
 		private readonly string mTooltip;
 
 		public Plugin Plugin	{ get { return mPlugin; } }
-		public string Name		{ get { return mName; } }
+		//public string Name		{ get { return mName; } }
 		public string Tooltip	{ get { return mTooltip; } }
 		public virtual int IconIndex { get { return -1; } }
 

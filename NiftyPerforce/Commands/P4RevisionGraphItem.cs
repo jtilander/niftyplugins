@@ -3,6 +3,7 @@ using System;
 using EnvDTE;
 using EnvDTE80;
 using Microsoft.VisualStudio.CommandBars;
+using System.IO;
 
 namespace Aurora
 {
@@ -10,9 +11,12 @@ namespace Aurora
     {
         class P4RevisionGraphItem : ItemCommandBase
         {
-            public P4RevisionGraphItem(Plugin plugin)
+			private bool mMainLine;
+			
+            public P4RevisionGraphItem(Plugin plugin, bool mainLine)
                 : base("P4RevisionGraphItem", plugin, "Shows the revision graph for an item", true, true)
             {
+				mMainLine = mainLine;
             }
 
             override public int IconIndex { get { return 9; } }
@@ -34,7 +38,15 @@ namespace Aurora
 
             public override void OnExecute(SelectedItem item, string fileName, OutputWindowPane pane)
             {
-                P4Operations.RevisionGraph(pane, fileName);
+				string dirname = Path.GetDirectoryName(fileName);
+
+				if (mMainLine)
+				{
+					Config options = (Config)Plugin.Options;
+					fileName = P4Operations.RemapToMain(fileName, options.MainLinePath);
+				}
+				
+				P4Operations.RevisionGraph(pane, dirname, fileName);
             }
         }
     }

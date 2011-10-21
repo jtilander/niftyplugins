@@ -62,19 +62,25 @@ namespace Aurora
 				if(doContextCommands) m_commandRegistry.RegisterCommand("NiftyEditItem", doBindings, new P4EditItem(m_plugin), false);
 				if(doContextCommands) m_commandRegistry.RegisterCommand("NiftyEditSolution", doBindings, new P4EditSolution(m_plugin), false);
 
-				m_commandRegistry.RegisterCommand("NiftyDiff", doBindings, new P4DiffItem(m_plugin), true);
+				m_commandRegistry.RegisterCommand("NiftyDiff", doBindings, new P4DiffItem(m_plugin));
 				if(doContextCommands) m_commandRegistry.RegisterCommand("NiftyDiffItem", doBindings, new P4DiffItem(m_plugin), false);
 				if(doContextCommands) m_commandRegistry.RegisterCommand("NiftyDiffSolution", doBindings, new P4DiffSolution(m_plugin), false);
 
-				m_commandRegistry.RegisterCommand("NiftyHistory", doBindings, new P4RevisionHistoryItem(m_plugin), true);
-				if(doContextCommands) m_commandRegistry.RegisterCommand("NiftyHistoryItem", doBindings, new P4RevisionHistoryItem(m_plugin), false);
+				m_commandRegistry.RegisterCommand("NiftyHistory", doBindings, new P4RevisionHistoryItem(m_plugin, false), true);
+				m_commandRegistry.RegisterCommand("NiftyHistoryMain", doBindings, new P4RevisionHistoryItem(m_plugin, true), true);
+				if(doContextCommands) m_commandRegistry.RegisterCommand("NiftyHistoryItem", doBindings, new P4RevisionHistoryItem(m_plugin, false), false);
+				if(doContextCommands) m_commandRegistry.RegisterCommand("NiftyHistoryItemMain", doBindings, new P4RevisionHistoryItem(m_plugin, true), false);
 				if(doContextCommands) m_commandRegistry.RegisterCommand("NiftyHistorySolution", doBindings, new P4RevisionHistorySolution(m_plugin), false);
 
-				m_commandRegistry.RegisterCommand("NiftyTimeLapse", doBindings, new P4TimeLapseItem(m_plugin), true);
-				if(doContextCommands) m_commandRegistry.RegisterCommand("NiftyTimeLapseItem", doBindings, new P4TimeLapseItem(m_plugin), false);
+				m_commandRegistry.RegisterCommand("NiftyTimeLapse", doBindings, new P4TimeLapseItem(m_plugin, false), true);
+				m_commandRegistry.RegisterCommand("NiftyTimeLapseMain", doBindings, new P4TimeLapseItem(m_plugin, true), true);
+				if(doContextCommands) m_commandRegistry.RegisterCommand("NiftyTimeLapseItem", doBindings, new P4TimeLapseItem(m_plugin, false), false);
+				if (doContextCommands) m_commandRegistry.RegisterCommand("NiftyTimeLapseItemMain", doBindings, new P4TimeLapseItem(m_plugin, true), false);
 
-                m_commandRegistry.RegisterCommand("NiftyRevisionGraph", doBindings, new P4RevisionGraphItem(m_plugin), true);
-                if (doContextCommands) m_commandRegistry.RegisterCommand("NiftyRevisionGraphItem", doBindings, new P4RevisionGraphItem(m_plugin), false);
+                m_commandRegistry.RegisterCommand("NiftyRevisionGraph", doBindings, new P4RevisionGraphItem(m_plugin, false), true);
+				m_commandRegistry.RegisterCommand("NiftyRevisionGraphMain", doBindings, new P4RevisionGraphItem(m_plugin, true), true);
+                if (doContextCommands) m_commandRegistry.RegisterCommand("NiftyRevisionGraphItem", doBindings, new P4RevisionGraphItem(m_plugin, false), false);
+				if (doContextCommands) m_commandRegistry.RegisterCommand("NiftyRevisionGraphItemMain", doBindings, new P4RevisionGraphItem(m_plugin, true), false);
 
 				m_commandRegistry.RegisterCommand("NiftyRevert", doBindings, new P4RevertItem(m_plugin), true);
 				if(doContextCommands) m_commandRegistry.RegisterCommand("NiftyRevertItem", doBindings, new P4RevertItem(m_plugin), false);

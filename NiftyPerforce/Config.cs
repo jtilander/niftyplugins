@@ -27,6 +27,7 @@ namespace Aurora
 			private string m_port = "";
 			private string m_client = "";
 			private string m_username = "";
+			private string m_mainlinePath = "";
 
 			[XmlIgnore]
 			public string mFileName = "";
@@ -145,6 +146,13 @@ namespace Aurora
 			{
 				get { return m_username; }
 				set { m_username = value; mDirty = true; }
+			}
+
+			[Category("Branching"), Description("Where we can find the mainline version of this file")]
+			public string MainLinePath
+			{
+				get { return m_mainlinePath; }
+				set { m_mainlinePath = value; mDirty = true; }
 			}
 
 			public static Config Load(string filename)

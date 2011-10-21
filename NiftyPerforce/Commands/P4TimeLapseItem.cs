@@ -3,6 +3,7 @@ using System;
 using EnvDTE;
 using EnvDTE80;
 using Microsoft.VisualStudio.CommandBars;
+using System.IO;
 
 namespace Aurora
 {
@@ -10,9 +11,12 @@ namespace Aurora
 	{
 		class P4TimeLapseItem : ItemCommandBase
 		{
-			public P4TimeLapseItem(Plugin plugin)
-				: base("TimeLapseItem", plugin, "Shows the Time Lapse View for an item", true, true)
+			private bool mMainLine;
+			
+			public P4TimeLapseItem(Plugin plugin, bool inMainLine)
+				: base("TimeLapseItem" , plugin, "Shows the Time Lapse View for an item", true, true)
 			{
+				mMainLine = inMainLine;
 			}
 
 			override public int IconIndex { get { return 7; } }
@@ -34,7 +38,15 @@ namespace Aurora
 
 			public override void OnExecute(SelectedItem item, string fileName, OutputWindowPane pane)
 			{
-				P4Operations.TimeLapseView(pane, fileName);
+				string dirname = Path.GetDirectoryName(fileName);
+				
+				if( mMainLine )
+				{
+					Config options = (Config)Plugin.Options;
+					fileName = P4Operations.RemapToMain(fileName, options.MainLinePath);
+				}
+				
+				P4Operations.TimeLapseView(pane, dirname, fileName);
 			}
 		}
 	}

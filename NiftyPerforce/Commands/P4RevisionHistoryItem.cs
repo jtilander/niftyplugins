@@ -3,6 +3,7 @@ using System;
 using EnvDTE;
 using EnvDTE80;
 using Microsoft.VisualStudio.CommandBars;
+using System.IO;
 
 namespace Aurora
 {
@@ -10,9 +11,12 @@ namespace Aurora
 	{
 		class P4RevisionHistoryItem : ItemCommandBase
 		{
-			public P4RevisionHistoryItem(Plugin plugin)
+			private bool mMainLine;
+				
+			public P4RevisionHistoryItem(Plugin plugin, bool mainLine)
 				: base("RevisionHistoryItem", plugin, "Shows the revision history for an item", true, true)
 			{
+				mMainLine = mainLine;
 			}
 
 			override public int IconIndex { get { return 6; } }
@@ -34,7 +38,15 @@ namespace Aurora
 
 			public override void OnExecute(SelectedItem item, string fileName, OutputWindowPane pane)
 			{
-				P4Operations.RevisionHistoryFile(pane, fileName);
+				string dirname = Path.GetDirectoryName(fileName);
+
+				if (mMainLine)
+				{
+					Config options = (Config)Plugin.Options;
+					fileName = P4Operations.RemapToMain(fileName, options.MainLinePath);
+				}
+
+				P4Operations.RevisionHistoryFile(pane, dirname, fileName);
 			}
 		}
 	}
