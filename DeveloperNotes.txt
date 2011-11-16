@@ -1,0 +1,17 @@
+(contains stuff to do)
+
+
+
+-- 
+	Consider using ILMerge for creating a better package with just one DLL for each plugin.
+	http://research.microsoft.com/en-us/people/mbarnett/ILMerge.aspx
+
+
+-- 
+
+	Consider moving over to Visual Studio 2010 directly.
+	We can use newer verson of C#. Have to use redistributable for 2010 though.
+
+
+-- 
+
