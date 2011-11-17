@@ -13,7 +13,7 @@ namespace Aurora
 		};
 
 		// Helper class to capture output correctly and send an event once we've reached the end of the file.
-		private class Handler : IDisposable
+		public class Handler : IDisposable
 		{
 			public string buffer;
 			public ManualResetEvent sentinel;

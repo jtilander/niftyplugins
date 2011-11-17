@@ -139,8 +139,18 @@ namespace Aurora
 				System.Diagnostics.Process process = new System.Diagnostics.Process();
 				process.StartInfo.UseShellExecute = false;
 				process.StartInfo.FileName = executable;
-				process.StartInfo.RedirectStandardOutput = true;
-				process.StartInfo.RedirectStandardError = true;
+				if( 0 == timeout )
+				{
+					// We are not for these processes reading the stdout and thus they could if they wrote more
+					// data on the output line hang.
+					process.StartInfo.RedirectStandardOutput = false;
+					process.StartInfo.RedirectStandardError = false;
+				}
+				else
+				{
+					process.StartInfo.RedirectStandardOutput = true;
+					process.StartInfo.RedirectStandardError = true;
+				}
 				process.StartInfo.CreateNoWindow = true;
 				process.StartInfo.WorkingDirectory = workingdir;
 				process.StartInfo.Arguments = commandline;
@@ -160,9 +170,29 @@ namespace Aurora
                     // Fire and forget task.
                     return true;
                 }
+				
+				bool exited = false;
+				string alloutput = "";
+				using (Process.Handler stderr = new Process.Handler(), stdout = new Process.Handler())
+				{
+					process.OutputDataReceived += stdout.OnOutput;
+					process.BeginOutputReadLine();
 
-				bool exited = process.WaitForExit(timeout);
+					process.ErrorDataReceived += stderr.OnOutput;
+					process.BeginErrorReadLine();
 
+					exited = process.WaitForExit(timeout);
+
+					if (0 != process.ExitCode)
+					{
+						throw new Process.Error("Failed to execute {0} {1}, exit code was {2}", executable, process.StartInfo.Arguments, process.ExitCode);
+					}
+
+					stderr.sentinel.WaitOne();
+					stdout.sentinel.WaitOne();
+					alloutput = stdout.buffer + "\n" + stderr.buffer;
+				}
+				
 				if(!exited)
 				{
 					Log.Info("{0}: {1} timed out ({2} ms)", executable, commandline, timeout);
@@ -171,19 +201,14 @@ namespace Aurora
 				}
 				else
 				{
-					string stdOut = process.StandardOutput.ReadToEnd();
-					string stdErr = process.StandardError.ReadToEnd();
-
 					if(null != output)
 					{
 						output.OutputString(executable + ": " + commandline + "\n");
-						output.OutputString(stdOut);
-						output.OutputString(stdErr);
+						output.OutputString(alloutput);
 					}
 
 					System.Diagnostics.Debug.WriteLine(commandline + "\n");
-					System.Diagnostics.Debug.WriteLine(stdOut);
-					System.Diagnostics.Debug.WriteLine(stdErr);
+					System.Diagnostics.Debug.WriteLine(alloutput);
 
 					if(0 != process.ExitCode)
 					{
