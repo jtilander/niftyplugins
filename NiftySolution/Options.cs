@@ -17,6 +17,7 @@ namespace Aurora
 			private bool mIgnoreDebuggerExceptions = false;
 
 			private string mExtraSearchDirectories = "";
+			private string mCompileTimeLogFile = "";
 
 			[XmlIgnore]
 			public string mFileName = "";
@@ -82,6 +83,21 @@ namespace Aurora
 				get { return mExtraSearchDirectories; }
 				set { mExtraSearchDirectories = value; mDirty = true; }
 			}
+
+            [Category("Productivity"), Description("Log the compilation time to a separate log")]
+            public string CompileTimeLogFile
+            {
+                get
+                {
+                    return mCompileTimeLogFile;
+                }
+
+                set
+                {
+                    mCompileTimeLogFile = value;
+                    mDirty = true;
+                }
+            }
 
 			public static Options Load(string filename)
 			{
