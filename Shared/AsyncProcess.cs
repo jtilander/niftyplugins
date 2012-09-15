@@ -123,11 +123,19 @@ namespace Aurora
             public int timeout = 10000;
 			public void Run()
 			{
-				bool ok = RunCommand(output, executable, commandline, workingdir, timeout);
-
-                if (null != callback)
+                try
                 {
-                    callback(ok, callbackArg);
+
+                    bool ok = RunCommand(output, executable, commandline, workingdir, timeout);
+
+                    if (null != callback)
+                    {
+                        callback(ok, callbackArg);
+                    }
+                }
+                catch
+                {
+                    Log.Error("Caught unhandled exception in async process -- supressing so that we don't bring down Visual Studio");
                 }
 			}
 		}
@@ -183,10 +191,14 @@ namespace Aurora
 
 					exited = process.WaitForExit(timeout);
 
-					if (0 != process.ExitCode)
+					/*
+                     * This causes the plugin to unexpectedly crash, since it brings the entire thread down, and thus the entire environment?!?
+                     * 
+                    
+                    if (0 != process.ExitCode)
 					{
 						throw new Process.Error("Failed to execute {0} {1}, exit code was {2}", executable, process.StartInfo.Arguments, process.ExitCode);
-					}
+					}*/
 
 					stderr.sentinel.WaitOne();
 					stdout.sentinel.WaitOne();
