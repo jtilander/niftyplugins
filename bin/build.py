@@ -110,7 +110,7 @@ def buildSolution(solutionfile, config):
 
 def msbuild(solution, config, command):
     MSBUILD=r'%s\Microsoft.NET\Framework64\v4.0.30319\MsBuild.exe' % os.environ['windir']
-    cmdline = '%(MSBUILD)s /nologo /verbosity:minimal "%(solution)s" /t:%(command)s /p:Configuration=%(config)s' % locals()
+    cmdline = '%(MSBUILD)s /nologo /verbosity:minimal "%(solution)s" /t:%(command)s /p:Configuration="%(config)s"' % locals()
     res = os.system(cmdline)
     if 0 != res:
         print 'Failed to execute %s' % cmdline
@@ -173,7 +173,15 @@ Usage: build.py <version>
     versionstring = args[0]
     
     if VS2010:
+        print "Updating versions to \"%s\"..." % versionstring
+        updateVersion(versionstring)
+        
+        print "Cleaning solution..."
+        print "Building installers..."
         msbuild(os.path.join(BASE, SOLUTION2010), 'Release', 'Rebuild')
+        
+        print "Publishing the installers..."
+        moveOutputIntoPlace(versionstring)
     elif VS2005:
         print "Updating versions to \"%s\"..." % versionstring
         updateVersion(versionstring)

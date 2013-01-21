@@ -26,7 +26,7 @@ namespace Aurora
             {
                 foreach (SelectedItem sel in Plugin.App.SelectedItems)
                 {
-                    if (m_executeForFileItems && sel.ProjectItem != null && m_fileItemGUID == sel.ProjectItem.Kind)
+                    if (m_executeForFileItems && sel.ProjectItem != null && m_fileItemGUID == sel.ProjectItem.Kind.ToUpper())
                     {
                         OnExecute(sel, sel.ProjectItem.get_FileNames(0), Plugin.OutputPane);
                     }
