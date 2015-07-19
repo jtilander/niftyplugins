@@ -1,11 +1,17 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NiftySolution2010", "NiftySolution\NiftySolution2010.csproj", "{F9523522-B9B3-45F0-AD91-889535D9D7DD}"
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NiftySolution", "NiftySolution\NiftySolution.csproj", "{F9523522-B9B3-45F0-AD91-889535D9D7DD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuroraCore2010", "Shared\AuroraCore2010.csproj", "{A2D1CBE2-C37F-46E7-BF45-FCA62A79F2EE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuroraCore", "Shared\AuroraCore.csproj", "{A2D1CBE2-C37F-46E7-BF45-FCA62A79F2EE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NiftyPerforce2010", "NiftyPerforce\NiftyPerforce2010.csproj", "{CEC088B7-2C6E-433F-B308-FF75159BC02D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NiftyPerforce", "NiftyPerforce\NiftyPerforce.csproj", "{CEC088B7-2C6E-433F-B308-FF75159BC02D}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "NiftyPerforceSetup", "NiftyPerforceSetup\NiftyPerforceSetup.vdproj", "{B2429693-32A5-4045-B115-C497446D4BCD}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "NiftySolutionSetup", "NiftySolutionSetup\NiftySolutionSetup.vdproj", "{82782B43-2183-4C5F-ACEC-4B631DE550DD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,6 +31,12 @@ Global
 		{CEC088B7-2C6E-433F-B308-FF75159BC02D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CEC088B7-2C6E-433F-B308-FF75159BC02D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CEC088B7-2C6E-433F-B308-FF75159BC02D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2429693-32A5-4045-B115-C497446D4BCD}.Debug|Any CPU.ActiveCfg = Debug
+		{B2429693-32A5-4045-B115-C497446D4BCD}.Release|Any CPU.ActiveCfg = Release
+		{B2429693-32A5-4045-B115-C497446D4BCD}.Release|Any CPU.Build.0 = Release
+		{82782B43-2183-4C5F-ACEC-4B631DE550DD}.Debug|Any CPU.ActiveCfg = Debug
+		{82782B43-2183-4C5F-ACEC-4B631DE550DD}.Release|Any CPU.ActiveCfg = Release
+		{82782B43-2183-4C5F-ACEC-4B631DE550DD}.Release|Any CPU.Build.0 = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

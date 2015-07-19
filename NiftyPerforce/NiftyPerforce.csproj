@@ -1,4 +1,5 @@
-﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -11,6 +12,27 @@
     <NoStandardLibraries>false</NoStandardLibraries>
     <AssemblyName>NiftyPerforce</AssemblyName>
     <RootNamespace>NiftyPerforce</RootNamespace>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -20,6 +42,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <WarningLevel>4</WarningLevel>
     <IncrementalBuild>false</IncrementalBuild>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>false</DebugSymbols>
@@ -29,6 +52,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <WarningLevel>4</WarningLevel>
     <IncrementalBuild>false</IncrementalBuild>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Extensibility, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
@@ -44,12 +68,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Commands\P4DiffSolution.cs" />
-    <Compile Include="Commands\P4RevisionGraphItem.cs" />
     <Compile Include="Commands\P4RevisionHistoryItem.cs" />
     <Compile Include="Commands\P4DiffItem.cs" />
     <Compile Include="Commands\ItemCommandBase.cs" />
     <Compile Include="Commands\P4RevertItem.cs" />
     <Compile Include="Commands\P4RevisionHistorySolution.cs" />
+    <Compile Include="Commands\P4RevisionGraphItem.cs" />
     <Compile Include="Commands\P4ShowItem.cs" />
     <Compile Include="Commands\P4TimeLapseItem.cs" />
     <Compile Include="EventHandlers\AutoAddDelete.cs" />
@@ -139,13 +163,9 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="AUTHORS" />
-    <None Include="COPYING" />
-    <None Include="README" />
-    <None Include="NiftyPerforce.AddIn" />
-    <None Include="Resources\Show.bmp" />
-    <None Include="Resources\TimeLapseView.bmp" />
-    <None Include="Resources\RevisionGraph.bmp" />
+    <Content Include="NiftyPerforce.AddIn" />
+    <Content Include="Resources\Show.bmp" />
+    <Content Include="Resources\TimeLapseView.bmp" />
     <None Include="Resources\RevisionHistory.bmp" />
     <None Include="Resources\EditAll.bmp" />
     <None Include="Resources\Revert.bmp" />
@@ -160,15 +180,28 @@
       <Name>AuroraCore</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
   <PropertyGroup>
     <PreBuildEvent>
     </PreBuildEvent>
-    <PostBuildEvent>cd "$(ProjectDir)"
-mkdir "$(ProjectDir)$(OutDir)en-US"
-"$(DevEnvDir)..\..\SDK\v2.0\Bin\Resgen" "$(ProjectDir)ToolbarIcons.resx"
-"$(SystemRoot)\Microsoft.NET\Framework\v2.0.50727\Al" /embed:"$(ProjectDir)ToolbarIcons.resources" /culture:en-US /out:"$(ProjectDir)$(OutDir)en-US\NiftyPerforce.resources.dll"
-del "$(ProjectDir)ToolbarIcons.resources"</PostBuildEvent>
+    <PostBuildEvent>call $(ProjectDir)PostBuild2010.cmd $(ProjectDir) $(OutDir)</PostBuildEvent>
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>
