@@ -1,0 +1,7 @@
+*.suo
+NiftyPerforce/bin/
+NiftyPerforce/obj/
+NiftySolution/bin/
+NiftySolution/obj/
+Shared/bin/
+Shared/obj/
