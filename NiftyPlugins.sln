@@ -1,21 +1,11 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 9.00
-# Visual Studio 2005
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NiftyPerforce", "NiftyPerforce\NiftyPerforce.csproj", "{CEC088B7-2C6E-433F-B308-FF75159BC02D}"
-	ProjectSection(ProjectDependencies) = postProject
-		{A2D1CBE2-C37F-46E7-BF45-FCA62A79F2EE} = {A2D1CBE2-C37F-46E7-BF45-FCA62A79F2EE}
-	EndProjectSection
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NiftySolution2010", "NiftySolution\NiftySolution2010.csproj", "{F9523522-B9B3-45F0-AD91-889535D9D7DD}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "NiftyPerforceSetup", "NiftyPerforceSetup\NiftyPerforceSetup.vdproj", "{4D100496-4276-4B76-8A59-A325A479E63F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuroraCore2010", "Shared\AuroraCore2010.csproj", "{A2D1CBE2-C37F-46E7-BF45-FCA62A79F2EE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NiftySolution", "NiftySolution\NiftySolution.csproj", "{F9523522-B9B3-45F0-AD91-889535D9D7DD}"
-	ProjectSection(ProjectDependencies) = postProject
-		{A2D1CBE2-C37F-46E7-BF45-FCA62A79F2EE} = {A2D1CBE2-C37F-46E7-BF45-FCA62A79F2EE}
-	EndProjectSection
-EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "NiftySolutionSetup", "NiftySolutionSetup\NiftySolutionSetup.vdproj", "{C5FF4BDE-E302-456C-8118-C1A0D6A76E2F}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuroraCore", "Shared\AuroraCore.csproj", "{A2D1CBE2-C37F-46E7-BF45-FCA62A79F2EE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NiftyPerforce2010", "NiftyPerforce\NiftyPerforce2010.csproj", "{CEC088B7-2C6E-433F-B308-FF75159BC02D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,24 +13,18 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{CEC088B7-2C6E-433F-B308-FF75159BC02D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CEC088B7-2C6E-433F-B308-FF75159BC02D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CEC088B7-2C6E-433F-B308-FF75159BC02D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CEC088B7-2C6E-433F-B308-FF75159BC02D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4D100496-4276-4B76-8A59-A325A479E63F}.Debug|Any CPU.ActiveCfg = Debug
-		{4D100496-4276-4B76-8A59-A325A479E63F}.Release|Any CPU.ActiveCfg = Release
-		{4D100496-4276-4B76-8A59-A325A479E63F}.Release|Any CPU.Build.0 = Release
 		{F9523522-B9B3-45F0-AD91-889535D9D7DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F9523522-B9B3-45F0-AD91-889535D9D7DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F9523522-B9B3-45F0-AD91-889535D9D7DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F9523522-B9B3-45F0-AD91-889535D9D7DD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C5FF4BDE-E302-456C-8118-C1A0D6A76E2F}.Debug|Any CPU.ActiveCfg = Debug
-		{C5FF4BDE-E302-456C-8118-C1A0D6A76E2F}.Release|Any CPU.ActiveCfg = Release
-		{C5FF4BDE-E302-456C-8118-C1A0D6A76E2F}.Release|Any CPU.Build.0 = Release
 		{A2D1CBE2-C37F-46E7-BF45-FCA62A79F2EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A2D1CBE2-C37F-46E7-BF45-FCA62A79F2EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A2D1CBE2-C37F-46E7-BF45-FCA62A79F2EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A2D1CBE2-C37F-46E7-BF45-FCA62A79F2EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CEC088B7-2C6E-433F-B308-FF75159BC02D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CEC088B7-2C6E-433F-B308-FF75159BC02D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CEC088B7-2C6E-433F-B308-FF75159BC02D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CEC088B7-2C6E-433F-B308-FF75159BC02D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
