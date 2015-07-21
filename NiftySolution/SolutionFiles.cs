@@ -46,8 +46,10 @@ namespace Aurora
 
 				foreach(string dir in directories)
 				{
-					string expanded = Environment.ExpandEnvironmentVariables(dir);
-					Log.Info("Scanning files from {0}", expanded);
+                    if (dir.Length == 0)
+                        continue;
+                    string expanded = Environment.ExpandEnvironmentVariables(dir);
+                    Log.Info("Scanning files from {0}", expanded);
 					int count = AddFilesFromDir(expanded);
 					Log.Info("Added {0} files", count);
 				}

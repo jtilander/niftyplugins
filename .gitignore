@@ -5,3 +5,4 @@ NiftySolution/bin/
 NiftySolution/obj/
 Shared/bin/
 Shared/obj/
+*.csproj.user
