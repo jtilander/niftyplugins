@@ -7,10 +7,6 @@
 "LanguageId" = "3:1033"
 "CodePage" = "3:1252"
 "UILanguageId" = "3:1033"
-"SccProjectName" = "8:"
-"SccLocalPath" = "8:"
-"SccAuxPath" = "8:"
-"SccProvider" = "8:"
     "Hierarchy"
     {
         "Entry"
@@ -756,7 +752,7 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:NiftySolution"
-        "ProductCode" = "8:{D952ED0F-80DD-9735-EF81-C0134FDA06CA}"
+        "ProductCode" = "8:{3C62BE4F-D65B-A89A-E7AA-0041EE8FEF70}"
         "PackageCode" = "8:{AFF3BC07-B631-46F4-8358-F46EFBC55609}"
         "UpgradeCode" = "8:{F24AA19A-57F0-4280-9EA2-9C246A97640D}"
         "AspNetVersion" = "8:4.0.30319.0"
@@ -764,7 +760,7 @@
         "RemovePreviousVersions" = "11:FALSE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.6.0"
+        "ProductVersion" = "8:1.6.1"
         "Manufacturer" = "8:Aurora Development"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:http://code.google.com/p/niftyplugins/"

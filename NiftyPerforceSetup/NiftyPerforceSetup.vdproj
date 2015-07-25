@@ -7,10 +7,6 @@
 "LanguageId" = "3:1033"
 "CodePage" = "3:1252"
 "UILanguageId" = "3:1033"
-"SccProjectName" = "8:"
-"SccLocalPath" = "8:"
-"SccAuxPath" = "8:"
-"SccProvider" = "8:"
     "Hierarchy"
     {
         "Entry"
@@ -756,7 +752,7 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:NiftyPerforce"
-        "ProductCode" = "8:{073C1EA7-0F13-F386-1397-BCB425FFE9E2}"
+        "ProductCode" = "8:{D04ED5C0-AA1C-0510-CB4F-0FE43AB7BB00}"
         "PackageCode" = "8:{B24B0B00-3B55-4162-B1CE-D58FEA76F6AE}"
         "UpgradeCode" = "8:{27EC1857-F66F-4B1B-BBE5-1FC273BE51FB}"
         "AspNetVersion" = "8:4.0.30319.0"
@@ -764,7 +760,7 @@
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:FALSE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.6.0"
+        "ProductVersion" = "8:1.6.1"
         "Manufacturer" = "8:Aurora Development"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:http://code.google.com/p/niftyplugins/"
