@@ -77,9 +77,9 @@ namespace Aurora
 				if(doContextCommands) m_commandRegistry.RegisterCommand("NiftyTimeLapseItem", doBindings, new P4TimeLapseItem(m_plugin, false), false);
 				if (doContextCommands) m_commandRegistry.RegisterCommand("NiftyTimeLapseItemMain", doBindings, new P4TimeLapseItem(m_plugin, true), false);
 
-                m_commandRegistry.RegisterCommand("NiftyRevisionGraph", doBindings, new P4RevisionGraphItem(m_plugin, false), true);
+				m_commandRegistry.RegisterCommand("NiftyRevisionGraph", doBindings, new P4RevisionGraphItem(m_plugin, false), true);
 				m_commandRegistry.RegisterCommand("NiftyRevisionGraphMain", doBindings, new P4RevisionGraphItem(m_plugin, true), true);
-                if (doContextCommands) m_commandRegistry.RegisterCommand("NiftyRevisionGraphItem", doBindings, new P4RevisionGraphItem(m_plugin, false), false);
+				if (doContextCommands) m_commandRegistry.RegisterCommand("NiftyRevisionGraphItem", doBindings, new P4RevisionGraphItem(m_plugin, false), false);
 				if (doContextCommands) m_commandRegistry.RegisterCommand("NiftyRevisionGraphItemMain", doBindings, new P4RevisionGraphItem(m_plugin, true), false);
 
 				m_commandRegistry.RegisterCommand("NiftyRevert", doBindings, new P4RevertItem(m_plugin), true);
@@ -109,7 +109,7 @@ namespace Aurora
 #if DEBUG
 				Log.Info("NiftyPerforce (Debug)");
 #else
-                //Log.Info("NiftyPerforce (Release)");
+				//Log.Info("NiftyPerforce (Release)");
 #endif
 				// Show where we are and when we were compiled...
 				Log.Info("I'm running {0} compiled on {1}", Assembly.GetExecutingAssembly().Location, System.IO.File.GetLastWriteTime(Assembly.GetExecutingAssembly().Location));
