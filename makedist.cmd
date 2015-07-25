@@ -8,8 +8,10 @@ if "%1" == "" (
 	goto :EOF
 )
 
+rem http://stackoverflow.com/questions/8648428/an-error-occurred-while-validating-hresult-8000000a
+regedit /s bin\msbuildfix.reg
+
 
 python bin\build.py %VERSION%
-
 
 endlocal

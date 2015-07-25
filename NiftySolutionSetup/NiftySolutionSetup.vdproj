@@ -40,13 +40,13 @@
         "Entry"
         {
         "MsmKey" = "8:_277D36809BE19BA6E98DC41F58A05BFB"
-        "OwnerKey" = "8:_1A2D93DD2E17C8EDFFBAEF38EAD99664"
+        "OwnerKey" = "8:_1CECD4FA1A23475A939BEF71746825E4"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_277D36809BE19BA6E98DC41F58A05BFB"
-        "OwnerKey" = "8:_1CECD4FA1A23475A939BEF71746825E4"
+        "OwnerKey" = "8:_1A2D93DD2E17C8EDFFBAEF38EAD99664"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -118,7 +118,7 @@
         "Entry"
         {
         "MsmKey" = "8:_9634AAAE2F6CACFF1B17C96E147D845F"
-        "OwnerKey" = "8:_C4FEA7FAB3BB70826237FB0262904AF2"
+        "OwnerKey" = "8:_277D36809BE19BA6E98DC41F58A05BFB"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -130,7 +130,7 @@
         "Entry"
         {
         "MsmKey" = "8:_9634AAAE2F6CACFF1B17C96E147D845F"
-        "OwnerKey" = "8:_277D36809BE19BA6E98DC41F58A05BFB"
+        "OwnerKey" = "8:_C4FEA7FAB3BB70826237FB0262904AF2"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -166,25 +166,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_C4FEA7FAB3BB70826237FB0262904AF2"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_8A247F755692CA9A175983572E332E63"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_1CECD4FA1A23475A939BEF71746825E4"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_1A2D93DD2E17C8EDFFBAEF38EAD99664"
+        "OwnerKey" = "8:_7EE32B22D73D79DD52476F06F4C03228"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -196,7 +178,25 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_7EE32B22D73D79DD52476F06F4C03228"
+        "OwnerKey" = "8:_1A2D93DD2E17C8EDFFBAEF38EAD99664"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_1CECD4FA1A23475A939BEF71746825E4"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_8A247F755692CA9A175983572E332E63"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_C4FEA7FAB3BB70826237FB0262904AF2"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -246,13 +246,18 @@
         "InstallerBootstrapper" = "3:2"
             "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
             {
-            "Enabled" = "11:FALSE"
+            "Enabled" = "11:TRUE"
             "PromptEnabled" = "11:TRUE"
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
                 "Items"
                 {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.5"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.5 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.5"
+                    }
                 }
             }
         }
@@ -339,11 +344,6 @@
             "AssemblyAsmDisplayName" = "8:AuroraCore, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_1A2D93DD2E17C8EDFFBAEF38EAD99664"
-                    {
-                    "Name" = "8:AuroraCore.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:AuroraCore.dll"
             "TargetName" = "8:"
@@ -541,11 +541,6 @@
             "AssemblyAsmDisplayName" = "8:Extensibility, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
                 "ScatterAssemblies"
                 {
-                    "_7EE32B22D73D79DD52476F06F4C03228"
-                    {
-                    "Name" = "8:Extensibility.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:Extensibility.dll"
             "TargetName" = "8:"
@@ -603,11 +598,6 @@
             "AssemblyAsmDisplayName" = "8:stdole, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
                 "ScatterAssemblies"
                 {
-                    "_9634AAAE2F6CACFF1B17C96E147D845F"
-                    {
-                    "Name" = "8:stdole.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:stdole.dll"
             "TargetName" = "8:"
@@ -766,7 +756,7 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:NiftySolution"
-        "ProductCode" = "8:{3B754096-EBDD-5070-40A4-7DEEEAB81A4D}"
+        "ProductCode" = "8:{D952ED0F-80DD-9735-EF81-C0134FDA06CA}"
         "PackageCode" = "8:{AFF3BC07-B631-46F4-8358-F46EFBC55609}"
         "UpgradeCode" = "8:{F24AA19A-57F0-4280-9EA2-9C246A97640D}"
         "AspNetVersion" = "8:4.0.30319.0"
@@ -774,7 +764,7 @@
         "RemovePreviousVersions" = "11:FALSE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.5.0"
+        "ProductVersion" = "8:1.6.0"
         "Manufacturer" = "8:Aurora Development"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:http://code.google.com/p/niftyplugins/"

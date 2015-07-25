@@ -6,3 +6,5 @@ NiftySolution/obj/
 Shared/bin/
 Shared/obj/
 *.csproj.user
+Build/setup.exe
+Build/Nifty*.msi
