@@ -157,12 +157,20 @@ namespace Aurora
 
 			public static Config Load(string filename)
 			{
-				Config o;
+				Config o = null;
 				if(System.IO.File.Exists(filename))
 				{
-					o = File.LoadXML<Config>(filename);
+					Log.Info("Loading configuration from {0}", filename);
+					try 
+					{
+						o = File.LoadXML<Config>(filename);
+					}
+					catch( InvalidOperationException )
+					{
+						Log.Error("Failed to load configuration from {0}, reverting to default config.", filename);
+					}
 				}
-				else
+				if( o == null)
 				{
 					o = new Config();
 				}
@@ -175,6 +183,7 @@ namespace Aurora
 			{
 				if(mDirty)
 				{
+					Log.Info("Saving configuration to {0}", mFileName);
 					File.SaveXML<Config>(mFileName, this);
 					mDirty = false;
 					Singleton<Config>.Instance = this;
