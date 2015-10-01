@@ -9,3 +9,4 @@ Shared/obj/
 Build/setup.exe
 Build/Nifty*.msi
 packages
+.vs

@@ -1,9 +1,4 @@
-﻿//------------------------------------------------------------------------------
-// <copyright file="Command1Package.cs" company="Company">
-//     Copyright (c) Company.  All rights reserved.
-// </copyright>
-//------------------------------------------------------------------------------
-
+﻿// Copyright (C) 2006-2015 Jim Tilander. See COPYING for and README for more details.
 using System;
 using System.ComponentModel.Design;
 using System.Diagnostics;

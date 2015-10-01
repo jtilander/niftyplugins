@@ -1,4 +1,5 @@
-﻿using System;
+﻿// Copyright (C) 2006-2015 Jim Tilander. See COPYING for and README for more details.
+using System;
 using System.ComponentModel.Design;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
