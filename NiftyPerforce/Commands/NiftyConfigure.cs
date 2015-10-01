@@ -9,8 +9,8 @@ namespace Aurora
 	{
         class NiftyConfigure : CommandBase
 		{
-			public NiftyConfigure(Plugin plugin)
-				: base("Configure", plugin, "Opens the configuration dialog")
+			public NiftyConfigure(Plugin plugin, string canonicalName)
+				: base("Configure", canonicalName, plugin, "Opens the configuration dialog")
 			{
 			}
 

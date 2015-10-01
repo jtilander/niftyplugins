@@ -2,6 +2,7 @@
 using System;
 using EnvDTE;
 using EnvDTE80;
+using Microsoft.VisualStudio.Shell;
 
 namespace Aurora
 {
@@ -17,8 +18,8 @@ namespace Aurora
 
 			override public int IconIndex { get { return 1; } }
 
-			public QuickOpen(Plugin plugin) 
-				: base("QuickOpen", plugin, "Quickly opens any file in the solution")
+			public QuickOpen(Plugin plugin, string canonicalName) 
+				: base("QuickOpen", canonicalName, plugin, "Quickly opens any file in the solution")
 			{
 			}
 

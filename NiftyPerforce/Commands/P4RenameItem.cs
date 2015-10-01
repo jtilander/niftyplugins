@@ -12,8 +12,8 @@ namespace Aurora
 	{
         class P4RenameItem : ItemCommandBase
 		{
-			public P4RenameItem(Plugin plugin)
-                :  base("RenameItem", plugin, "Renames an item", true, false)
+			public P4RenameItem(Plugin plugin, string canonicalName)
+                :  base("RenameItem", canonicalName, plugin, "Renames an item", true, false)
             {
             }
 

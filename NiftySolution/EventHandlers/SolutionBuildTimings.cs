@@ -11,17 +11,15 @@ namespace Aurora
 	{
 		class SolutionBuildTimings
 		{
-			private OutputWindowPane m_pane;
 			private Stopwatch m_timer;
 			private BuildEvents m_buildEvents;
             private DateTime m_start;
 			private string m_logfilename;
+            private Plugin m_plugin;
 			
 			public SolutionBuildTimings(Plugin plugin)
 			{
-				m_pane = Plugin.FindOutputPane(plugin.App, "Build");
-				if (null == m_pane)
-					return;
+                m_plugin = plugin;
 
 				m_buildEvents = ((EnvDTE80.Events2)plugin.App.Events).BuildEvents;
 				m_buildEvents.OnBuildBegin += new _dispBuildEvents_OnBuildBeginEventHandler(OnBuildBegin);
@@ -44,7 +42,8 @@ namespace Aurora
 				TimeSpan ts = m_timer.Elapsed;
 				string timeMessage = String.Format("Total solution build time: {0:00}:{1:00}:{2:00}.{3:00} (started {4} {5} and ended {6} {7})\n", 
                     ts.Hours, ts.Minutes, ts.Seconds, ts.Milliseconds / 10, m_start.ToShortDateString(), m_start.ToLongTimeString(), now.ToShortDateString(), now.ToLongTimeString());
-                m_pane.OutputString(timeMessage);
+                OutputWindowPane pane = Plugin.FindOutputPane(m_plugin.App, "Build");
+                pane.OutputString(timeMessage);
 				
 				m_timer.Reset();
 

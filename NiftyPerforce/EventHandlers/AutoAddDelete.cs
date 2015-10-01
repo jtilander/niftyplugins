@@ -42,11 +42,19 @@ namespace Aurora
 			{
 				P4Operations.EditFile(m_plugin.OutputPane, item.ContainingProject.FullName);
 
-				for (int i = 0; i < item.FileCount; i++)
-				{
-					string name = item.get_FileNames((short)i);
-					P4Operations.AddFile(m_plugin.OutputPane, name);
-				}
+                if (item.ProjectItems != null)
+                {
+                    for (int i = 0; i < item.FileCount; i++)
+                    {
+                        string name = item.get_FileNames((short)i);
+                        P4Operations.AddFile(m_plugin.OutputPane, name);
+                    }
+                }
+                else
+                {
+                    if(System.IO.File.Exists(item.Name))
+                        P4Operations.AddFile(m_plugin.OutputPane, item.Name);
+                }
 			}
 
 			public void OnItemRemoved(ProjectItem item)

@@ -9,19 +9,20 @@ namespace Aurora
 {
 	public class VisualStudioLogHandler : Log.Handler
 	{
-		private OutputWindowPane mPane;
+        private Plugin mPlugin;
 
-		public VisualStudioLogHandler(OutputWindowPane pane)
+		public VisualStudioLogHandler(Plugin plugin)
 		{
-			mPane = pane;
+            mPlugin = plugin;
 		}
 
 		public void OnMessage(Log.Level level, string message, string formattedLine)
 		{
-			if (null == mPane)
+            OutputWindowPane pane = mPlugin.OutputPane;
+			if (null == pane)
 				return;
 
-			mPane.OutputString(formattedLine);
+			pane.OutputString(formattedLine);
 		}
 	}
 }

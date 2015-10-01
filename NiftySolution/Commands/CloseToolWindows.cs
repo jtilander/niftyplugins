@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using EnvDTE;
 using EnvDTE80;
+using Microsoft.VisualStudio.Shell;
 
 namespace Aurora
 {
@@ -16,8 +17,8 @@ namespace Aurora
 		{
 			override public int IconIndex { get { return 4; } }
 
-			public CloseToolWindow(Plugin plugin)
-				: base("CloseToolWindow", plugin, "Closes all active tool windows")
+			public CloseToolWindow(Plugin plugin, string canonicalName)
+				: base("CloseToolWindow", canonicalName, plugin, "Closes all active tool windows")
 			{
 			}
 

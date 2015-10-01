@@ -3,6 +3,7 @@ using System;
 using EnvDTE;
 using EnvDTE80;
 using Microsoft.VisualStudio.CommandBars;
+using Microsoft.VisualStudio.Shell;
 
 namespace Aurora
 {
@@ -10,16 +11,16 @@ namespace Aurora
 	{
 		class P4DiffSolution : CommandBase
 		{
-			public P4DiffSolution(Plugin plugin)
-				: base("DiffSolution", plugin, "Opens the diff for the current solution")
+			public P4DiffSolution(Plugin plugin, string canonicalName)
+				: base("DiffSolution", canonicalName, plugin, "Opens the diff for the current solution")
 			{ 
 			}
 
 			override public int IconIndex { get { return 3; } }
 
-			public override bool RegisterGUI(Command vsCommand, CommandBar vsCommandbar, bool toolBarOnly)
-			{
-				if(!toolBarOnly)
+            public override bool RegisterGUI(OleMenuCommand vsCommand, CommandBar vsCommandbar, bool toolBarOnly)
+            {
+                if (!toolBarOnly)
 				{
 					_RegisterGuiContext(vsCommand, "Solution");
 				}

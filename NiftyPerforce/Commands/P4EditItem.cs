@@ -4,6 +4,7 @@ using System.IO;
 using EnvDTE;
 using EnvDTE80;
 using Microsoft.VisualStudio.CommandBars;
+using Microsoft.VisualStudio.Shell;
 
 namespace Aurora
 {
@@ -11,16 +12,16 @@ namespace Aurora
 	{
 		class P4EditItem : ItemCommandBase
 		{
-			public P4EditItem(Plugin plugin)
-				: base("EditItem", plugin, "Opens an item for edit", true, true)
+			public P4EditItem(Plugin plugin, string canonicalName)
+				: base("EditItem", canonicalName, plugin, "Opens an item for edit", true, true)
 			{
 			}
 
 			public override int IconIndex { get { return 1; } }
 
-			public override bool RegisterGUI(Command vsCommand, CommandBar vsCommandbar, bool toolBarOnly)
-			{
-				if(toolBarOnly)
+            public override bool RegisterGUI(OleMenuCommand vsCommand, CommandBar vsCommandbar, bool toolBarOnly)
+            {
+                if (toolBarOnly)
 				{
 					_RegisterGUIBar(vsCommand, vsCommandbar);
 				}

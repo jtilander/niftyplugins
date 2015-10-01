@@ -4,6 +4,7 @@ using EnvDTE;
 using EnvDTE80;
 using Microsoft.VisualStudio.CommandBars;
 using System.IO;
+using Microsoft.VisualStudio.Shell;
 
 namespace Aurora
 {
@@ -13,15 +14,15 @@ namespace Aurora
 		{
 			private bool mMainLine;
 			
-			public P4TimeLapseItem(Plugin plugin, bool inMainLine)
-				: base("TimeLapseItem" , plugin, "Shows the Time Lapse View for an item", true, true)
+			public P4TimeLapseItem(Plugin plugin, string canonicalName, bool inMainLine)
+				: base("TimeLapseItem", canonicalName, plugin, "Shows the Time Lapse View for an item" + (inMainLine ? " (mainline)" : ""), true, true)
 			{
 				mMainLine = inMainLine;
 			}
 
 			override public int IconIndex { get { return 7; } }
 
-			public override bool RegisterGUI(Command vsCommand, CommandBar vsCommandbar, bool toolBarOnly)
+            public override bool RegisterGUI(OleMenuCommand vsCommand, CommandBar vsCommandbar, bool toolBarOnly)
 			{
 				if(toolBarOnly)
 				{

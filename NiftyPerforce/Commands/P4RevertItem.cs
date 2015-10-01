@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using EnvDTE;
 using EnvDTE80;
 using Microsoft.VisualStudio.CommandBars;
+using Microsoft.VisualStudio.Shell;
 
 namespace Aurora
 {
@@ -11,14 +12,14 @@ namespace Aurora
 	{
         class P4RevertItem : ItemCommandBase
 		{
-			public P4RevertItem(Plugin plugin)
-				: base("RevertItem", plugin, "Reverts an opened item", true, true)
+			public P4RevertItem(Plugin plugin, string canonicalName)
+				: base("RevertItem", canonicalName, plugin, "Reverts an opened item", true, true)
 			{
 			}
 
 			override public int IconIndex { get { return 4; } }
 
-			public override bool RegisterGUI(Command vsCommand, CommandBar vsCommandbar, bool toolBarOnly)
+            public override bool RegisterGUI(OleMenuCommand vsCommand, CommandBar vsCommandbar, bool toolBarOnly)
 			{
 				if(toolBarOnly)
 				{

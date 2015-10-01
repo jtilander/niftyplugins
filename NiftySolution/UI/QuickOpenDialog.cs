@@ -34,14 +34,10 @@ namespace Aurora
 
 			private void searchResultControl1_Resize(object sender, EventArgs e)
 			{
-				// Make sure that we're as big as allowed.
-                int textBottom = (mInputText.Location.Y + mInputText.Size.Height);
-				Size size = new Size(ClientRectangle.Width, mStatuStrip.Location.Y - textBottom);
-				mSearchResults.Size = size;
-                mSearchResults.Location = new Point(0,textBottom);
-			}
 
-			private void textBox1_KeyDown(object sender, KeyEventArgs e)
+            }
+
+            private void textBox1_KeyDown(object sender, KeyEventArgs e)
 			{
 				switch(e.KeyCode)
 				{

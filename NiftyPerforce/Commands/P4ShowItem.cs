@@ -3,6 +3,7 @@ using System;
 using EnvDTE;
 using EnvDTE80;
 using Microsoft.VisualStudio.CommandBars;
+using Microsoft.VisualStudio.Shell;
 
 namespace Aurora
 {
@@ -10,14 +11,14 @@ namespace Aurora
 	{
 		class P4ShowItem : ItemCommandBase
 		{
-			public P4ShowItem(Plugin plugin)
-				: base("ShowItem", plugin, "Shows the item in p4win", true, true)
+			public P4ShowItem(Plugin plugin, string canonicalName)
+				: base("ShowItem", canonicalName, plugin, "Shows the item in p4win", true, true)
 			{
 			}
 
 			public override int IconIndex { get { return 8; } }
 
-			public override bool RegisterGUI(Command vsCommand, CommandBar vsCommandbar, bool toolBarOnly)
+            public override bool RegisterGUI(OleMenuCommand vsCommand, CommandBar vsCommandbar, bool toolBarOnly)
 			{
 				if(toolBarOnly)
 				{

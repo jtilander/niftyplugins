@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using EnvDTE;
 using EnvDTE80;
+using Microsoft.VisualStudio.Shell;
 
 namespace Aurora
 {
@@ -18,8 +19,8 @@ namespace Aurora
 
 			override public int IconIndex { get { return 2; } }
 
-			public ToggleFile(Plugin plugin)
-				: base("ToggleFile", plugin, "Toggles between the header and the cpp file")
+			public ToggleFile(Plugin plugin, string canonicalName)
+				: base("ToggleFile", canonicalName, plugin, "Toggles between the header and the cpp file")
 			{
 				m_knownExtensions = new Dictionary<string, string[]>();
 				m_knownExtensions.Add(".h", new string[] { ".inl", ".cpp", ".c", ".cc", ".cxx", ".mm", ".m" });

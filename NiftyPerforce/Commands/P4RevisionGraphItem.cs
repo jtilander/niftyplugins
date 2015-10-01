@@ -4,6 +4,7 @@ using EnvDTE;
 using EnvDTE80;
 using Microsoft.VisualStudio.CommandBars;
 using System.IO;
+using Microsoft.VisualStudio.Shell;
 
 namespace Aurora
 {
@@ -13,15 +14,15 @@ namespace Aurora
         {
 			private bool mMainLine;
 			
-            public P4RevisionGraphItem(Plugin plugin, bool mainLine)
-                : base("P4RevisionGraphItem", plugin, "Shows the revision graph for an item", true, true)
+            public P4RevisionGraphItem(Plugin plugin, string canonicalName, bool mainLine)
+                : base("P4RevisionGraphItem", canonicalName, plugin, "Shows the revision graph for an item" + (mainLine ? " (mainline)" : ""), true, true)
             {
 				mMainLine = mainLine;
             }
 
             override public int IconIndex { get { return 9; } }
 
-            public override bool RegisterGUI(Command vsCommand, CommandBar vsCommandbar, bool toolBarOnly)
+            public override bool RegisterGUI(OleMenuCommand vsCommand, CommandBar vsCommandbar, bool toolBarOnly)
             {
                 if (toolBarOnly)
                 {

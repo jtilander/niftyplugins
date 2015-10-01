@@ -9,12 +9,14 @@ namespace Aurora
 	{
 		class P4EditModified : CommandBase
 		{
-			public P4EditModified(Plugin plugin)
-				: base("EditModified", plugin, "Opens all the currently modifed files for edit")
+			public P4EditModified(Plugin plugin, string canonicalName)
+				: base("EditModified", canonicalName, plugin, "Opens all the currently modifed files for edit")
 			{
 			}
 
-			public override bool OnCommand()
+			override public int IconIndex { get { return 5; } }
+
+            public override bool OnCommand()
 			{
 				Log.Info("P4EditModified : now checking {0} documents for modification", Plugin.App.Documents.Count);
 

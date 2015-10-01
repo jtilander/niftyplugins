@@ -1,7 +1,6 @@
 // Copyright (C) 2006-2010 Jim Tilander. See COPYING for and README for more details.
 using System;
 using System.IO;
-using Extensibility;
 using EnvDTE;
 using EnvDTE80;
 using System.Collections.Generic;

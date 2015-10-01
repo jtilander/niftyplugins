@@ -4,6 +4,7 @@ using EnvDTE;
 using EnvDTE80;
 using Microsoft.VisualStudio.CommandBars;
 using System.IO;
+using Microsoft.VisualStudio.Shell;
 
 namespace Aurora
 {
@@ -13,15 +14,15 @@ namespace Aurora
 		{
 			private bool mMainLine;
 				
-			public P4RevisionHistoryItem(Plugin plugin, bool mainLine)
-				: base("RevisionHistoryItem", plugin, "Shows the revision history for an item", true, true)
+			public P4RevisionHistoryItem(Plugin plugin, string canonicalName, bool mainLine)
+				: base("RevisionHistoryItem", canonicalName, plugin, "Shows the revision history for an item" + (mainLine ? " (mainline)" : ""), true, true)
 			{
 				mMainLine = mainLine;
 			}
 
-			override public int IconIndex { get { return 6; } }
+			override public int IconIndex { get { return 10; } }
 
-			public override bool RegisterGUI(Command vsCommand, CommandBar vsCommandbar, bool toolBarOnly)
+            public override bool RegisterGUI(OleMenuCommand vsCommand, CommandBar vsCommandbar, bool toolBarOnly)
 			{
 				if(toolBarOnly)
 				{

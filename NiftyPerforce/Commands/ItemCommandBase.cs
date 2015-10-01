@@ -13,8 +13,8 @@ namespace Aurora
             private bool m_executeForFileItems = true;
             private bool m_executeForProjectItems = true;
 
-			protected ItemCommandBase(string name, Plugin plugin, string tooltip, bool executeForFileItems, bool executeForProjectItems)
-				: base(name, plugin, tooltip)
+			protected ItemCommandBase(string name, string canonicalName, Plugin plugin, string tooltip, bool executeForFileItems, bool executeForProjectItems)
+				: base(name, canonicalName, plugin, tooltip)
             {
 				m_executeForFileItems = executeForFileItems;
 				m_executeForProjectItems = executeForProjectItems;

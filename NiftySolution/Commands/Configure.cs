@@ -13,8 +13,8 @@ namespace Aurora
 		{
 			override public int IconIndex { get { return 3; } }
 
-			public Configure(Plugin plugin)
-				: base("Configure", plugin, "Configures the plugin")
+			public Configure(Plugin plugin, string canonicalName)
+				: base("Configure", canonicalName, plugin, "Configures the plugin")
 			{
 			}
 
