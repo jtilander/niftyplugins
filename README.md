@@ -1,21 +1,22 @@
-This is a small collection of C# plugins for Visual Studio 2005.
+Introduction
+============
+
+This is a small collection of C# plugins for Visual Studio.
 
 NiftyPerforce
-	Adds some automation and IDE support for common perforce operations.
-	
-	
-	This will a couple of commands to your command line, available under 
-    the namespace Aurora.NiftyPerforce.Connect. The only ones that you 
-    have to worry about are:
-	
-		Aurora.NiftyPerforce.Connect.Configuration - Brings up the configuration dialog.
-		Aurora.NiftyPerforce.Connect.P4Edit - Checks the current document out for edit in perforce.
+=============
+
+Adds some automation and IDE support for common perforce operations.
+The goal of the plugin is to be very lightweight and unobtrusive.
 	
 NiftySolution
-	Adds a open files in solution dialog.
-	Adds a toggle header/cpp file command.
+=============
 
-That's it for now.
+Adds a open files in solution dialog.
+Adds a toggle header/cpp file command.
+Adds a build timing hook.
+
+
 
 Jim Tilander
 San Francisco, 2006
