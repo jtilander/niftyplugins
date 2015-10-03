@@ -11,15 +11,15 @@ import shutil
 QUIET = 0
 DEVENV = ''
 
-if 'VS120COMNTOOLS' in os.environ.keys():
-	DEVENV = os.path.abspath(os.path.join(os.environ['VS120COMNTOOLS'], '..', 'IDE', 'devenv.com'))
+if 'VS140COMNTOOLS' in os.environ.keys():
+	DEVENV = os.path.abspath(os.path.join(os.environ['VS140COMNTOOLS'], '..', 'IDE', 'devenv.com'))
 else:
 	print "No visual studio found!"
 	sys.exit(1)
 
 SETUP_PROJECTS = [
-	r'NiftySolutionSetup\NiftySolutionSetup.vdproj', 
-	r'NiftyPerforceSetup\NiftyPerforceSetup.vdproj', 
+	r'NiftyPerforce\source.extension.vsixmanifest', 
+	r'NiftySolution\source.extension.vsixmanifest', 
 ]
 
 ASSEMBLY_INFOS = [
@@ -28,13 +28,15 @@ ASSEMBLY_INFOS = [
 ]
 
 EXPERIMENTAL_FILES = [
-	(r'Build\Experimental_NiftySolution.msi', 'NiftySolution'),
-	(r'Build\Experimental_NiftyPerforce.msi', 'NiftyPerforce'),
+	(r'NiftyPerforce\bin\Release\NiftyPerforce.vsix', 'NiftyPerforce'),
+	(r'NiftySolution\bin\Release\NiftySolution.vsix', 'NiftySolution'),
 ]
 
 BASE=os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 DISTDIR=os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'Build'))
 SOLUTION='NiftyPlugins.sln'
+
+TARGET_DIR = os.path.abspath( os.path.join(os.path.dirname( __file__ ), '..', 'Build') )
 
 def execute(commandline, silent = 1):
 	"""
@@ -126,20 +128,21 @@ def replaceText(filename, pattern, versionstring):
 	open(filename,'wt').write(result)
 
 def updateVersion(versionstring):
-	for vdproj in SETUP_PROJECTS:
-		replaceText(vdproj, r'"ProductVersion" = "8:([^"]*)"', versionstring)
+	for csproj in SETUP_PROJECTS:
+		replaceText(csproj, r'<Identity Id=.*Version="([^"]*)"', versionstring)
 		
-		projectname = os.path.splitext(os.path.basename(vdproj))[0]
-		uuid = generateUUID(projectname + versionstring)
-		replaceText(vdproj, r'"ProductCode" = "8:{([^}]+)}"', uuid)
+		#projectname = os.path.splitext(os.path.basename(vdproj))[0]
+		#uuid = generateUUID(projectname + versionstring)
+		#replaceText(vdproj, r'"ProductCode" = "8:{([^}]+)}"', uuid)
 		
 	for assembly in ASSEMBLY_INFOS:
 		replaceText(assembly, r'AssemblyVersion\("([^"]*)"\)', versionstring)
 
 def moveOutputIntoPlace(versionstring):
 	for oldname, newprefix in EXPERIMENTAL_FILES:
-		newname = os.path.join(os.path.dirname(oldname), "%s-%s.msi" % (newprefix, versionstring))
+		newname = os.path.join(TARGET_DIR, "%s-%s.vsix" % (newprefix, versionstring))
 		shutil.copyfile(oldname, newname)
+		print "%s -> %s" % (oldname, newname)
 
 def main(args):
 	"""
