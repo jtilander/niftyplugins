@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
   <Metadata>
-    <Identity Id="NiftySolution.Tilander.be9c8024-7476-4508-b3aa-a55095390699" Version="1.7.0" Language="en-US" Publisher="Jim Tilander" />
+    <Identity Id="NiftySolution.Tilander.be9c8024-7476-4508-b3aa-a55095390699" Version="2.0.0" Language="en-US" Publisher="Jim Tilander" />
     <DisplayName>NiftySolution</DisplayName>
     <Description xml:space="preserve">Nifty Solution</Description>
     <MoreInfo>https://github.com/jtilander/niftyplugins</MoreInfo>
