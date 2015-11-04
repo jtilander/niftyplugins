@@ -10,16 +10,19 @@ namespace Aurora
 {
 	namespace NiftyPerforce
 	{
-        class P4RevertItem : ItemCommandBase
+		class P4RevertItem : ItemCommandBase
 		{
-			public P4RevertItem(Plugin plugin, string canonicalName)
-				: base("RevertItem", canonicalName, plugin, "Reverts an opened item", true, true)
+			private bool mOnlyUnchanged;
+
+			public P4RevertItem(Plugin plugin, string canonicalName, bool onlyUnchanged)
+				: base("RevertItem", canonicalName, plugin, "Reverts an opened item" + (onlyUnchanged ? ", only if unchanged" : string.Empty), true, true)
 			{
+				mOnlyUnchanged = onlyUnchanged;
 			}
 
 			override public int IconIndex { get { return 4; } }
 
-            public override bool RegisterGUI(OleMenuCommand vsCommand, CommandBar vsCommandbar, bool toolBarOnly)
+			public override bool RegisterGUI(OleMenuCommand vsCommand, CommandBar vsCommandbar, bool toolBarOnly)
 			{
 				if(toolBarOnly)
 				{
@@ -36,14 +39,18 @@ namespace Aurora
 				return true;
 			}
 
-            public override void OnExecute(SelectedItem item, string fileName, OutputWindowPane pane)
-            {
-                string message = "You are about to revert the file '" + fileName + "'. Do you want to do this?";
-                if (MessageBox.Show(message, "Revert File?", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                {
-                    P4Operations.RevertFile(pane, fileName);
-                }
-            }
+			public override void OnExecute(SelectedItem item, string fileName, OutputWindowPane pane)
+			{
+				if (!mOnlyUnchanged)
+				{
+					string message = "You are about to revert the file '" + fileName + "'. Do you want to do this?";
+					if(MessageBox.Show(message, "Revert File?", MessageBoxButtons.YesNo) != DialogResult.Yes)
+					{
+						return;
+					}
+				}
+				P4Operations.RevertFile(pane, fileName, mOnlyUnchanged);
+			}
 		}
 	}
 }

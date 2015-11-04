@@ -184,7 +184,7 @@ namespace Aurora
 				return AsyncProcess.Run(output, "p4.exe", GetUserInfoString() + "edit \"" + filename + "\"", Path.GetDirectoryName(filename), new AsyncProcess.OnDone(UnlockOp), token);
 			}
 
-			public static bool RevertFile(OutputWindowPane output, string filename)
+			public static bool RevertFile(OutputWindowPane output, string filename, bool onlyUnchanged)
 			{
 				if(filename.Length == 0)
 					return false;
@@ -194,7 +194,9 @@ namespace Aurora
 				string token = FormatToken("revert", filename);
 				if (!LockOp(token))
 					return false;
-				return AsyncProcess.Schedule(output, "p4.exe", GetUserInfoString() + "revert \"" + filename + "\"", Path.GetDirectoryName(filename), new AsyncProcess.OnDone(UnlockOp), token);
+
+				string revertArguments = onlyUnchanged ? "-a " : string.Empty;
+				return AsyncProcess.Schedule(output, "p4.exe", GetUserInfoString() + "revert " + revertArguments + "\"" + filename + "\"", Path.GetDirectoryName(filename), new AsyncProcess.OnDone(UnlockOp), token);
 			}
 
 			public static bool DiffFile(OutputWindowPane output, string filename)
