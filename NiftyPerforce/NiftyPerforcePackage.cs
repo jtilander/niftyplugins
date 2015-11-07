@@ -136,8 +136,10 @@ namespace NiftyPerforce
 			if (doContextCommands) m_commandRegistry.RegisterCommand(doBindings, new P4RevisionGraphItem(m_plugin, "NiftyRevisionGraphItem", false), false);
 			if (doContextCommands) m_commandRegistry.RegisterCommand(doBindings, new P4RevisionGraphItem(m_plugin, "NiftyRevisionGraphItemMain", true), false);
 
-			m_commandRegistry.RegisterCommand(doBindings, new P4RevertItem(m_plugin, "NiftyRevert"), true);
-			if (doContextCommands) m_commandRegistry.RegisterCommand(doBindings, new P4RevertItem(m_plugin, "NiftyRevertItem"), false);
+			m_commandRegistry.RegisterCommand(doBindings, new P4RevertItem(m_plugin, "NiftyRevert", false), true);
+			m_commandRegistry.RegisterCommand(doBindings, new P4RevertItem(m_plugin, "NiftyRevertUnchanged", true), true);
+			if (doContextCommands) m_commandRegistry.RegisterCommand(doBindings, new P4RevertItem(m_plugin, "NiftyRevertItem", false), false);
+			if (doContextCommands) m_commandRegistry.RegisterCommand(doBindings, new P4RevertItem(m_plugin, "NiftyRevertUnchangedItem", true), false);
 
 			m_commandRegistry.RegisterCommand(doBindings, new P4ShowItem(m_plugin, "NiftyShow"), true);
 			if (doContextCommands) m_commandRegistry.RegisterCommand(doBindings, new P4ShowItem(m_plugin, "NiftyShowItem"), false);
@@ -201,6 +203,8 @@ namespace NiftyPerforce
 			RemoveCommand("NiftyRevisionGraphItemMain", profferCommands3);
 			RemoveCommand("NiftyRevert", profferCommands3);
 			RemoveCommand("NiftyRevertItem", profferCommands3);
+			RemoveCommand("NiftyRevertUnchanged", profferCommands3);
+			RemoveCommand("NiftyRevertUnchangedItem", profferCommands3);
 			RemoveCommand("NiftyShow", profferCommands3);
 			RemoveCommand("NiftyShowItem", profferCommands3);
 		}
