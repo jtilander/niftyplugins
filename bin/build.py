@@ -139,6 +139,8 @@ def updateVersion(versionstring):
 		replaceText(assembly, r'AssemblyVersion\("([^"]*)"\)', versionstring)
 
 def moveOutputIntoPlace(versionstring):
+	if not os.path.isdir(TARGET_DIR):
+		os.makedirs(TARGET_DIR)
 	for oldname, newprefix in EXPERIMENTAL_FILES:
 		newname = os.path.join(TARGET_DIR, "%s-%s.vsix" % (newprefix, versionstring))
 		shutil.copyfile(oldname, newname)
